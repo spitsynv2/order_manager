@@ -64,7 +64,7 @@
                   <Insets left="-24.0" />
                </padding>
             </Button>
-            <Button fx:id="test2" mnemonicParsing="false" prefHeight="95.0" prefWidth="520.0" text=" Dishes">
+            <Button fx:id="dishesButton" mnemonicParsing="false" prefHeight="95.0" prefWidth="520.0" text=" Dishes">
                <graphic>
                   <VBox>
                      <children>
@@ -83,7 +83,7 @@
                   <Insets left="-100.0" />
                </padding>
             </Button>
-            <Button fx:id="test3" mnemonicParsing="false" prefHeight="95.0" prefWidth="520.0" text=" Menu">
+            <Button fx:id="menuButton" mnemonicParsing="false" prefHeight="95.0" prefWidth="520.0" text=" Menu">
                <graphic>
                   <VBox>
                      <children>
@@ -102,7 +102,7 @@
                   <Insets left="-127.0" />
                </padding>
             </Button>
-            <Button fx:id="test5" mnemonicParsing="false" prefHeight="95.0" prefWidth="520.0" text=" Cheque">
+            <Button fx:id="chequeButton" mnemonicParsing="false" prefHeight="95.0" prefWidth="520.0" text=" Cheque">
                <graphic>
                   <VBox>
                      <children>
@@ -121,7 +121,7 @@
                   <Insets left="-86.0" />
                </padding>
             </Button>
-            <Button fx:id="test4" mnemonicParsing="false" prefHeight="95.0" prefWidth="520.0" text=" Dashboard">
+            <Button fx:id="dashboardButton" mnemonicParsing="false" prefHeight="95.0" prefWidth="520.0" text=" Dashboard">
                <graphic>
                   <VBox>
                      <children>
@@ -140,7 +140,7 @@
                   <Insets left="-30.0" />
                </padding>
             </Button>
-            <Button fx:id="test41" mnemonicParsing="false" prefHeight="95.0" prefWidth="520.0" text=" Info">
+            <Button fx:id="infoButton" mnemonicParsing="false" prefHeight="95.0" prefWidth="520.0" text=" Info">
                <graphic>
                   <VBox>
                      <children>
