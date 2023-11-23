@@ -236,15 +236,15 @@
                   </GridPane>
                   <VBox alignment="CENTER" layoutX="14.0" layoutY="110.0" spacing="95.0" AnchorPane.leftAnchor="110.0" AnchorPane.topAnchor="106.0">
                      <children>
-                        <Label fx:id="username_label" styleClass="text_label_black_medium" text="Name" />
-                        <TextField fx:id="username_field" alignment="CENTER" focusTraversable="false" onMouseClicked="#handleFieldClicked" prefHeight="45.0" prefWidth="300.0">
+                        <Label fx:id="name_label" styleClass="text_label_black_medium" text="Name" />
+                        <TextField fx:id="name_field" alignment="CENTER" focusTraversable="false" onMouseClicked="#handleFieldClicked" prefHeight="45.0" prefWidth="300.0">
                            <styleClass>
                               <String fx:value="small_text_label_black" />
                               <String fx:value="shadow_black" />
                            </styleClass>
                         </TextField>
-                        <Label fx:id="permission_label1" styleClass="text_label_black_medium" text="Email" />
-                        <TextField fx:id="password_field11" alignment="CENTER" focusTraversable="false" onMouseClicked="#handleFieldClicked" prefHeight="45.0" prefWidth="300.0">
+                        <Label fx:id="email_label" styleClass="text_label_black_medium" text="Email" />
+                        <TextField fx:id="email_field" alignment="CENTER" focusTraversable="false" onMouseClicked="#handleFieldClicked" prefHeight="45.0" prefWidth="300.0">
                            <styleClass>
                               <String fx:value="small_text_label_black" />
                               <String fx:value="shadow_black" />
@@ -252,11 +252,11 @@
                         </TextField>
                      </children>
                   </VBox>
-                  <Label fx:id="sub_header11" layoutX="321.0" styleClass="text_label_black" text="Restaurant data" AnchorPane.topAnchor="10.0" />
+                  <Label fx:id="sub_header" layoutX="321.0" styleClass="text_label_black" text="Restaurant data" AnchorPane.topAnchor="10.0" />
                   <VBox alignment="CENTER" layoutX="649.0" layoutY="110.0" prefWidth="300.0" spacing="95.0" AnchorPane.rightAnchor="110.0" AnchorPane.topAnchor="106.0">
                      <children>
-                        <Label fx:id="password_label" styleClass="text_label_black_medium" text="Address" />
-                        <TextArea maxWidth="-Infinity" prefHeight="90.0" prefWidth="300.0">
+                        <Label fx:id="address_label" styleClass="text_label_black_medium" text="Address" />
+                        <TextArea fx:id="address_field" maxWidth="-Infinity" prefHeight="90.0" prefWidth="300.0">
                            <VBox.margin>
                               <Insets bottom="-22.5" top="-22.5" />
                            </VBox.margin>
@@ -265,8 +265,8 @@
                               <String fx:value="shadow_black" />
                            </styleClass>
                         </TextArea>
-                        <Label fx:id="permission_label" styleClass="text_label_black_medium" text="Phone" />
-                        <TextField fx:id="password_field1" alignment="CENTER" focusTraversable="false" onMouseClicked="#handleFieldClicked" prefHeight="45.0" prefWidth="300.0">
+                        <Label fx:id="phone_label" styleClass="text_label_black_medium" text="Phone" />
+                        <TextField fx:id="phone_field" alignment="CENTER" focusTraversable="false" onMouseClicked="#handleFieldClicked" prefHeight="45.0" prefWidth="300.0">
                            <styleClass>
                               <String fx:value="small_text_label_black" />
                               <String fx:value="shadow_black" />
@@ -289,7 +289,7 @@
                <children>
                   <Label focusTraversable="false" layoutX="43.0" layoutY="846.0" mouseTransparent="true" styleClass="text_label_white_medium" text="Add" />
                   <Line endX="798.0" endY="9.0" layoutX="-281.0" layoutY="63.0" startX="278.75" startY="9.0" style="-fx-stroke: #2B2D30; -fx-stroke-width: 3.5;" />
-                  <Label fx:id="sub_header1" layoutX="108.0" styleClass="text_label_black" text="Additional data" AnchorPane.topAnchor="10.0" />
+                  <Label fx:id="sub_header2" layoutX="108.0" styleClass="text_label_black" text="Additional data" AnchorPane.topAnchor="10.0" />
                </children></AnchorPane>
         </items>
          <BorderPane.margin>
