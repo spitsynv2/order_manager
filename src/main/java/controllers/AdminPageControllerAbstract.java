@@ -185,116 +185,126 @@ public abstract class AdminPageControllerAbstract {
         }
     }
 
+    protected abstract boolean shouldUseKeyboard();
     @FXML
     protected void handleFieldClicked(Event event) {
-        Object source = event.getSource();
+        if (shouldUseKeyboard()) {
+            Object source = event.getSource();
 
-        for (Button button : keyboardKeys) {
-
-            if (button.getText().equals("⌫")){
-                button.setOnAction(e -> handleKeyClickErase(source));
-            }else if (button.getText().equals("⮙") ||  button.getText().equals("⮝")){
-                button.setOnAction(e -> handleKeyClickChangeCase(button));
-            }else if (button.getText().equals("123") ||  button.getText().equals("ABC")){
-                button.setOnAction(e -> handleKeyClickChangeKeys(button));
-            } else {
-                button.setOnAction(e -> handleKeyClick(button.getText(),source));
+            for (Button button : keyboardKeys) {
+                if (button.getText().equals("⌫")){
+                    button.setOnAction(e -> handleKeyClickErase(source));
+                }else if (button.getText().equals("⮙") ||  button.getText().equals("⮝")){
+                    button.setOnAction(e -> handleKeyClickChangeCase(button));
+                }else if (button.getText().equals("123") ||  button.getText().equals("ABC")){
+                    button.setOnAction(e -> handleKeyClickChangeKeys(button));
+                } else {
+                    button.setOnAction(e -> handleKeyClick(button.getText(),source));
+                }
             }
         }
-
     }
 
     protected void handleKeyClickErase(Object source) {
-        if (source instanceof TextInputControl inputControl) {
-            int caretPosition = inputControl.getCaretPosition();
-            String text = inputControl.getText();
-            if (caretPosition > 0) {
-                if (caretPosition <= text.length()) {
-                    String newText = text.substring(0, caretPosition - 1) + text.substring(caretPosition);
-                    inputControl.setText(newText);
-                    inputControl.positionCaret(caretPosition - 1);
+        if (shouldUseKeyboard()) {
+            if (source instanceof TextInputControl inputControl) {
+                int caretPosition = inputControl.getCaretPosition();
+                String text = inputControl.getText();
+                if (caretPosition > 0) {
+                    if (caretPosition <= text.length()) {
+                        String newText = text.substring(0, caretPosition - 1) + text.substring(caretPosition);
+                        inputControl.setText(newText);
+                        inputControl.positionCaret(caretPosition - 1);
+                    }
                 }
+            } else {
+                System.out.println("Error: Invalid source");
             }
-        } else {
-            System.out.println("Error: Invalid source");
         }
     }
 
     protected void handleKeyClickChangeCase(Button key){
-        if (key.getText().equals("⮝")){
-            isUpperCase = false;
-            key.setText("⮙");
-            key.setPadding(new Insets(7,0,0,0));
+        if (shouldUseKeyboard()) {
+            if (key.getText().equals("⮝")){
+                isUpperCase = false;
+                key.setText("⮙");
+                key.setPadding(new Insets(7,0,0,0));
 
-            for (Button button:keyboardKeys){
-                if (button.getText().equals("ABC") || button.getText().equals("SB")){
-                    continue;
+                for (Button button:keyboardKeys){
+                    if (button.getText().equals("ABC") || button.getText().equals("SB")){
+                        continue;
+                    }
+                    button.setText(button.getText().toLowerCase());
                 }
-                button.setText(button.getText().toLowerCase());
-            }
-        }else {
-            isUpperCase = true;
-            key.setText("⮝");
-            key.setPadding(new Insets(11,0,0,0));
-            for (Button button:keyboardKeys){
-                if (button.getText().equals("ABC") || button.getText().equals("SB")){
-                    continue;
+            }else {
+                isUpperCase = true;
+                key.setText("⮝");
+                key.setPadding(new Insets(11,0,0,0));
+                for (Button button:keyboardKeys){
+                    if (button.getText().equals("ABC") || button.getText().equals("SB")){
+                        continue;
+                    }
+                    button.setText(button.getText().toUpperCase());
                 }
-                button.setText(button.getText().toUpperCase());
             }
         }
-
     }
 
     protected void handleKeyClickChangeKeys(Button key){
-        if (key.getText().equals("123")){
-            changeKeys("123");
-            key.setText("ABC");
-        }else {
-            changeKeys("ABC");
-            key.setText("123");
+        if (shouldUseKeyboard()) {
+            if (key.getText().equals("123")){
+                changeKeys("123");
+                key.setText("ABC");
+            }else {
+                changeKeys("ABC");
+                key.setText("123");
+            }
         }
     }
 
     protected void changeKeys(String key) {
-        for (int i = 0; i<keyboardKeys.size(); i++){
-            if (keyboardKeys.get(i).getText().equals("SB")){
-                continue;
-            }
-            if (keyboardKeys.get(i).getText().equals("⮙")){
-                keyboardKeys.get(i).setText("⮙");
-                keyboardKeys.get(i).setPadding(new Insets(7,0,0,0));
-            }else if (keyboardKeys.get(i).getText().equals("⮝")){
-                keyboardKeys.get(i).setText("⮝");
-                keyboardKeys.get(i).setPadding(new Insets(11,0,0,0));
-            }else {
-                if (key.equals("ABC")){
-                    if (isUpperCase){
-                        keyboardKeys.get(i).setText(keyboardKeysLetters.get(i));
-                    }else {
-                        keyboardKeys.get(i).setText(keyboardKeysLetters.get(i).toLowerCase());
-                    }
+        if (shouldUseKeyboard()) {
+            for (int i = 0; i<keyboardKeys.size(); i++){
+                if (keyboardKeys.get(i).getText().equals("SB")){
+                    continue;
+                }
+                if (keyboardKeys.get(i).getText().equals("⮙")){
+                    keyboardKeys.get(i).setText("⮙");
+                    keyboardKeys.get(i).setPadding(new Insets(7,0,0,0));
+                }else if (keyboardKeys.get(i).getText().equals("⮝")){
+                    keyboardKeys.get(i).setText("⮝");
+                    keyboardKeys.get(i).setPadding(new Insets(11,0,0,0));
                 }else {
-                    keyboardKeys.get(i).setText(keyboardKeysNumbers.get(i));
+                    if (key.equals("ABC")){
+                        if (isUpperCase){
+                            keyboardKeys.get(i).setText(keyboardKeysLetters.get(i));
+                        }else {
+                            keyboardKeys.get(i).setText(keyboardKeysLetters.get(i).toLowerCase());
+                        }
+                    }else {
+                        keyboardKeys.get(i).setText(keyboardKeysNumbers.get(i));
+                    }
                 }
             }
         }
     }
 
     protected void handleKeyClick(String key, Object source) {
-        if (source instanceof TextInputControl inputControl) {
-            int caretPosition = inputControl.getCaretPosition();
-            String text = inputControl.getText();
-            String newText = "";
-            if (key.equals("SB") || key.equals("sb")){
-                newText = text.substring(0, caretPosition) + " " + text.substring(caretPosition);
-            }else {
-                newText = text.substring(0, caretPosition) + key + text.substring(caretPosition);
+        if (shouldUseKeyboard()) {
+            if (source instanceof TextInputControl inputControl) {
+                int caretPosition = inputControl.getCaretPosition();
+                String text = inputControl.getText();
+                String newText = "";
+                if (key.equals("SB") || key.equals("sb")){
+                    newText = text.substring(0, caretPosition) + " " + text.substring(caretPosition);
+                }else {
+                    newText = text.substring(0, caretPosition) + key + text.substring(caretPosition);
+                }
+                inputControl.setText(newText);
+                inputControl.positionCaret(caretPosition + 1);
+            } else {
+                System.out.println("Error: Invalid source");
             }
-            inputControl.setText(newText);
-            inputControl.positionCaret(caretPosition + 1);
-        } else {
-            System.out.println("Error: Invalid source");
         }
     }
 

@@ -30,6 +30,11 @@ public class AdminPageRestaurantInfoController extends AdminPageControllerAbstra
         super.handleChangeColorMode();
     }
 
+    @Override
+    protected boolean shouldUseKeyboard() {
+        return true;
+    }
+
     @FXML
     private void handleChangeDataButton() {
 

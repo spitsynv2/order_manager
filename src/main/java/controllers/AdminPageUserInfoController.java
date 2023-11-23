@@ -96,6 +96,11 @@ public class AdminPageUserInfoController extends AdminPageControllerAbstract {
         super.handleChangeColorMode();
     }
 
+    @Override
+    protected boolean shouldUseKeyboard() {
+        return true;
+    }
+
     private void fillTable(List<User> userList){
         TableColumn<User, Integer> id_column = new TableColumn<>("ID");
         TableColumn<User, String> name_column = new TableColumn<>("Name");
@@ -178,7 +183,6 @@ public class AdminPageUserInfoController extends AdminPageControllerAbstract {
             }
         }
     }
-
     @FXML
     private void handleDeleteButton(){
         showYesNoDialogButtons("Are you sure you want to delete a User?");
