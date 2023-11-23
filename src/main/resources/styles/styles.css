@@ -1,0 +1,251 @@
+.hello_container {
+    -fx-background-color: #ffffff;
+}
+
+.keyboardText {
+    -fx-font-size: 2.7em;
+}
+
+.menuText {
+    -fx-font-size: 3.2em;
+}
+
+.moon_sun_black {
+    -fx-effect: dropshadow(three-pass-box, rgb(0, 0, 0), 1.75, 0.1, 0, 0);
+}
+
+.moon_sun_white {
+    -fx-effect: dropshadow(three-pass-box, rgb(255, 255, 255), 10, 0.5, 0, 0);
+}
+
+.VBoxLight Button {
+    -fx-font-family: 'Arial';
+    -fx-focus-traversable: false;
+    -fx-border-width: 0 0 0 0;
+    -fx-text-fill: #202223;
+    -fx-background-color: #ffffff;
+    -fx-font-weight: 500;
+    -fx-background-radius: 5;
+}
+
+.VBoxLight Button:hover {
+    -fx-background-color: #d9d9de;
+}
+
+.active_buttonWhite {
+    -fx-background-color: #d9d9de;
+}
+
+.VBoxDark Button {
+    -fx-font-family: 'Arial';
+    -fx-focus-traversable: false;
+    -fx-border-width: 0 0 0 0;
+    -fx-text-fill: #ffffff;
+    -fx-background-color: #1E1F22;
+    -fx-font-weight: 500;
+    -fx-background-radius: 5;
+}
+
+.VBoxDark Button:hover {
+    -fx-background-color: #30323a;
+}
+
+.active_buttonDark {
+    -fx-background-color: #30323a;
+}
+
+.gridPaneTextLight Button {
+    -fx-font-family: 'Arial';
+    -fx-focus-traversable: false;
+    -fx-border-width: 0 0 0 0;
+    -fx-text-fill: #202223;
+    -fx-background-color: #ffffff;
+    -fx-font-weight: 500;
+}
+
+.gridPaneTextLight Button:hover {
+    -fx-background-color: #d9d9de;
+}
+
+.gridPaneTextDark Button {
+    -fx-font-family: 'Arial';
+    -fx-focus-traversable: false;
+    -fx-border-width: 0 0 0 0;
+    -fx-text-fill: #ffffff;
+    -fx-background-color: #1E1F22;
+    -fx-font-weight: 500;
+}
+
+.gridPaneTextDark Button:hover {
+    -fx-background-color: #30323a;
+}
+
+.hello_container_left {
+    -fx-border-width: 0 0 0 0;
+    -fx-border-color: #2B2D30;
+}
+
+.hello_container_right {
+    -fx-border-width: 0 0 0 5;
+}
+
+.hello_container_up {
+    -fx-border-width: 0 0 5 0;
+}
+
+.hello_container_down{
+    -fx-border-width: 5 0 0 0;
+}
+
+.text_label_black {
+    -fx-font-family: 'Arial';
+    -fx-font-size: 3.75em;
+    -fx-text-fill: #2B2D30;
+}
+
+.text_label_black_medium {
+    -fx-font-family: 'Arial';
+    -fx-font-size: 2.95em;
+    -fx-text-fill: #2B2D30;
+}
+
+.text_label_white_medium {
+    -fx-font-family: 'Arial';
+    -fx-font-size: 2.95em;
+    -fx-text-fill: #ffffff;
+}
+
+.small_text_label_black {
+    -fx-font-family: 'Arial';
+    -fx-font-size: 2.0em;
+    -fx-text-fill: #000000;
+}
+
+.small_text_label_white {
+    -fx-font-family: 'Arial';
+    -fx-font-size: 2.0em;
+    -fx-text-fill: #FFFFFF;
+}
+
+.text_label_white_header {
+    -fx-font-family: 'Arial';
+    -fx-font-size: 4.75em;
+    -fx-text-fill: #FFFFFF;
+}
+
+.text_label_black_header {
+    -fx-font-family: 'Arial';
+    -fx-font-size: 4.75em;
+    -fx-text-fill: #000000;
+}
+
+.text_label_white {
+    -fx-font-family: 'Arial';
+    -fx-font-size: 3.75em;
+    -fx-text-fill: #FFFFFF;
+}
+
+.shadow_black {
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 1), 2, 0, 0, 0);
+}
+
+.shadow_white {
+    -fx-effect: dropshadow(three-pass-box, rgba(255, 255, 255, 1), 2, 0, 0, 0);
+}
+
+.button_submit {
+    -fx-focus-traversable: true;
+    -fx-background-color: #2b2d30;
+}
+
+.button_submit:hover {
+    -fx-background-color: #34373a;
+}
+
+.button_submit:pressed {
+    -fx-background-color: #464b4e;
+}
+
+.small_text {
+    -fx-font-family: 'Arial';
+    -fx-font-size: 1.75em;
+    -fx-text-fill: #0067ee;
+}
+
+.image_hover:hover{
+    -fx-effect: dropshadow(three-pass-box, rgb(54, 52, 52), 5, 1, 0, 0);
+}
+
+.image_hover:pressed{
+    -fx-effect: dropshadow(three-pass-box, rgb(54, 52, 52), 8, 1, 0, 0);
+}
+
+.split-paneWhite{
+    -fx-background-color: #ffffff;
+    -fx-border-width: 3 3 3 3;
+    -fx-border-color: #2B2D30;
+    -fx-border-radius: 5;
+}
+
+.split-paneWhite > .split-pane-divider{
+    -fx-background-color: #2B2D30; /* Set the divider background color */
+    -fx-padding: 0 1.5; /* Adjust the padding to control divider width */
+    -fx-border-width: 0 0 0 0; /* Adjust the border width to control divider width */
+    -fx-border-color: #2B2D30; /* Hide the border color */
+}
+
+.split-paneDark{
+    -fx-background-color: #1E1F22;
+    -fx-border-width: 3 3 3 3;
+    -fx-border-color: #2B2D30;
+    -fx-border-radius: 5;
+}
+
+.split-paneDark > .split-pane-divider{
+    -fx-background-color: #2B2D30; /* Set the divider background color */
+    -fx-padding: 0 1.5; /* Adjust the padding to control divider width */
+    -fx-border-width: 0 0 0 0; /* Adjust the border width to control divider width */
+    -fx-border-color: #2B2D30; /* Hide the border color */
+}
+
+.table-White {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #2B2D30;
+    -fx-border-width: 0 0 3 0;
+}
+
+.table-Dark {
+    -fx-background-color: #1E1F22;
+    -fx-border-color: #2B2D30;
+    -fx-border-width: 0 0 3 0;
+}
+
+.greenButton {
+    -fx-background-color: #04AA6D;
+}
+
+.greenButton:hover {
+    -fx-background-color: #028148;
+}
+
+.redButton {
+    -fx-background-color: #f44336;
+}
+
+.redButton:hover {
+    -fx-background-color: #C32F33;
+}
+
+.darkButton {
+    -fx-background-color: #515151;
+}
+
+.darkButton:hover {
+    -fx-background-color: #363636;
+}
+
+.choice-box {
+    -fx-background-color: white;
+    -fx-border-color: transparent;
+    -fx-border-width: 1px;
+}
