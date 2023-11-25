@@ -19,7 +19,6 @@ public class AdminPageRestaurantInfoController extends AdminPageControllerAbstra
     @FXML private TextField phone_field;
     @FXML private TextArea address_field;
 
-
     @Override
     protected void handleChangeColorMode() {
         if (islightMode){
