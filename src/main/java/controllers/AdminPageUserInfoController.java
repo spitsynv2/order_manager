@@ -3,10 +3,8 @@ package controllers;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.VBox;
 import javafx.stage.StageStyle;
 import models.Restaurant;
 import models.User;
@@ -77,8 +75,8 @@ public class AdminPageUserInfoController extends AdminPageControllerAbstract {
             permission_label.getStyleClass().add("text_label_white_medium");
             sub_header.getStyleClass().remove("text_label_black");
             sub_header.getStyleClass().add("text_label_white");
-
-            VBox.setMargin(moon_sunVBox, new Insets(0, 5, 27, 25));
+            userInfoButton.getStyleClass().remove("active_buttonWhite");
+            userInfoButton.getStyleClass().add("active_buttonDark");
         }else {
             user_table.getStyleClass().remove("table-Dark");
             user_table.getStyleClass().add("table-White");
@@ -90,8 +88,8 @@ public class AdminPageUserInfoController extends AdminPageControllerAbstract {
             permission_label.getStyleClass().add("text_label_black_medium");
             sub_header.getStyleClass().remove("text_label_white");
             sub_header.getStyleClass().add("text_label_black");
-
-            VBox.setMargin(moon_sunVBox, new Insets(0, 10, 27, 25));
+            userInfoButton.getStyleClass().remove("active_buttonDark");
+            userInfoButton.getStyleClass().add("active_buttonWhite");
         }
         super.handleChangeColorMode();
     }

@@ -48,7 +48,7 @@ public abstract class AdminPageControllerAbstract {
     protected List<String> keyboardKeysLetters = new ArrayList<>();
     protected boolean isUpperCase = true;
 
-    protected void setStage(Stage stage) {
+    public void setStage(Stage stage) {
         this.stage = stage;
     }
 
@@ -87,10 +87,10 @@ public abstract class AdminPageControllerAbstract {
             rightVBox.getStyleClass().add("VBoxDark");
             secondaryPane.getStyleClass().remove("split-paneWhite");
             secondaryPane.getStyleClass().add("split-paneDark");
-            userInfoButton.getStyleClass().remove("active_buttonWhite");
-            userInfoButton.getStyleClass().add("active_buttonDark");
+
             keyboard.getStyleClass().remove("gridPaneTextLight");
             keyboard.getStyleClass().add("gridPaneTextDark");
+            //VBox.setMargin(moon_sunVBox, new Insets(0, 5, 27, 25));
         }else {
             islightMode = true;
             mainPane.setStyle("-fx-background-colo: #ffffff");
@@ -103,10 +103,10 @@ public abstract class AdminPageControllerAbstract {
             rightVBox.getStyleClass().add("VBoxLight");
             secondaryPane.getStyleClass().remove("split-paneDark");
             secondaryPane.getStyleClass().add("split-paneWhite");
-            userInfoButton.getStyleClass().remove("active_buttonDark");
-            userInfoButton.getStyleClass().add("active_buttonWhite");
+
             keyboard.getStyleClass().remove("gridPaneTextDark");
             keyboard.getStyleClass().add("gridPaneTextLight");
+            //VBox.setMargin(moon_sunVBox, new Insets(0, 10, 27, 25));
         }
     }
 
@@ -115,77 +115,81 @@ public abstract class AdminPageControllerAbstract {
         showYesNoDialog("Are you sure you want to exit?");
     }
 
+    protected abstract boolean shouldUseKeyboard();
+
     protected void createKeyboard(){
+        if (shouldUseKeyboard()) {
 
-        String[] keyboardKeysNumbers = {
-                "1", "2", "3", "4", "5", "6", "7", "8", "9", "0",
-                "!", "@", "#", "$", "%", "^", "&", "*", ",", ".",
-                "⮝", "ABC", "+", "-", "?", "/", "€", "$", "SB", "⌫"
-        };
+            String[] keyboardKeysNumbers = {
+                    "1", "2", "3", "4", "5", "6", "7", "8", "9", "0",
+                    "!", "@", "#", "$", "%", "^", "&", "*", ",", ".",
+                    "⮝", "ABC", "+", "-", "?", "/", "€", "$", "SB", "⌫"
+            };
 
-        String[] keyboardKeysLetters = {
-                "Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P",
-                "A", "S", "D", "F", "G", "H", "J", "K", "L", "Z",
-                "⮝", "123", "X", "C", "V", "B", "N", "M", "SB", "⌫"
-        };
+            String[] keyboardKeysLetters = {
+                    "Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P",
+                    "A", "S", "D", "F", "G", "H", "J", "K", "L", "Z",
+                    "⮝", "123", "X", "C", "V", "B", "N", "M", "SB", "⌫"
+            };
 
-        this.keyboardKeysNumbers.addAll(new ArrayList<>(Arrays.asList(keyboardKeysNumbers)));
-        this.keyboardKeysLetters.addAll(new ArrayList<>(Arrays.asList(keyboardKeysLetters)));
+            this.keyboardKeysNumbers.addAll(new ArrayList<>(Arrays.asList(keyboardKeysNumbers)));
+            this.keyboardKeysLetters.addAll(new ArrayList<>(Arrays.asList(keyboardKeysLetters)));
 
-        int row = 0;
-        int col = 0;
+            int row = 0;
+            int col = 0;
 
-        HBox currentRowHBox = null;
+            HBox currentRowHBox = null;
 
-        for (String key : keyboardKeysLetters) {
-            Button button = new Button(key);
-            button.setAlignment(Pos.CENTER);
-            button.setMinSize(87, 65);
-            button.setMaxSize(87, 65);
+            for (String key : keyboardKeysLetters) {
+                Button button = new Button(key);
+                button.setAlignment(Pos.CENTER);
+                button.setMinSize(87, 65);
+                button.setMaxSize(87, 65);
 
-            if (button.getText().equals("⮝")){
-                button.setPadding(new Insets(11,0,0,0));
-            }
+                if (button.getText().equals("⮝")){
+                    button.setPadding(new Insets(11,0,0,0));
+                }
 
-            if (button.getText().equals("⌫")){
-                button.setFont(Font.font(11));
-            }
-            if (button.getText().equals(" ")){
-                button.setVisible(false);
-            }
+                if (button.getText().equals("⌫")){
+                    button.setFont(Font.font(11));
+                }
+                if (button.getText().equals(" ")){
+                    button.setVisible(false);
+                }
 
-            if (button.getText().equals("123") || button.getText().equals("ABC")){
-                button.setPadding(new Insets(3,0,0,0));
-                button.setFont(Font.font(11));
-                button.setStyle("-fx-border-color: #2B2D30; -fx-border-width: 1.5px; -fx-border-radius: 2px;");
-            }
+                if (button.getText().equals("123") || button.getText().equals("ABC")){
+                    button.setPadding(new Insets(3,0,0,0));
+                    button.setFont(Font.font(11));
+                    button.setStyle("-fx-border-color: #2B2D30; -fx-border-width: 1.5px; -fx-border-radius: 2px;");
+                }
 
-            if (button.getText().equals("SB")){
-                button.setPadding(new Insets(1,0,0,0));
-                button.setStyle("-fx-border-color: #2B2D30; -fx-border-width: 1.5px; -fx-border-radius: 2px;");
-                button.setFont(Font.font(11));
-            }
+                if (button.getText().equals("SB")){
+                    button.setPadding(new Insets(1,0,0,0));
+                    button.setStyle("-fx-border-color: #2B2D30; -fx-border-width: 1.5px; -fx-border-radius: 2px;");
+                    button.setFont(Font.font(11));
+                }
 
 
-            if (col == 0) {
-                currentRowHBox = new HBox();
-                currentRowHBox.setAlignment(Pos.CENTER);
-                currentRowHBox.setSpacing(3);
-                keyboard.add(currentRowHBox, 0, row);
-            }
+                if (col == 0) {
+                    currentRowHBox = new HBox();
+                    currentRowHBox.setAlignment(Pos.CENTER);
+                    currentRowHBox.setSpacing(3);
+                    keyboard.add(currentRowHBox, 0, row);
+                }
 
-            currentRowHBox.getChildren().add(button);
-            this.keyboardKeys.add(button);
+                currentRowHBox.getChildren().add(button);
+                this.keyboardKeys.add(button);
 
-            col++;
-            if (col == 10) {
-                col = 0;
-                row++;
+                col++;
+                if (col == 10) {
+                    col = 0;
+                    row++;
+                }
             }
         }
+
     }
 
-    protected abstract boolean shouldUseKeyboard();
     @FXML
     protected void handleFieldClicked(Event event) {
         if (shouldUseKeyboard()) {

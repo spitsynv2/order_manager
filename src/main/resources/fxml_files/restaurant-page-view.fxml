@@ -220,7 +220,7 @@
                <children>
                   <VBox alignment="CENTER" layoutX="113.0" layoutY="149.0" spacing="55.0" AnchorPane.rightAnchor="550.0" />
                   <Line endX="854.0" endY="6.0" layoutX="109.0" layoutY="66.0" startX="-109.0" startY="6.0" style="-fx-stroke: #2B2D30; -fx-stroke-width: 3.5;" />
-                  <GridPane fx:id="keyboard" layoutX="32.0" layoutY="721.0" prefHeight="200.0" prefWidth="900.0" AnchorPane.bottomAnchor="35.0">
+                  <GridPane fx:id="keyboard" layoutX="39.0" layoutY="721.0" prefHeight="200.0" prefWidth="900.0" AnchorPane.bottomAnchor="30.0">
                     <columnConstraints>
                       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                     </columnConstraints>
@@ -237,14 +237,14 @@
                   <VBox alignment="CENTER" layoutX="14.0" layoutY="110.0" spacing="95.0" AnchorPane.leftAnchor="110.0" AnchorPane.topAnchor="106.0">
                      <children>
                         <Label fx:id="name_label" styleClass="text_label_black_medium" text="Name" />
-                        <TextField fx:id="name_field" alignment="CENTER" focusTraversable="false" onMouseClicked="#handleFieldClicked" prefHeight="45.0" prefWidth="300.0" text="Grand Plaza">
+                        <TextField fx:id="name_field" alignment="CENTER" focusTraversable="false" onMouseClicked="#handleFieldClicked" prefHeight="45.0" prefWidth="300.0" text="Restaurant">
                            <styleClass>
                               <String fx:value="small_text_label_black" />
                               <String fx:value="shadow_black" />
                            </styleClass>
                         </TextField>
                         <Label fx:id="email_label" styleClass="text_label_black_medium" text="Email" />
-                        <TextField fx:id="email_field" alignment="CENTER" focusTraversable="false" onMouseClicked="#handleFieldClicked" prefHeight="45.0" prefWidth="300.0" text="plaza.grand@gmail.com">
+                        <TextField fx:id="email_field" alignment="CENTER" focusTraversable="false" onMouseClicked="#handleFieldClicked" prefHeight="45.0" prefWidth="300.0" text="restaurant@gmail.com">
                            <styleClass>
                               <String fx:value="small_text_label_black" />
                               <String fx:value="shadow_black" />
@@ -256,7 +256,7 @@
                   <VBox alignment="CENTER" layoutX="649.0" layoutY="110.0" prefWidth="300.0" spacing="95.0" AnchorPane.rightAnchor="110.0" AnchorPane.topAnchor="106.0">
                      <children>
                         <Label fx:id="address_label" styleClass="text_label_black_medium" text="Address" />
-                        <TextArea fx:id="address_field" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="90.0" prefWidth="300.0" text="New Yourk&#10;Street data 123/213&#10;3412">
+                        <TextArea fx:id="address_field" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#handleFieldClicked" prefHeight="90.0" prefWidth="300.0" text="Country, city&#10;Street name, zip">
                            <VBox.margin>
                               <Insets bottom="-22.5" top="-22.5" />
                            </VBox.margin>
@@ -266,7 +266,7 @@
                            </styleClass>
                         </TextArea>
                         <Label fx:id="phone_label" styleClass="text_label_black_medium" text="Phone" />
-                        <TextField fx:id="phone_field" alignment="CENTER" focusTraversable="false" onMouseClicked="#handleFieldClicked" prefHeight="45.0" prefWidth="300.0" text="+1 231 312">
+                        <TextField fx:id="phone_field" alignment="CENTER" focusTraversable="false" onMouseClicked="#handleFieldClicked" prefHeight="45.0" prefWidth="300.0" text="+1 234 567">
                            <styleClass>
                               <String fx:value="small_text_label_black" />
                               <String fx:value="shadow_black" />
@@ -277,7 +277,7 @@
                         </TextField>
                      </children>
                   </VBox>
-                  <Button layoutX="332.0" layoutY="631.0" mnemonicParsing="false" onMouseClicked="#handleChangeDataButton" prefHeight="45.0" prefWidth="300.0" text="Submit" AnchorPane.topAnchor="630.0">
+                  <Button fx:id="submit_button_main" layoutX="332.0" layoutY="631.0" mnemonicParsing="false" onMouseClicked="#handleChangeDataButton" prefHeight="45.0" prefWidth="300.0" text="Submit" AnchorPane.topAnchor="630.0">
                      <styleClass>
                         <String fx:value="small_text_label_white" />
                         <String fx:value="button_submit" />
@@ -287,9 +287,43 @@
                </children></AnchorPane>
           <AnchorPane minWidth="514.0" prefHeight="953.0" prefWidth="645.0">
                <children>
-                  <Label focusTraversable="false" layoutX="43.0" layoutY="846.0" mouseTransparent="true" styleClass="text_label_white_medium" text="Add" />
                   <Line endX="798.0" endY="9.0" layoutX="-281.0" layoutY="63.0" startX="278.75" startY="9.0" style="-fx-stroke: #2B2D30; -fx-stroke-width: 3.5;" />
-                  <Label fx:id="sub_header2" layoutX="108.0" styleClass="text_label_black" text="Additional data" AnchorPane.topAnchor="10.0" />
+                  <Label fx:id="sub_header2" layoutX="116.0" styleClass="text_label_black" text="Additional info" AnchorPane.topAnchor="10.0" />
+                  <VBox alignment="CENTER" layoutX="107.0" layoutY="74.0" prefWidth="300.0" spacing="70.0" AnchorPane.topAnchor="106.0">
+                     <children>
+                        <Label fx:id="info_label" styleClass="text_label_black_medium" text="Additional info" />
+                        <TextArea fx:id="info_field" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#handleFieldClicked" prefHeight="90.0" prefWidth="300.0" text="Discounts, &#10;some special info for&#10;clients, etc">
+                           <styleClass>
+                              <String fx:value="small_text_label_black" />
+                              <String fx:value="shadow_black" />
+                           </styleClass>
+                        </TextArea>
+                        <Label fx:id="tax_label" styleClass="text_label_black_medium" text="Tax in procent" />
+                        <TextField fx:id="tax_field" alignment="CENTER" focusTraversable="false" onMouseClicked="#handleFieldClicked" prefHeight="45.0" prefWidth="300.0" text="23">
+                           <styleClass>
+                              <String fx:value="small_text_label_black" />
+                              <String fx:value="shadow_black" />
+                           </styleClass>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </TextField>
+                        <Label fx:id="paperSize_label" styleClass="text_label_black_medium" text="Paper size mm" />
+                        <TextField fx:id="paperSize_field" alignment="CENTER" focusTraversable="false" onMouseClicked="#handleFieldClicked" prefHeight="45.0" prefWidth="300.0" text="55">
+                           <styleClass>
+                              <String fx:value="small_text_label_black" />
+                              <String fx:value="shadow_black" />
+                           </styleClass>
+                        </TextField>
+                        <Button fx:id="submit_button_additional" mnemonicParsing="false" onMouseClicked="#handleChangeDataButton" prefHeight="45.0" prefWidth="300.0" text="Submit">
+                           <styleClass>
+                              <String fx:value="small_text_label_white" />
+                              <String fx:value="button_submit" />
+                              <String fx:value="shadow_black" />
+                           </styleClass>
+                        </Button>
+                     </children>
+                  </VBox>
                </children></AnchorPane>
         </items>
          <BorderPane.margin>
