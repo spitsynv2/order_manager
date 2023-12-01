@@ -15,12 +15,14 @@ public class Restaurant {
     private String email;
     private String paperSize;
     private String info;
+    private double tax = 23;
 
-    public Restaurant(String name, String address, String phone, String email){
+    public Restaurant(String name, String address, String phone, String email, double tax){
         this.name = name;
         this.address = address;
         this.phone = phone;
         this.email = email;
+        this.tax = tax;
     }
 
     public void setPaperSize(String paperSize) {
@@ -41,12 +43,13 @@ public class Restaurant {
         try {
             Connection connection = DatabaseConnection.getConnection();
 
-            String insertQuery = "INSERT INTO Restaurant (Name, Address, Phone, Email) VALUES (?, ?, ?, ?)";
+            String insertQuery = "INSERT INTO Restaurant (Name, Address, Phone, Email, Tax) VALUES (?, ?, ?, ?, ?)";
             PreparedStatement statement = connection.prepareStatement(insertQuery);
             statement.setString(1, restaurant.name);
             statement.setString(2, restaurant.address);
             statement.setString(3, restaurant.phone);
             statement.setString(4, restaurant.email);
+            statement.setDouble(5, restaurant.tax);
             statement.executeUpdate();
             statement.close();
 
@@ -93,7 +96,8 @@ public class Restaurant {
                 String address = resultSet.getString("Address");
                 String phone = resultSet.getString("Phone");
                 String email = resultSet.getString("Email");
-                restaurant = new Restaurant(name, address, phone, email);
+                double tax = resultSet.getDouble("Tax");
+                restaurant = new Restaurant(name, address, phone, email, tax);
             }
 
             resultSet.close();
@@ -137,7 +141,7 @@ public class Restaurant {
             Connection connection = DatabaseConnection.getConnection();
 
             // Update restaurant details
-            String updateRestaurantQuery = "UPDATE Restaurant SET Address = ?, Phone = ?, Email = ?, Name = ? WHERE Name = ?";
+            String updateRestaurantQuery = "UPDATE Restaurant SET Address = ?, Phone = ?, Email = ?, Name = ?, Tax = ? WHERE Name = ?";
             PreparedStatement statement = connection.prepareStatement(updateRestaurantQuery);
             statement.setString(1, restaurant.address);
             statement.setString(2, restaurant.phone);
@@ -148,7 +152,8 @@ public class Restaurant {
             }else {
                 statement.setString(4, restaurant.name);
             }
-            statement.setString(5, restaurant.name);
+            statement.setDouble(6, restaurant.tax);
+            statement.setString(6, restaurant.name);
 
             statement.executeUpdate();
             statement.close();

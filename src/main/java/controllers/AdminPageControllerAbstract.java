@@ -2,8 +2,10 @@ package controllers;
 
 import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -14,12 +16,18 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import models.Restaurant;
+import models.User;
 
+import java.io.IOException;
 import java.util.*;
 
 public abstract class AdminPageControllerAbstract {
 
     protected Stage stage;
+
+    protected User user;
+    protected Restaurant restaurant;
 
     @FXML protected BorderPane mainPane;
     @FXML protected VBox rightVBox;
@@ -310,6 +318,24 @@ public abstract class AdminPageControllerAbstract {
                 System.out.println("Error: Invalid source");
             }
         }
+    }
+    @FXML
+    protected void goToUserInfoView() throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("/fxml_files/admin-userInfo-page-view.fxml")));
+        Parent root = fxmlLoader.load();
+        AdminPageUserInfoController controller = fxmlLoader.getController();
+        controller.initializeWithData(user);
+        controller.setStage(stage);
+        stage.getScene().setRoot(root);
+    }
+    @FXML
+    protected void goToRestaurantView() throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("/fxml_files/admin-restaurant-page-view.fxml")));
+        Parent root = fxmlLoader.load();
+        AdminPageRestaurantInfoController controller = fxmlLoader.getController();
+        controller.initializeWithData(user);
+        controller.setStage(stage);
+        stage.getScene().setRoot(root);
     }
 
 }

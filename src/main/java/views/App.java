@@ -18,10 +18,9 @@ public class App extends Application {
     public void start(Stage primaryStage) throws IOException {
         System.setProperty("prism.lcdtext", "false");
 
-        FXMLLoader fxmlLoader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("/fxml_files/restaurant-page-view.fxml")));
+        FXMLLoader fxmlLoader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("/fxml_files/hello-page-view.fxml")));
         Parent root = fxmlLoader.load();
-        AdminPageRestaurantInfoController controller = fxmlLoader.getController();
-        controller.initializeWithData();
+        HelloPageController controller = fxmlLoader.getController();
         controller.setStage(primaryStage);
         primaryStage.setScene(new Scene(root));
 

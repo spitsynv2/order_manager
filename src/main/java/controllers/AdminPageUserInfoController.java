@@ -23,9 +23,6 @@ public class AdminPageUserInfoController extends AdminPageControllerAbstract {
     @FXML private TextField username_field;
     @FXML private TextField password_field;;
     @FXML private ChoiceBox<String> permission_box;
-
-    private User user;
-    private Restaurant restaurant;
     private ObservableList<User> users;
 
     public void initializeWithData(User user) {
@@ -37,7 +34,6 @@ public class AdminPageUserInfoController extends AdminPageControllerAbstract {
         List<String> items = new ArrayList<>();
         items.add("Admin");
         items.add("Cashier");
-        restaurant = Restaurant.retrieveRestaurant();
         this.user = user;
 
         List<User> userList = User.retrieveAllUsers();

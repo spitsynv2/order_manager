@@ -46,7 +46,7 @@
                   <Insets left="-69.0" />
                </padding>
             </Button>
-            <Button fx:id="restaurantInfoButton" mnemonicParsing="false" prefHeight="95.0" prefWidth="520.0" text=" Restaurant ">
+            <Button fx:id="restaurantInfoButton" mnemonicParsing="false" onMouseClicked="#goToRestaurantView" prefHeight="95.0" prefWidth="520.0" text=" Restaurant ">
                <graphic>
                   <VBox>
                      <children>

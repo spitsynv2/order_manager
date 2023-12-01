@@ -1,3 +1,8 @@
+-- Created by Vertabelo (http://vertabelo.com)
+-- Last modification date: 2023-11-28 09:28:10.957
+
+-- tables
+-- Table: Dishes
 CREATE TABLE Dishes (
     Name varchar(250) NOT NULL CONSTRAINT Dishes_pk PRIMARY KEY,
     Ingredients varchar(750) NOT NULL,
@@ -5,8 +10,9 @@ CREATE TABLE Dishes (
     Price double NOT NULL
 );
 
+-- Table: Orders
 CREATE TABLE Orders (
-    Id integer NOT NULL CONSTRAINT Orders_pk PRIMARY KEY,
+    Id integer NOT NULL CONSTRAINT Orders_pk PRIMARY KEY AUTOINCREMENT,
     Date datetime NOT NULL,
     Payment_type varchar(150) NOT NULL,
     Status varchar(200) NOT NULL
@@ -36,9 +42,9 @@ CREATE TABLE Orders_Restaurant (
 
 -- Table: Print_details
 CREATE TABLE Print_details (
-    Restaurant_Name varchar(150) NOT NULL CONSTRAINT Print_details_pk PRIMARY KEY,
+    Restaurant_Name text NOT NULL CONSTRAINT Print_details_pk PRIMARY KEY,
     Paper_size varchar(25) NOT NULL,
-    Additional_info text NOT NULL,
+    Additional_info text,
     CONSTRAINT Print_details_Restaurant FOREIGN KEY (Restaurant_Name)
     REFERENCES Restaurant (Name)
 );
@@ -46,9 +52,10 @@ CREATE TABLE Print_details (
 -- Table: Restaurant
 CREATE TABLE Restaurant (
     Name varchar(150) NOT NULL CONSTRAINT Restaurant_pk PRIMARY KEY,
-    Address varchar(300) NOT NULL,
+    Address text NOT NULL,
     Phone varchar(100) NOT NULL,
-    Email varchar(100) NOT NULL
+    Email varchar(100) NOT NULL,
+    Tax double NOT NULL
 );
 
 -- Table: Restaurant_Dishes
@@ -68,10 +75,10 @@ CREATE TABLE Restaurant_Users (
     User_Id integer NOT NULL,
     Restaurant_Name varchar(150) NOT NULL,
     CONSTRAINT Restaurant_Users_pk PRIMARY KEY (Restaurant_Name,User_Id),
-    CONSTRAINT Users_Restaurant FOREIGN KEY (User_Id)
-    REFERENCES Users (Id),
     CONSTRAINT Restaurant_Users FOREIGN KEY (Restaurant_Name)
-    REFERENCES Restaurant (Name)
+    REFERENCES Restaurant (Name),
+    CONSTRAINT Users_Restaurant FOREIGN KEY (User_Id)
+    REFERENCES Users (Id)
 );
 
 -- Table: Users

@@ -11,7 +11,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import models.User;
@@ -23,8 +22,6 @@ import java.util.*;
 public class HelloPageController {
 
     private Stage stage;
-
-    private User user;
 
     @FXML
     private BorderPane mainPane;
@@ -85,10 +82,6 @@ public class HelloPageController {
 
     public void setStage(Stage stage) {
         this.stage = stage;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
     }
 
     public void initialize(){
@@ -462,7 +455,7 @@ public class HelloPageController {
     }
 
     private void goToAdminView(User admin) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("/fxml_files/admin-page-view.fxml")));
+        FXMLLoader fxmlLoader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("/fxml_files/admin-userInfo-page-view.fxml")));
         Parent root = fxmlLoader.load();
         AdminPageUserInfoController controller = fxmlLoader.getController();
         controller.initializeWithData(admin);

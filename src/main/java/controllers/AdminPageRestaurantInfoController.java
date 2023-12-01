@@ -33,9 +33,13 @@ public class AdminPageRestaurantInfoController extends AdminPageControllerAbstra
 
     private Label[] labels;
 
-    public void initializeWithData() {
+    public void initializeWithData(User user) {
+        this.user = user;
+        restaurant = Restaurant.retrieveRestaurant();
         labels = new Label[]{name_label, email_label, phone_label, address_label, tax_label, info_label, paperSize_label};
         createKeyboard();
+
+
     }
 
     @Override
@@ -76,6 +80,11 @@ public class AdminPageRestaurantInfoController extends AdminPageControllerAbstra
 
     @FXML
     private void handleChangeDataButton() {
+
+    }
+
+    @FXML
+    private void handleChangeDataAdditionalButton(){
 
     }
 
