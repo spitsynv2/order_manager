@@ -45,7 +45,7 @@
                   <Insets left="-69.0" />
                </padding>
             </Button>
-            <Button fx:id="restaurantInfoButton" mnemonicParsing="false" prefHeight="95.0" prefWidth="520.0" styleClass="active_buttonWhite" text=" Restaurant ">
+            <Button fx:id="restaurantInfoButton" mnemonicParsing="false" onMouseClicked="#goToUserInfoView" prefHeight="95.0" prefWidth="520.0" styleClass="active_buttonWhite" text=" Restaurant ">
                <graphic>
                   <VBox>
                      <children>
@@ -315,7 +315,7 @@
                               <String fx:value="shadow_black" />
                            </styleClass>
                         </TextField>
-                        <Button fx:id="submit_button_additional" mnemonicParsing="false" onMouseClicked="#handleChangeDataButton" prefHeight="45.0" prefWidth="300.0" text="Submit">
+                        <Button fx:id="submit_button_additional" mnemonicParsing="false" onMouseClicked="#handleChangeDataAdditionalButton" prefHeight="45.0" prefWidth="300.0" text="Submit">
                            <styleClass>
                               <String fx:value="small_text_label_white" />
                               <String fx:value="button_submit" />

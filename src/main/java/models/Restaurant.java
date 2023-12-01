@@ -37,6 +37,30 @@ public class Restaurant {
         return name;
     }
 
+    public String getAddress() {
+        return address;
+    }
+
+    public double getTax() {
+        return tax;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getInfo() {
+        return info;
+    }
+
+    public String getPaperSize() {
+        return paperSize;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
     //TODO -> setters or another implementation to change restaurant data;
 
     public void insertRestaurant(Restaurant restaurant) {

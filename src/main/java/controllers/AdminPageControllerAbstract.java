@@ -328,6 +328,7 @@ public abstract class AdminPageControllerAbstract {
         controller.setStage(stage);
         stage.getScene().setRoot(root);
     }
+
     @FXML
     protected void goToRestaurantView() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("/fxml_files/admin-restaurant-page-view.fxml")));
