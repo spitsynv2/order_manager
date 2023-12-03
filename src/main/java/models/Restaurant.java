@@ -160,24 +160,18 @@ public class Restaurant {
         }
     }
 
-    public void updateRestaurant(Restaurant restaurant, String newName) {
+    public static void updateRestaurant(Restaurant restaurant, String oldName) {
         try {
             Connection connection = DatabaseConnection.getConnection();
 
-            // Update restaurant details
             String updateRestaurantQuery = "UPDATE Restaurant SET Address = ?, Phone = ?, Email = ?, Name = ?, Tax = ? WHERE Name = ?";
             PreparedStatement statement = connection.prepareStatement(updateRestaurantQuery);
             statement.setString(1, restaurant.address);
             statement.setString(2, restaurant.phone);
             statement.setString(3, restaurant.email);
-            if (newName != null){
-                statement.setString(4, newName);
-                restaurant.updateDetails(restaurant,newName);
-            }else {
-                statement.setString(4, restaurant.name);
-            }
-            statement.setDouble(6, restaurant.tax);
-            statement.setString(6, restaurant.name);
+            statement.setString(4, restaurant.name);
+            statement.setDouble(5, restaurant.tax);
+            statement.setString(6, oldName);
 
             statement.executeUpdate();
             statement.close();
@@ -189,7 +183,7 @@ public class Restaurant {
         }
     }
 
-    public void updateDetails(Restaurant restaurant, String newRestaurantName) {
+    public static void updateDetails(Restaurant restaurant, String oldName) {
         try {
             Connection connection = DatabaseConnection.getConnection();
 
@@ -197,17 +191,15 @@ public class Restaurant {
             PreparedStatement statement = connection.prepareStatement(updatePrintDetailsQuery);
 
             statement.setString(1, restaurant.paperSize);
-            if (info != null) {
+
+            if (restaurant.info != null) {
                 statement.setString(2, restaurant.info);
             } else {
                 statement.setString(2, "");
             }
-            if (newRestaurantName != null){
-                statement.setString(3, newRestaurantName);
-            }else {
-                statement.setString(3, restaurant.name);
-            }
-            statement.setString(4, restaurant.name);
+
+            statement.setString(3, restaurant.name);
+            statement.setString(4, oldName);
 
             statement.executeUpdate();
             statement.close();

@@ -1,6 +1,6 @@
 -- Insert data into the Restaurant table
 INSERT INTO Restaurant (Name, Address, Phone, Email, Tax) VALUES
-('Restaurant', 'Country, city, Street name, zip', '+1 234 567', 'restaurant@expl.com',23.00);
+('Restaurant', 'Country, city'||char(10)||'Street name, zip', '+1 234 567', 'restaurant@example.com',23.00);
 
 -- Insert data into the Dishes table
 INSERT INTO Dishes (Name, Ingredients, Additional_info, Price) VALUES
@@ -48,4 +48,4 @@ INSERT INTO Users_Orders (Users_Id, Orders_Id) VALUES
 
 -- Insert data into the Print_details table
 INSERT INTO Print_details (Restaurant_Name, Paper_size, Additional_info) VALUES
-('Restaurant', '55mm', 'Discounts, some special info');
+('Restaurant', '55mm', 'Discounts,'||char(10)||'some special info');

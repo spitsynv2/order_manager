@@ -118,7 +118,6 @@ public class AdminPageUserInfoController extends AdminPageControllerAbstract {
 
         user_table.setItems(FXCollections.observableArrayList(userList));
     }
-
     @FXML
     private void handleGoUpButton() {
         int selectedIndex = user_table.getSelectionModel().getSelectedIndex();

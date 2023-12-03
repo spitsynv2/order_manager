@@ -223,21 +223,21 @@
                   <VBox alignment="CENTER" layoutX="332.0" layoutY="106.0" spacing="40.0" AnchorPane.topAnchor="106.0">
                      <children>
                         <Label fx:id="username_label" styleClass="text_label_black_medium" text="Username" />
-                        <TextField fx:id="username_field" alignment="CENTER" focusTraversable="false" onMouseClicked="#handleFieldClicked" prefHeight="45.0" prefWidth="300.0" text="Admin">
+                        <TextField fx:id="username_field" alignment="CENTER" onMouseClicked="#handleFieldClicked" prefHeight="45.0" prefWidth="320.0" text="Admin">
                            <styleClass>
                               <String fx:value="small_text_label_black" />
                               <String fx:value="shadow_black" />
                            </styleClass>
                         </TextField>
                         <Label fx:id="password_label" styleClass="text_label_black_medium" text="Password" />
-                        <TextField fx:id="password_field" alignment="CENTER" focusTraversable="false" onMouseClicked="#handleFieldClicked" prefHeight="45.0" prefWidth="300.0" text="Password">
+                        <TextField fx:id="password_field" alignment="CENTER" onMouseClicked="#handleFieldClicked" prefHeight="45.0" prefWidth="320.0" text="Password">
                            <styleClass>
                               <String fx:value="small_text_label_black" />
                               <String fx:value="shadow_black" />
                            </styleClass>
                         </TextField>
                         <Label fx:id="permission_label" styleClass="text_label_black_medium" text="Permission" />
-                        <ChoiceBox fx:id="permission_box" focusTraversable="false" prefHeight="45.0" prefWidth="300.0">
+                        <ChoiceBox fx:id="permission_box" prefHeight="45.0" prefWidth="320.0">
                            <padding>
                               <Insets bottom="-2.0" />
                            </padding>

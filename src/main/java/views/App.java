@@ -1,6 +1,5 @@
 package views;
 
-import controllers.AdminPageRestaurantInfoController;
 import controllers.HelloPageController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

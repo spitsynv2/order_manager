@@ -130,8 +130,8 @@ public abstract class AdminPageControllerAbstract {
 
             String[] keyboardKeysNumbers = {
                     "1", "2", "3", "4", "5", "6", "7", "8", "9", "0",
-                    "!", "@", "#", "$", "%", "^", "&", "*", ",", ".",
-                    "⮝", "ABC", "+", "-", "?", "/", "€", "$", "SB", "⌫"
+                    "!", "@", "#", "$", "%", "^", "&", "/", ",", ".",
+                    "⮝", "ABC", "+", "-", "?", "$", "€", "\\n", "SB", "⌫"
             };
 
             String[] keyboardKeysLetters = {
@@ -211,7 +211,7 @@ public abstract class AdminPageControllerAbstract {
                 }else if (button.getText().equals("123") ||  button.getText().equals("ABC")){
                     button.setOnAction(e -> handleKeyClickChangeKeys(button));
                 } else {
-                    button.setOnAction(e -> handleKeyClick(button.getText(),source));
+                    button.setOnAction(e -> handleKeyClick(button,source));
                 }
             }
         }
@@ -253,7 +253,7 @@ public abstract class AdminPageControllerAbstract {
                 key.setText("⮝");
                 key.setPadding(new Insets(11,0,0,0));
                 for (Button button:keyboardKeys){
-                    if (button.getText().equals("ABC") || button.getText().equals("SB")){
+                    if (button.getText().equals("ABC") || button.getText().equals("SB") || button.getText().equals("\\n")){
                         continue;
                     }
                     button.setText(button.getText().toUpperCase());
@@ -301,7 +301,8 @@ public abstract class AdminPageControllerAbstract {
         }
     }
 
-    protected void handleKeyClick(String key, Object source) {
+    protected void handleKeyClick(Button button, Object source) {
+        String key = button.getText();
         if (shouldUseKeyboard()) {
             if (source instanceof TextInputControl inputControl) {
                 int caretPosition = inputControl.getCaretPosition();
@@ -309,6 +310,8 @@ public abstract class AdminPageControllerAbstract {
                 String newText = "";
                 if (key.equals("SB") || key.equals("sb")){
                     newText = text.substring(0, caretPosition) + " " + text.substring(caretPosition);
+                }else if(key.equals("\\n") || key.equals("\\N")){
+                    newText = text.substring(0, caretPosition) + "\n" + text.substring(caretPosition);
                 }else {
                     newText = text.substring(0, caretPosition) + key + text.substring(caretPosition);
                 }
@@ -319,6 +322,7 @@ public abstract class AdminPageControllerAbstract {
             }
         }
     }
+
     @FXML
     protected void goToUserInfoView() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("/fxml_files/admin-userInfo-page-view.fxml")));

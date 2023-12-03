@@ -23,7 +23,7 @@
    <left>
       <VBox fx:id="rightVBox" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="980.0" prefWidth="322.0" spacing="48.0" style="-fx-border-color: #2B2D30;" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="userInfoButton" mnemonicParsing="false" prefHeight="95.0" prefWidth="520.0" text=" User info">
+            <Button fx:id="userInfoButton" mnemonicParsing="false" onMouseClicked="#goToUserInfoView" prefHeight="95.0" prefWidth="520.0" text=" User info">
                <graphic>
                   <VBox>
                      <children>
@@ -45,7 +45,7 @@
                   <Insets left="-69.0" />
                </padding>
             </Button>
-            <Button fx:id="restaurantInfoButton" mnemonicParsing="false" onMouseClicked="#goToUserInfoView" prefHeight="95.0" prefWidth="520.0" styleClass="active_buttonWhite" text=" Restaurant ">
+            <Button fx:id="restaurantInfoButton" mnemonicParsing="false" prefHeight="95.0" prefWidth="520.0" styleClass="active_buttonWhite" text=" Restaurant ">
                <graphic>
                   <VBox>
                      <children>
@@ -234,17 +234,17 @@
                         <String fx:value="keyboardText" />
                      </styleClass>
                   </GridPane>
-                  <VBox alignment="CENTER" layoutX="14.0" layoutY="110.0" spacing="95.0" AnchorPane.leftAnchor="110.0" AnchorPane.topAnchor="106.0">
+                  <VBox alignment="CENTER" layoutX="14.0" layoutY="110.0" spacing="95.0" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="106.0">
                      <children>
                         <Label fx:id="name_label" styleClass="text_label_black_medium" text="Name" />
-                        <TextField fx:id="name_field" alignment="CENTER" focusTraversable="false" onMouseClicked="#handleFieldClicked" prefHeight="45.0" prefWidth="300.0" text="Restaurant">
+                        <TextField fx:id="name_field" alignment="CENTER" onMouseClicked="#handleFieldClicked" prefHeight="45.0" prefWidth="320.0" text="Restaurant">
                            <styleClass>
                               <String fx:value="small_text_label_black" />
                               <String fx:value="shadow_black" />
                            </styleClass>
                         </TextField>
                         <Label fx:id="email_label" styleClass="text_label_black_medium" text="Email" />
-                        <TextField fx:id="email_field" alignment="CENTER" focusTraversable="false" onMouseClicked="#handleFieldClicked" prefHeight="45.0" prefWidth="300.0" text="restaurant@gmail.com">
+                        <TextField fx:id="email_field" alignment="CENTER" onMouseClicked="#handleFieldClicked" prefHeight="45.0" prefWidth="320.0" text="restaurant@gmail.com">
                            <styleClass>
                               <String fx:value="small_text_label_black" />
                               <String fx:value="shadow_black" />
@@ -253,10 +253,10 @@
                      </children>
                   </VBox>
                   <Label fx:id="sub_header" layoutX="321.0" styleClass="text_label_black" text="Restaurant data" AnchorPane.topAnchor="10.0" />
-                  <VBox alignment="CENTER" layoutX="649.0" layoutY="110.0" prefWidth="300.0" spacing="95.0" AnchorPane.rightAnchor="110.0" AnchorPane.topAnchor="106.0">
+                  <VBox alignment="CENTER" layoutX="649.0" layoutY="110.0" prefWidth="300.0" spacing="95.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="106.0">
                      <children>
                         <Label fx:id="address_label" styleClass="text_label_black_medium" text="Address" />
-                        <TextArea fx:id="address_field" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#handleFieldClicked" prefHeight="90.0" prefWidth="300.0" text="Country, city&#10;Street name, zip">
+                        <TextArea fx:id="address_field" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#handleFieldClicked" prefHeight="90.0" prefWidth="320.0" text="Country, city&#10;Street name, zip">
                            <VBox.margin>
                               <Insets bottom="-22.5" top="-22.5" />
                            </VBox.margin>
@@ -266,7 +266,7 @@
                            </styleClass>
                         </TextArea>
                         <Label fx:id="phone_label" styleClass="text_label_black_medium" text="Phone" />
-                        <TextField fx:id="phone_field" alignment="CENTER" focusTraversable="false" onMouseClicked="#handleFieldClicked" prefHeight="45.0" prefWidth="300.0" text="+1 234 567">
+                        <TextField fx:id="phone_field" alignment="CENTER" onMouseClicked="#handleFieldClicked" prefHeight="45.0" prefWidth="320.0" text="+1 234 567">
                            <styleClass>
                               <String fx:value="small_text_label_black" />
                               <String fx:value="shadow_black" />
@@ -292,14 +292,14 @@
                   <VBox alignment="CENTER" layoutX="107.0" layoutY="74.0" prefWidth="300.0" spacing="70.0" AnchorPane.topAnchor="106.0">
                      <children>
                         <Label fx:id="info_label" styleClass="text_label_black_medium" text="Additional info" />
-                        <TextArea fx:id="info_field" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#handleFieldClicked" prefHeight="90.0" prefWidth="300.0" text="Discounts, &#10;some special info for&#10;clients, etc">
+                        <TextArea fx:id="info_field" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#handleFieldClicked" prefHeight="90.0" prefWidth="320.0" text="Discounts, &#10;some special info for&#10;clients, etc">
                            <styleClass>
                               <String fx:value="small_text_label_black" />
                               <String fx:value="shadow_black" />
                            </styleClass>
                         </TextArea>
                         <Label fx:id="tax_label" styleClass="text_label_black_medium" text="Tax in procent" />
-                        <TextField fx:id="tax_field" alignment="CENTER" focusTraversable="false" onMouseClicked="#handleFieldClicked" prefHeight="45.0" prefWidth="300.0" text="23">
+                        <TextField fx:id="tax_field" alignment="CENTER" onMouseClicked="#handleFieldClicked" prefHeight="45.0" prefWidth="320.0" text="23">
                            <styleClass>
                               <String fx:value="small_text_label_black" />
                               <String fx:value="shadow_black" />
@@ -309,7 +309,7 @@
                            </VBox.margin>
                         </TextField>
                         <Label fx:id="paperSize_label" styleClass="text_label_black_medium" text="Paper size mm" />
-                        <TextField fx:id="paperSize_field" alignment="CENTER" focusTraversable="false" onMouseClicked="#handleFieldClicked" prefHeight="45.0" prefWidth="300.0" text="55">
+                        <TextField fx:id="paperSize_field" alignment="CENTER" onMouseClicked="#handleFieldClicked" prefHeight="45.0" prefWidth="320.0" text="55">
                            <styleClass>
                               <String fx:value="small_text_label_black" />
                               <String fx:value="shadow_black" />
