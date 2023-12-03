@@ -204,11 +204,11 @@ public class AdminPageDishesController extends AdminPageControllerAbstract{
         Optional<ButtonType> result = alert.showAndWait();
 
         if (msg.equals("Are you sure you want to add a Dish?")){
-            if (result.isPresent() && result.get() == yesButton) {
+            if (result.isPresent() && result.get() == yesButton && Dish.isDishNameUnique("Change name")) {
                 name_field.setText("Change name");
                 ingredients_field.setText("Change ingredients");
                 info_field.setText("Change info");
-                price_field.setText("0.00");
+                price_field.setText("0.0");
 
                 Dish newDish = new Dish("Change name", "Change ingredients", "Change info",0);
 
@@ -217,6 +217,8 @@ public class AdminPageDishesController extends AdminPageControllerAbstract{
                 dish_table.getSelectionModel().select(newDish);
 
                 Dish.insertDish(newDish, restaurant.getName(),"Available");
+            }else {
+                System.out.println("Fill empty dish firstly");
             }
         }
 

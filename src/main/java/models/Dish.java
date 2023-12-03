@@ -149,9 +149,9 @@ public class Dish {
 
             int rowsAffected = statement.executeUpdate();
             if (rowsAffected > 0) {
-                System.out.println("Dish status updated successfully!");
+                System.out.println("Dish status in (Restaurant_Dishes) updated successfully!");
             } else {
-                System.out.println("Failed to update dish status. Make sure the dish and restaurant exist.");
+                System.out.println("Failed to update dish status in (Restaurant_Dishes). Make sure the dish and restaurant exist.");
             }
 
         } catch (SQLException e) {
@@ -194,7 +194,7 @@ public class Dish {
         }
     }
 
-    private static boolean isDishNameUnique(String dishName) {
+    public static boolean isDishNameUnique(String dishName) {
         try (Connection connection = DatabaseConnection.getConnection();
              PreparedStatement statement = connection.prepareStatement("SELECT * FROM Dishes WHERE Name=?")) {
             statement.setString(1, dishName);

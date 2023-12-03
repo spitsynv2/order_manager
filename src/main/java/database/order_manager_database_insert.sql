@@ -10,9 +10,9 @@ INSERT INTO Dishes (Name, Ingredients, Additional_info, Price) VALUES
 
 -- Insert data into the Restaurant_Dishes table
 INSERT INTO Restaurant_Dishes (Dishes_Name, Restaurant_Name, Dish_status) VALUES
-('Spaghetti Carbonara', 'Sample Restaurant', 'Available'),
-('Margherita Pizza', 'Sample Restaurant', 'Available'),
-('Caesar Salad', 'Sample Restaurant', 'Available');
+('Spaghetti Carbonara', 'Restaurant', 'Available'),
+('Margherita Pizza', 'Restaurant', 'Available'),
+('Caesar Salad', 'Restaurant', 'Available');
 
 -- Insert data into the Users table
 INSERT INTO Users (Name, Password, Permission) VALUES
