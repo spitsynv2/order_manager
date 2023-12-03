@@ -8,7 +8,7 @@ import java.sql.SQLException;
 
 public class DatabaseConnection {
     private static Connection connection;
-    private static final String dbName = "order_manager_database";
+    private static final String dbName = "order_manager_database.db";
     private static final String dbDirectory = System.getProperty("user.home") + File.separator + "database";
     private static final String dbFilePath = dbDirectory + File.separator + dbName;
     private static final String DB_URL = "jdbc:sqlite:" + dbFilePath;

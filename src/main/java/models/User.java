@@ -104,7 +104,7 @@ public class User {
             String insertQuery = "INSERT INTO Restaurant_Users (User_Id, Restaurant_Id) VALUES (?, ?)";
             PreparedStatement statement = connection.prepareStatement(insertQuery);
             statement.setInt(1, user.getId());
-            statement.setString(2, restaurant.getName());
+            statement.setInt(2, restaurant.getId());
 
             statement.executeUpdate();
             statement.close();

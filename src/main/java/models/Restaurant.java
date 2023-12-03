@@ -196,7 +196,7 @@ public class Restaurant {
         try {
             Connection connection = DatabaseConnection.getConnection();
 
-            String updatePrintDetailsQuery = "UPDATE Print_details SET Paper_size = ?, Additional_info = ?, Restaurant_Name = ? WHERE Restaurant_Id = ?";
+            String updatePrintDetailsQuery = "UPDATE Print_details SET Paper_size = ?, Additional_info = ? WHERE Restaurant_Id = ?";
             PreparedStatement statement = connection.prepareStatement(updatePrintDetailsQuery);
 
             statement.setString(1, restaurant.paperSize);
@@ -207,8 +207,7 @@ public class Restaurant {
                 statement.setString(2, "");
             }
 
-            statement.setString(3, restaurant.name);
-            statement.setInt(4, restaurant.id);
+            statement.setInt(3, restaurant.id);
 
             statement.executeUpdate();
             statement.close();

@@ -244,6 +244,14 @@ public class AdminPageUserInfoController extends AdminPageControllerAbstract {
                         }
 
                     }
+                }else {
+                    String errorMessage = "Cannot delete empty or admin user";
+                    alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Error");
+                    alert.setHeaderText(null);
+                    alert.setContentText(errorMessage);
+                    alert.initOwner(stage);
+                    alert.showAndWait();
                 }
 
             }

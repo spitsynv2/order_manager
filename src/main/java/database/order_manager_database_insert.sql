@@ -29,7 +29,7 @@ INSERT INTO Users (Name, Password, Permission) VALUES
 ('UserTest4', 'password123', 1);
 
 -- Insert data into the Restaurant_Users table
-INSERT INTO Restaurant_Users (User_Id, Restaurant_Name) VALUES
+INSERT INTO Restaurant_Users (User_Id, Restaurant_Id) VALUES
 (1, 1),
 (2, 1),
 (3, 1),
@@ -37,14 +37,19 @@ INSERT INTO Restaurant_Users (User_Id, Restaurant_Name) VALUES
 (5, 1);
 
 -- Insert data into the Orders table
-INSERT INTO Orders (Id, Date, Payment_type, Status) VALUES
-(1, '2023-10-27 12:00:00', 'Credit Card', 'Completed'),
-(2, '2023-10-28 13:30:00', 'Cash', 'Pending');
+INSERT INTO Orders (Date, Payment_type, Status) VALUES
+('2023-10-27 12:00:00', 'Credit Card', 'Completed'),
+('2023-10-28 13:30:00', 'Cash', 'Pending');
 
 -- Insert data into the Orders_Dishes table
-INSERT INTO Orders_Dishes (Orders_Id, Dishes_Id) VALUES
+INSERT INTO Orders_Dishes (Orders_Id, Dishes_Id, Dish_Name) VALUES
+(1, 1, 'Margherita Pizza'),
+(2, 2, 'Caesar Salad');
+
+-- Insert data into the Orders_Restaurant table
+INSERT INTO Orders_Restaurant (Orders_Id, Restaurant_Id) VALUES
 (1, 1),
-(2, 2);
+(2, 1);
 
 -- Insert data into the Users_Orders table
 INSERT INTO Users_Orders (Users_Id, Orders_Id) VALUES
@@ -52,5 +57,5 @@ INSERT INTO Users_Orders (Users_Id, Orders_Id) VALUES
 (1, 2);
 
 -- Insert data into the Print_details table
-INSERT INTO Print_details (Dishes_Id, Paper_size, Additional_info) VALUES
+INSERT INTO Print_details (Restaurant_Id, Paper_size, Additional_info) VALUES
 (1, '55mm', 'Discounts,'||char(10)||'some special info');

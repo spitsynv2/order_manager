@@ -220,7 +220,7 @@
                <children>
                   <VBox alignment="CENTER" layoutX="113.0" layoutY="149.0" spacing="55.0" AnchorPane.rightAnchor="550.0" />
                   <Line endX="854.0" endY="6.0" layoutX="109.0" layoutY="66.0" startX="-109.0" startY="6.0" style="-fx-stroke: #2B2D30; -fx-stroke-width: 3.5;" />
-                  <GridPane fx:id="keyboard" layoutX="39.0" layoutY="721.0" prefHeight="200.0" prefWidth="900.0" AnchorPane.bottomAnchor="30.0">
+                  <GridPane fx:id="keyboard" layoutX="39.0" layoutY="721.0" prefHeight="200.0" prefWidth="900.0" AnchorPane.bottomAnchor="35.0" AnchorPane.leftAnchor="32.0" AnchorPane.rightAnchor="32.0" AnchorPane.topAnchor="716.0">
                     <columnConstraints>
                       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                     </columnConstraints>

@@ -42,8 +42,6 @@ public class AdminPageDishesController extends AdminPageControllerAbstract{
         labels = new Label[]{name_label, price_label, ingredients_label, info_label};
         createKeyboard();
 
-        //TODO DATABASE RETRIEVE DATA
-
         List<Dish> dishList = Dish.retrieveAllDishes();
         fillTable(dishList);
 
@@ -101,25 +99,26 @@ public class AdminPageDishesController extends AdminPageControllerAbstract{
     }
 
     private void fillTable(List<Dish> dishList){
-        TableColumn<User, Integer> id_column = new TableColumn<>("Name");
-        TableColumn<User, String> name_column = new TableColumn<>("Ingredients");
-        TableColumn<User, String> password_column = new TableColumn<>("Info");
-        TableColumn<User, Integer> permission_column = new TableColumn<>("Price");
+        TableColumn<User, Integer> name_column = new TableColumn<>("Name");
+        TableColumn<User, String> ingredients_column = new TableColumn<>("Ingredients");
+        TableColumn<User, String> info_column = new TableColumn<>("Info");
+        TableColumn<User, Integer> price_column = new TableColumn<>("Price");
 
-        id_column.setCellValueFactory(new PropertyValueFactory<>("name"));
-        name_column.setCellValueFactory(new PropertyValueFactory<>("ingredients"));
-        password_column.setCellValueFactory(new PropertyValueFactory<>("info"));
-        permission_column.setCellValueFactory(new PropertyValueFactory<>("price"));
+
+        name_column.setCellValueFactory(new PropertyValueFactory<>("name"));
+        ingredients_column.setCellValueFactory(new PropertyValueFactory<>("ingredients"));
+        info_column.setCellValueFactory(new PropertyValueFactory<>("info"));
+        price_column.setCellValueFactory(new PropertyValueFactory<>("price"));
 
         // Can adjust the size
-        id_column.setPrefWidth(100);
-        name_column.setPrefWidth(167);
-        password_column.setPrefWidth(167);
-        permission_column.setPrefWidth(75);
+        name_column.setPrefWidth(100);
+        ingredients_column.setPrefWidth(167);
+        info_column.setPrefWidth(167);
+        price_column.setPrefWidth(75);
 
         dish_table.setMouseTransparent(true);
 
-        dish_table.getColumns().addAll(id_column, name_column, password_column, permission_column);
+        dish_table.getColumns().addAll(name_column, ingredients_column, info_column, price_column);
 
         dish_table.setItems(FXCollections.observableArrayList(dishList));
     }
@@ -158,6 +157,7 @@ public class AdminPageDishesController extends AdminPageControllerAbstract{
         Dish selectedDish = (Dish) dish_table.getSelectionModel().getSelectedItem();
 
         if (selectedDish != null) {
+            String oldName = selectedDish.getName();
             String newName = name_field.getText();
             double newPrice = Double.parseDouble(price_field.getText());
             String newIngredients = ingredients_field.getText();
@@ -169,6 +169,20 @@ public class AdminPageDishesController extends AdminPageControllerAbstract{
                     || !selectedDish.getIngredients().equals(newIngredients)
                     || !selectedDish.getInfo().equals(newInfo))
             {
+
+                if (!Dish.isDishNameUnique(newName) && !newName.equals(oldName)) {
+                    String errorMessage = "Dish with the same name already exists. Please choose a different name.";
+
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Error");
+                    alert.setHeaderText(null);
+                    alert.setContentText(errorMessage);
+                    alert.initOwner(stage);
+                    alert.showAndWait();
+
+                    return;
+                }
+
                 selectedDish.setName(newName);
                 selectedDish.setIngredients(newIngredients);
                 selectedDish.setPrice(newPrice);

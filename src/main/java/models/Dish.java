@@ -1,6 +1,8 @@
 package models;
 
 import database.DatabaseConnection;
+import javafx.scene.control.Alert;
+import javafx.stage.Stage;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -78,11 +80,6 @@ public class Dish {
     }
 
     public static void updateDish(Dish dish) {
-
-        if (!isDishNameUnique(dish.getName())) {
-            System.out.println("Dish with the same name already exists. Please choose a different name.");
-            return;
-        }
 
         try (Connection connection = DatabaseConnection.getConnection();
              PreparedStatement statement = connection.prepareStatement(
