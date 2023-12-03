@@ -230,7 +230,7 @@
                            </styleClass>
                         </TextField>
                         <Label fx:id="ingredients_label" styleClass="text_label_black_medium" text="Ingredients" />
-                        <TextArea fx:id="ingredients_field" prefHeight="135.0" prefWidth="350.0" text="Spaghetti,&#10;Eggs,&#10;Pancetta,&#10;Parmesan cheese">
+                        <TextArea fx:id="ingredients_field" onMouseClicked="#handleFieldClicked" prefHeight="135.0" prefWidth="350.0" text="Spaghetti,&#10;Eggs,&#10;Pancetta,&#10;Parmesan cheese">
                            <styleClass>
                               <String fx:value="small_text_label_black" />
                               <String fx:value="shadow_black" />
@@ -263,7 +263,7 @@
                            </styleClass>
                         </TextField>
                         <Label fx:id="info_label" styleClass="text_label_black_medium" text="Info" />
-                        <TextArea fx:id="info_field" prefHeight="135.0" prefWidth="350.0" text="Classic Italian dish">
+                        <TextArea fx:id="info_field" onMouseClicked="#handleFieldClicked" prefHeight="135.0" prefWidth="350.0" text="Classic Italian dish">
                            <styleClass>
                               <String fx:value="small_text_label_black" />
                               <String fx:value="shadow_black" />

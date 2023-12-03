@@ -4,9 +4,16 @@ INSERT INTO Restaurant (Name, Address, Phone, Email, Tax) VALUES
 
 -- Insert data into the Dishes table
 INSERT INTO Dishes (Name, Ingredients, Additional_info, Price) VALUES
-('Spaghetti Carbonara', 'Spaghetti, Eggs, Pancetta, Parmesan cheese', 'Classic Italian dish', 12.99),
-('Margherita Pizza', 'Pizza dough, Tomato sauce, Mozzarella cheese, Basil', 'Traditional pizza', 10.99),
-('Caesar Salad', 'Romaine lettuce, Caesar dressing, Croutons, Parmesan cheese', 'Fresh and crispy', 8.99);
+('Margherita Pizza',
+ 'Pizza dough, ' || char(10) ||
+ 'Tomato sauce, ' || char(10) ||
+ 'Mozzarella cheese, ' || char(10) ||
+ 'Basil', 'Traditional pizza', 10.99),
+('Caesar Salad',
+ 'Romaine lettuce, ' || char(10) ||
+ 'Caesar dressing, ' || char(10) ||
+ 'Croutons, ' || char(10) ||
+ 'Parmesan cheese', 'Fresh and crispy', 8.99);
 
 -- Insert data into the Restaurant_Dishes table
 INSERT INTO Restaurant_Dishes (Dishes_Name, Restaurant_Name, Dish_status) VALUES
