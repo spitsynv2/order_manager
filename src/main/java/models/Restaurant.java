@@ -183,6 +183,28 @@ public class Restaurant {
         }
     }
 
+    public static void updateRestaurantNameDishes(String oldRestaurantName, String newRestaurantName) {
+        try (Connection connection = DatabaseConnection.getConnection();
+             PreparedStatement statement = connection.prepareStatement(
+                     "UPDATE Restaurant_Dishes SET Restaurant_Name=? WHERE Restaurant_Name=?")) {
+
+            statement.setString(1, newRestaurantName);
+            statement.setString(2, oldRestaurantName);
+
+            int rowsAffected = statement.executeUpdate();
+            if (rowsAffected > 0) {
+                System.out.println("Restaurant name updated successfully in Restaurant_Dishes!");
+            } else {
+                System.out.println("No records found for the given old restaurant name.");
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            DatabaseConnection.closeConnection();
+        }
+    }
+
     public static void updateDetails(Restaurant restaurant, String oldName) {
         try {
             Connection connection = DatabaseConnection.getConnection();

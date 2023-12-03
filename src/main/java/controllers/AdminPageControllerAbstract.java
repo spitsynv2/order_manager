@@ -343,4 +343,14 @@ public abstract class AdminPageControllerAbstract {
         stage.getScene().setRoot(root);
     }
 
+    @FXML
+    protected void goToDishesView() throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("/fxml_files/admin-dishes-page-view.fxml")));
+        Parent root = fxmlLoader.load();
+        AdminPageDishesController controller = fxmlLoader.getController();
+        controller.initializeWithData(user);
+        controller.setStage(stage);
+        stage.getScene().setRoot(root);
+    }
+
 }

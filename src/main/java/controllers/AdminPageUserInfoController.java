@@ -34,7 +34,6 @@ public class AdminPageUserInfoController extends AdminPageControllerAbstract {
         List<String> items = new ArrayList<>();
         items.add("Admin");
         items.add("Cashier");
-        this.user = user;
 
         List<User> userList = User.retrieveAllUsers();
         fillTable(userList);

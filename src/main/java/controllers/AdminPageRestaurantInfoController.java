@@ -1,5 +1,7 @@
 package controllers;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
@@ -44,6 +46,16 @@ public class AdminPageRestaurantInfoController extends AdminPageControllerAbstra
         tax_field.setText(restaurant.getTax()+"");
         info_field.setText(restaurant.getInfo());
         paperSize_field.setText(restaurant.getPaperSize());
+
+        tax_field.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue,
+                                String newValue) {
+                if (!newValue.matches("\\d*\\.?\\d*")) {
+                    tax_field.setText(newValue.replaceAll("[^\\d.]+", "").replaceAll("(\\.\\d*)\\.", "$1"));
+                }
+            }
+        });
     }
 
     @Override
@@ -98,7 +110,7 @@ public class AdminPageRestaurantInfoController extends AdminPageControllerAbstra
         restaurant.setInfo(info_field.getText());
         restaurant.setPaperSize(paperSize_field.getText());
         Restaurant.updateDetails(restaurant,oldName);
-
+        Restaurant.updateRestaurantNameDishes(oldName,restaurant.getName());
     }
 
     @FXML
@@ -117,6 +129,7 @@ public class AdminPageRestaurantInfoController extends AdminPageControllerAbstra
         restaurant.setInfo(info_field.getText());
         restaurant.setPaperSize(paperSize_field.getText());
         Restaurant.updateDetails(restaurant,oldName);
+        Restaurant.updateRestaurantNameDishes(oldName,restaurant.getName());
     }
 
 }

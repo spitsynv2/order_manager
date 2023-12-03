@@ -65,7 +65,7 @@
                   <Insets left="-24.0" />
                </padding>
             </Button>
-            <Button fx:id="dishesButton" mnemonicParsing="false" prefHeight="95.0" prefWidth="520.0" text=" Dishes">
+            <Button fx:id="dishesButton" mnemonicParsing="false" onMouseClicked="#goToDishesView" prefHeight="95.0" prefWidth="520.0" text=" Dishes">
                <graphic>
                   <VBox>
                      <children>
