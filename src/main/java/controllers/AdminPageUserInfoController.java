@@ -170,7 +170,6 @@ public class AdminPageUserInfoController extends AdminPageControllerAbstract {
                 selectedUser.setPermission(newPermission);
 
                 User.updateUser(selectedUser);
-                User.updateRestaurantUser(selectedUser,restaurant);
                 user_table.refresh();
             }
         }
@@ -221,7 +220,7 @@ public class AdminPageUserInfoController extends AdminPageControllerAbstract {
                 User selectedUser = (User) user_table.getSelectionModel().getSelectedItem();
 
                 if (selectedUser != null && selectedUser.getId() != 1) {
-                    User.deleteUser(selectedUser);
+                    User.deleteUser(selectedUser,restaurant.getId());
                     user_table.getItems().remove(selectedUser);
 
                     int selectedIndex = user_table.getSelectionModel().getSelectedIndex();

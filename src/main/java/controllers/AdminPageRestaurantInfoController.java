@@ -96,40 +96,40 @@ public class AdminPageRestaurantInfoController extends AdminPageControllerAbstra
 
     @FXML
     private void handleChangeDataButton() {
-        String oldName = restaurant.getName();
+        int id = restaurant.getId();
 
         restaurant = new Restaurant(
+                id,
                 name_field.getText(),
                 address_field.getText(),
                 phone_field.getText(),
                 email_field.getText(),
                 Double.parseDouble(tax_field.getText())
         );
-        Restaurant.updateRestaurant(restaurant,oldName);
+        Restaurant.updateRestaurant(restaurant);
 
         restaurant.setInfo(info_field.getText());
         restaurant.setPaperSize(paperSize_field.getText());
-        Restaurant.updateDetails(restaurant,oldName);
-        Restaurant.updateRestaurantNameDishes(oldName,restaurant.getName());
+        Restaurant.updateDetails(restaurant);
     }
 
     @FXML
     private void handleChangeDataAdditionalButton(){
-        String oldName = restaurant.getName();
+        int id = restaurant.getId();
 
         restaurant = new Restaurant(
+                id,
                 name_field.getText(),
                 address_field.getText(),
                 phone_field.getText(),
                 email_field.getText(),
                 Double.parseDouble(tax_field.getText())
         );
-        Restaurant.updateRestaurant(restaurant,oldName);
+        Restaurant.updateRestaurant(restaurant);
 
         restaurant.setInfo(info_field.getText());
         restaurant.setPaperSize(paperSize_field.getText());
-        Restaurant.updateDetails(restaurant,oldName);
-        Restaurant.updateRestaurantNameDishes(oldName,restaurant.getName());
+        Restaurant.updateDetails(restaurant);
     }
 
 }

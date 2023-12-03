@@ -101,7 +101,7 @@ public class User {
         try {
             Connection connection = DatabaseConnection.getConnection();
 
-            String insertQuery = "INSERT INTO Restaurant_Users (User_Id, Restaurant_Name) VALUES (?, ?)";
+            String insertQuery = "INSERT INTO Restaurant_Users (User_Id, Restaurant_Id) VALUES (?, ?)";
             PreparedStatement statement = connection.prepareStatement(insertQuery);
             statement.setInt(1, user.getId());
             statement.setString(2, restaurant.getName());
@@ -116,30 +116,17 @@ public class User {
         }
     }
 
-    public static void updateRestaurantUser(User user, Restaurant restaurant) {
+    public static void deleteUser(User user,int restaurantId) {
         try {
             Connection connection = DatabaseConnection.getConnection();
 
-            String insertQuery = "UPDATE Restaurant_Users SET User_Id = ?, Restaurant_Name = ? WHERE User_Id = ? AND Restaurant_Name = ?";
-            PreparedStatement statement = connection.prepareStatement(insertQuery);
-            statement.setInt(1, user.getId());
-            statement.setString(2, restaurant.getName());
-            statement.setInt(3, user.getId());
-            statement.setString(4, restaurant.getName());
-
-            statement.executeUpdate();
-            statement.close();
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            DatabaseConnection.closeConnection();
-        }
-    }
-
-    public static void deleteUser(User user) {
-        try {
-            Connection connection = DatabaseConnection.getConnection();
+            // Delete the user from the Restaurant_Users table
+            String deleteRestaurantQuery = "DELETE FROM Restaurant_Users WHERE User_Id = ? AND Restaurant_Id = ?";
+            PreparedStatement deleteRestaurantStatement = connection.prepareStatement(deleteRestaurantQuery);
+            deleteRestaurantStatement.setInt(1, user.getId());
+            deleteRestaurantStatement.setInt(2, restaurantId);
+            deleteRestaurantStatement.executeUpdate();
+            deleteRestaurantStatement.close();
 
             // Delete the user from the Users table
             String deleteQuery = "DELETE FROM Users WHERE ID = ?";
@@ -147,13 +134,6 @@ public class User {
             deleteStatement.setInt(1, user.getId());
             deleteStatement.executeUpdate();
             deleteStatement.close();
-
-            // Delete the user from the Restaurant_Users table
-            String deleteRestaurantQuery = "DELETE FROM Restaurant_Users WHERE User_Id = ?";
-            PreparedStatement deleteRestaurantStatement = connection.prepareStatement(deleteRestaurantQuery);
-            deleteRestaurantStatement.setInt(1, user.getId());
-            deleteRestaurantStatement.executeUpdate();
-            deleteRestaurantStatement.close();
 
         } catch (SQLException e) {
             e.printStackTrace();

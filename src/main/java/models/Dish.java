@@ -2,14 +2,12 @@ package models;
 
 import database.DatabaseConnection;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Dish {
+    private int id;
     private String name;
     private String ingredients;
     private String info;
@@ -47,7 +45,8 @@ public class Dish {
         this.price = price;
     }
 
-    public Dish(String name, String ingredients, String info, double price) {
+    public Dish(int id, String name, String ingredients, String info, double price) {
+        this.id = id;
         this.name = name;
         this.ingredients = ingredients;
         this.info = info;
@@ -61,11 +60,12 @@ public class Dish {
              ResultSet resultSet = statement.executeQuery()) {
 
             while (resultSet.next()) {
+                int id = resultSet.getInt("Id");
                 String name = resultSet.getString("Name");
                 String ingredients = resultSet.getString("Ingredients");
                 String info = resultSet.getString("Additional_info");
                 double price = resultSet.getDouble("Price");
-                Dish dish = new Dish(name, ingredients, info, price);
+                Dish dish = new Dish(id,name, ingredients, info, price);
                 dishList.add(dish);
             }
 
@@ -77,22 +77,22 @@ public class Dish {
         return dishList;
     }
 
-    public static void updateDish(Dish dish,String oldName) {
+    public static void updateDish(Dish dish) {
 
-        if (!isDishNameUnique(dish.getName()) && !dish.getName().equals(oldName)) {
+        if (!isDishNameUnique(dish.getName())) {
             System.out.println("Dish with the same name already exists. Please choose a different name.");
             return;
         }
 
         try (Connection connection = DatabaseConnection.getConnection();
              PreparedStatement statement = connection.prepareStatement(
-                     "UPDATE Dishes SET Ingredients=?, Additional_info=?, Price=?, Name=? WHERE Name=?")) {
+                     "UPDATE Dishes SET Ingredients=?, Additional_info=?, Price=?, Name=? WHERE Id=?")) {
 
             statement.setString(1, dish.getIngredients());
             statement.setString(2, dish.getInfo());
             statement.setDouble(3, dish.getPrice());
             statement.setString(4, dish.getName());
-            statement.setString(5, oldName);
+            statement.setInt(5, dish.id);
 
             int rowsAffected = statement.executeUpdate();
             if (rowsAffected > 0) {
@@ -109,19 +109,20 @@ public class Dish {
     }
 
 
-    public static void deleteDish(String dishName) {
+    public static void deleteDish(Dish dish,int restaurantId) {
         try (Connection connection = DatabaseConnection.getConnection()) {
 
             try (PreparedStatement statement1 = connection.prepareStatement(
-                    "DELETE FROM Restaurant_Dishes WHERE Dishes_Name=?")) {
-                statement1.setString(1, dishName);
+                    "DELETE FROM Restaurant_Dishes WHERE Dishes_Id=? AND Restaurant_Id=?")) {
+                statement1.setInt(1, dish.id);
+                statement1.setInt(2, restaurantId);
                 statement1.executeUpdate();
             }
 
 
             try (PreparedStatement statement2 = connection.prepareStatement(
-                    "DELETE FROM Dishes WHERE Name=?")) {
-                statement2.setString(1, dishName);
+                    "DELETE FROM Dishes WHERE Id=?")) {
+                statement2.setInt(1, dish.id);
                 int rowsAffected = statement2.executeUpdate();
                 if (rowsAffected > 0) {
                     System.out.println("Dish deleted successfully!");
@@ -137,15 +138,14 @@ public class Dish {
         }
     }
 
-    public static void updateDishStatus(String dishName, String restaurantName, String newStatus, String oldName) {
+    public static void updateDishStatus(Dish dish, int restaurantId, String newStatus) {
         try (Connection connection = DatabaseConnection.getConnection();
              PreparedStatement statement = connection.prepareStatement(
-                     "UPDATE Restaurant_Dishes SET Dish_status=?, Dishes_Name=? WHERE Dishes_Name=? AND Restaurant_Name=?")) {
+                     "UPDATE Restaurant_Dishes SET Dish_status=? WHERE Dishes_Id=? AND Restaurant_Id=?")) {
 
             statement.setString(1, newStatus);
-            statement.setString(2, dishName);
-            statement.setString(3, oldName);
-            statement.setString(4, restaurantName);
+            statement.setInt(2, dish.id);
+            statement.setInt(3, restaurantId);
 
             int rowsAffected = statement.executeUpdate();
             if (rowsAffected > 0) {
@@ -161,7 +161,7 @@ public class Dish {
         }
     }
 
-    public static void insertDish(Dish dish, String restaurantName, String dishStatus) {
+    public static void insertDish(Dish dish, int restaurantId, String dishStatus) {
         try (Connection connection = DatabaseConnection.getConnection()) {
 
             if (!isDishNameUnique(dish.getName())) {
@@ -180,9 +180,9 @@ public class Dish {
 
 
             try (PreparedStatement statement = connection.prepareStatement(
-                    "INSERT INTO Restaurant_Dishes (Dishes_Name, Restaurant_Name, Dish_status) VALUES (?, ?, ?)")) {
-                statement.setString(1, dish.getName());
-                statement.setString(2, restaurantName);
+                    "INSERT INTO Restaurant_Dishes (Dishes_Id, Restaurant_Id, Dish_status) VALUES (?, ?, ?)")) {
+                statement.setInt(1, dish.id);
+                statement.setInt(2, restaurantId);
                 statement.setString(3, dishStatus);
                 statement.executeUpdate();
             }
@@ -205,5 +205,29 @@ public class Dish {
             e.printStackTrace();
         }
         return false; // Return false in case of an exception
+    }
+
+    public static int getNextDishId() {
+        int nextUserId = -1;
+
+        try {
+            Connection connection = DatabaseConnection.getConnection();
+            String query = "SELECT seq FROM sqlite_sequence WHERE name = 'Dishes'";
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(query);
+
+            if (resultSet.next()) {
+                nextUserId = resultSet.getInt("seq") + 1;
+            }
+
+            resultSet.close();
+            statement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            DatabaseConnection.closeConnection();
+        }
+
+        return nextUserId;
     }
 }

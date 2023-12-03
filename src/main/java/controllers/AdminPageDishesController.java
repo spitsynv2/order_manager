@@ -159,7 +159,6 @@ public class AdminPageDishesController extends AdminPageControllerAbstract{
 
         if (selectedDish != null) {
             String newName = name_field.getText();
-            String oldName = selectedDish.getName();
             double newPrice = Double.parseDouble(price_field.getText());
             String newIngredients = ingredients_field.getText();
             String newInfo = info_field.getText();
@@ -175,8 +174,7 @@ public class AdminPageDishesController extends AdminPageControllerAbstract{
                 selectedDish.setPrice(newPrice);
                 selectedDish.setInfo(newInfo);
 
-                Dish.updateDish(selectedDish,oldName);
-                Dish.updateDishStatus(selectedDish.getName(),restaurant.getName(),"Available",oldName);
+                Dish.updateDish(selectedDish);
                 dish_table.refresh();
             }
         }
@@ -210,13 +208,15 @@ public class AdminPageDishesController extends AdminPageControllerAbstract{
                 info_field.setText("Change info");
                 price_field.setText("0.0");
 
-                Dish newDish = new Dish("Change name", "Change ingredients", "Change info",0);
+                int id = Dish.getNextDishId();
+
+                Dish newDish = new Dish(id,"Change name", "Change ingredients", "Change info",0);
 
                 dish_table.getItems().add(newDish);
 
                 dish_table.getSelectionModel().select(newDish);
 
-                Dish.insertDish(newDish, restaurant.getName(),"Available");
+                Dish.insertDish(newDish, restaurant.getId(),"Available");
             }else {
                 System.out.println("Fill empty dish firstly");
             }
@@ -228,7 +228,7 @@ public class AdminPageDishesController extends AdminPageControllerAbstract{
                 Dish selectedDish = (Dish) dish_table.getSelectionModel().getSelectedItem();
 
                 if (selectedDish != null) {
-                    Dish.deleteDish(selectedDish.getName());
+                    Dish.deleteDish(selectedDish,restaurant.getId());
                     dish_table.getItems().remove(selectedDish);
 
                     int selectedIndex = dish_table.getSelectionModel().getSelectedIndex();

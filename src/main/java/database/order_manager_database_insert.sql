@@ -16,10 +16,9 @@ INSERT INTO Dishes (Name, Ingredients, Additional_info, Price) VALUES
  'Parmesan cheese', 'Fresh and crispy', 8.99);
 
 -- Insert data into the Restaurant_Dishes table
-INSERT INTO Restaurant_Dishes (Dishes_Name, Restaurant_Name, Dish_status) VALUES
-('Spaghetti Carbonara', 'Restaurant', 'Available'),
-('Margherita Pizza', 'Restaurant', 'Available'),
-('Caesar Salad', 'Restaurant', 'Available');
+INSERT INTO Restaurant_Dishes (Dishes_Id, Restaurant_Id, Dish_status) VALUES
+(1,1, 'Available'),
+(2,1, 'Available');
 
 -- Insert data into the Users table
 INSERT INTO Users (Name, Password, Permission) VALUES
@@ -31,11 +30,11 @@ INSERT INTO Users (Name, Password, Permission) VALUES
 
 -- Insert data into the Restaurant_Users table
 INSERT INTO Restaurant_Users (User_Id, Restaurant_Name) VALUES
-(1, 'Restaurant'),
-(2, 'Restaurant'),
-(3, 'Restaurant'),
-(4, 'Restaurant'),
-(5, 'Restaurant');
+(1, 1),
+(2, 1),
+(3, 1),
+(4, 1),
+(5, 1);
 
 -- Insert data into the Orders table
 INSERT INTO Orders (Id, Date, Payment_type, Status) VALUES
@@ -43,10 +42,9 @@ INSERT INTO Orders (Id, Date, Payment_type, Status) VALUES
 (2, '2023-10-28 13:30:00', 'Cash', 'Pending');
 
 -- Insert data into the Orders_Dishes table
-INSERT INTO Orders_Dishes (Orders_Id, Dishes_Name) VALUES
-(1, 'Spaghetti Carbonara'),
-(1, 'Margherita Pizza'),
-(2, 'Caesar Salad');
+INSERT INTO Orders_Dishes (Orders_Id, Dishes_Id) VALUES
+(1, 1),
+(2, 2);
 
 -- Insert data into the Users_Orders table
 INSERT INTO Users_Orders (Users_Id, Orders_Id) VALUES
@@ -54,5 +52,5 @@ INSERT INTO Users_Orders (Users_Id, Orders_Id) VALUES
 (1, 2);
 
 -- Insert data into the Print_details table
-INSERT INTO Print_details (Restaurant_Name, Paper_size, Additional_info) VALUES
-('Restaurant', '55mm', 'Discounts,'||char(10)||'some special info');
+INSERT INTO Print_details (Dishes_Id, Paper_size, Additional_info) VALUES
+(1, '55mm', 'Discounts,'||char(10)||'some special info');

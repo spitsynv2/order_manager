@@ -9,6 +9,7 @@ import java.sql.SQLException;
 
 public class Restaurant {
 
+    private int id;
     private String name;
     private String address;
     private String phone;
@@ -17,7 +18,8 @@ public class Restaurant {
     private String info;
     private double tax = 23;
 
-    public Restaurant(String name, String address, String phone, String email, double tax){
+    public Restaurant(int id, String name, String address, String phone, String email, double tax){
+        this.id = id;
         this.name = name;
         this.address = address;
         this.phone = phone;
@@ -61,6 +63,10 @@ public class Restaurant {
         return phone;
     }
 
+    public int getId() {
+        return id;
+    }
+
     //TODO -> setters or another implementation to change restaurant data;
 
     public void insertRestaurant(Restaurant restaurant) {
@@ -88,12 +94,14 @@ public class Restaurant {
         try {
             Connection connection = DatabaseConnection.getConnection();
 
-            String insertQuery = "INSERT INTO Print_details (Restaurant_Name, Paper_size, Additional_info) VALUES (?, ?, ?)";
+            String insertQuery = "INSERT INTO Print_details (Restaurant_Id, Paper_size, Additional_info) VALUES (?, ?, ?)";
             PreparedStatement statement = connection.prepareStatement(insertQuery);
-            statement.setString(1, restaurant.name);
+            statement.setInt(1, restaurant.id);
             statement.setString(2, restaurant.paperSize);
             if (info != null){
                 statement.setString(3, restaurant.info);
+            }else {
+                statement.setString(3, "");
             }
             statement.executeUpdate();
             statement.close();
@@ -110,18 +118,19 @@ public class Restaurant {
         try {
             Connection connection = DatabaseConnection.getConnection();
 
-            String selectQuery = "SELECT * FROM Restaurant";
+            String selectQuery = "SELECT * FROM Restaurant WHERE Id = 1";
             PreparedStatement statement = connection.prepareStatement(selectQuery);
 
             ResultSet resultSet = statement.executeQuery();
 
             if (resultSet.next()) {
+                int id = resultSet.getInt("Id");
                 String name = resultSet.getString("Name");
                 String address = resultSet.getString("Address");
                 String phone = resultSet.getString("Phone");
                 String email = resultSet.getString("Email");
                 double tax = resultSet.getDouble("Tax");
-                restaurant = new Restaurant(name, address, phone, email, tax);
+                restaurant = new Restaurant(id,name, address, phone, email, tax);
             }
 
             resultSet.close();
@@ -139,7 +148,7 @@ public class Restaurant {
         try {
             Connection connection = DatabaseConnection.getConnection();
 
-            String selectQuery = "SELECT Paper_size, Additional_info FROM Print_details";
+            String selectQuery = "SELECT Paper_size, Additional_info FROM Print_details WHERE Restaurant_Id = 1";
             PreparedStatement statement = connection.prepareStatement(selectQuery);
 
             ResultSet resultSet = statement.executeQuery();
@@ -160,18 +169,18 @@ public class Restaurant {
         }
     }
 
-    public static void updateRestaurant(Restaurant restaurant, String oldName) {
+    public static void updateRestaurant(Restaurant restaurant) {
         try {
             Connection connection = DatabaseConnection.getConnection();
 
-            String updateRestaurantQuery = "UPDATE Restaurant SET Address = ?, Phone = ?, Email = ?, Name = ?, Tax = ? WHERE Name = ?";
+            String updateRestaurantQuery = "UPDATE Restaurant SET Address = ?, Phone = ?, Email = ?, Name = ?, Tax = ? WHERE Id = ?";
             PreparedStatement statement = connection.prepareStatement(updateRestaurantQuery);
             statement.setString(1, restaurant.address);
             statement.setString(2, restaurant.phone);
             statement.setString(3, restaurant.email);
             statement.setString(4, restaurant.name);
             statement.setDouble(5, restaurant.tax);
-            statement.setString(6, oldName);
+            statement.setInt(6, restaurant.id);
 
             statement.executeUpdate();
             statement.close();
@@ -183,33 +192,11 @@ public class Restaurant {
         }
     }
 
-    public static void updateRestaurantNameDishes(String oldRestaurantName, String newRestaurantName) {
-        try (Connection connection = DatabaseConnection.getConnection();
-             PreparedStatement statement = connection.prepareStatement(
-                     "UPDATE Restaurant_Dishes SET Restaurant_Name=? WHERE Restaurant_Name=?")) {
-
-            statement.setString(1, newRestaurantName);
-            statement.setString(2, oldRestaurantName);
-
-            int rowsAffected = statement.executeUpdate();
-            if (rowsAffected > 0) {
-                System.out.println("Restaurant name updated successfully in Restaurant_Dishes!");
-            } else {
-                System.out.println("No records found for the given old restaurant name.");
-            }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            DatabaseConnection.closeConnection();
-        }
-    }
-
-    public static void updateDetails(Restaurant restaurant, String oldName) {
+    public static void updateDetails(Restaurant restaurant) {
         try {
             Connection connection = DatabaseConnection.getConnection();
 
-            String updatePrintDetailsQuery = "UPDATE Print_details SET Paper_size = ?, Additional_info = ?, Restaurant_Name = ? WHERE Restaurant_Name = ?";
+            String updatePrintDetailsQuery = "UPDATE Print_details SET Paper_size = ?, Additional_info = ?, Restaurant_Name = ? WHERE Restaurant_Id = ?";
             PreparedStatement statement = connection.prepareStatement(updatePrintDetailsQuery);
 
             statement.setString(1, restaurant.paperSize);
@@ -221,7 +208,7 @@ public class Restaurant {
             }
 
             statement.setString(3, restaurant.name);
-            statement.setString(4, oldName);
+            statement.setInt(4, restaurant.id);
 
             statement.executeUpdate();
             statement.close();
