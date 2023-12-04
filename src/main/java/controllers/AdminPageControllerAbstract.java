@@ -96,12 +96,14 @@ public abstract class AdminPageControllerAbstract {
             secondaryPane.getStyleClass().remove("split-paneWhite");
             secondaryPane.getStyleClass().add("split-paneDark");
 
-            keyboard.getStyleClass().remove("gridPaneTextLight");
-            keyboard.getStyleClass().add("gridPaneTextDark");
+            if (shouldUseKeyboard()) {
+                keyboard.getStyleClass().remove("gridPaneTextLight");
+                keyboard.getStyleClass().add("gridPaneTextDark");
+            }
             //VBox.setMargin(moon_sunVBox, new Insets(0, 5, 27, 25));
         }else {
             islightMode = true;
-            mainPane.setStyle("-fx-background-colo: #ffffff");
+            mainPane.setStyle("-fx-background-color: #ffffff");
             header.getStyleClass().remove("text_label_white_header");
             header.getStyleClass().add("text_label_black_header");
             moon_sun.setImage(moon);
@@ -112,8 +114,10 @@ public abstract class AdminPageControllerAbstract {
             secondaryPane.getStyleClass().remove("split-paneDark");
             secondaryPane.getStyleClass().add("split-paneWhite");
 
-            keyboard.getStyleClass().remove("gridPaneTextDark");
-            keyboard.getStyleClass().add("gridPaneTextLight");
+            if (shouldUseKeyboard()) {
+                keyboard.getStyleClass().remove("gridPaneTextDark");
+                keyboard.getStyleClass().add("gridPaneTextLight");
+            }
             //VBox.setMargin(moon_sunVBox, new Insets(0, 10, 27, 25));
         }
     }
@@ -328,7 +332,7 @@ public abstract class AdminPageControllerAbstract {
         FXMLLoader fxmlLoader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("/fxml_files/admin-userInfo-page-view.fxml")));
         Parent root = fxmlLoader.load();
         AdminPageUserInfoController controller = fxmlLoader.getController();
-        controller.initializeWithData(user);
+        controller.initializeWithData(user, islightMode);
         controller.setStage(stage);
         stage.getScene().setRoot(root);
     }
@@ -338,7 +342,7 @@ public abstract class AdminPageControllerAbstract {
         FXMLLoader fxmlLoader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("/fxml_files/admin-restaurant-page-view.fxml")));
         Parent root = fxmlLoader.load();
         AdminPageRestaurantInfoController controller = fxmlLoader.getController();
-        controller.initializeWithData(user);
+        controller.initializeWithData(user,islightMode);
         controller.setStage(stage);
         stage.getScene().setRoot(root);
     }
@@ -348,9 +352,55 @@ public abstract class AdminPageControllerAbstract {
         FXMLLoader fxmlLoader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("/fxml_files/admin-dishes-page-view.fxml")));
         Parent root = fxmlLoader.load();
         AdminPageDishesController controller = fxmlLoader.getController();
-        controller.initializeWithData(user);
+        controller.initializeWithData(user,islightMode);
         controller.setStage(stage);
         stage.getScene().setRoot(root);
+    }
+
+    @FXML
+    protected void goToMenuView() throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("/fxml_files/admin-menu-page-view.fxml")));
+        Parent root = fxmlLoader.load();
+        AdminPageMenuController controller = fxmlLoader.getController();
+        controller.initializeWithData(user,islightMode);
+        controller.setStage(stage);
+        stage.getScene().setRoot(root);
+    }
+
+    @FXML
+    protected void goToChequeView() throws IOException {
+    /*
+        FXMLLoader fxmlLoader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("/fxml_files/admin-cheque-page-view.fxml")));
+        Parent root = fxmlLoader.load();
+        AdminPageDishesController controller = fxmlLoader.getController();
+        controller.initializeWithData(user,islightMode);
+        controller.setStage(stage);
+        stage.getScene().setRoot(root);
+    */
+    }
+
+    @FXML
+    protected void goToDashboardView() throws IOException {
+    /*
+        FXMLLoader fxmlLoader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("/fxml_files/admin-dashboard-page-view.fxml")));
+        Parent root = fxmlLoader.load();
+        AdminPageDishesController controller = fxmlLoader.getController();
+        controller.initializeWithData(user,islightMode);
+        controller.setStage(stage);
+        stage.getScene().setRoot(root);
+    */
+    }
+
+    @FXML
+    protected void goToInfoView() throws IOException {
+    /*
+        FXMLLoader fxmlLoader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("/fxml_files/admin-info-page-view.fxml")));
+        Parent root = fxmlLoader.load();
+        AdminPageDishesController controller = fxmlLoader.getController();
+        controller.initializeWithData(user,islightMode);
+        controller.setStage(stage);
+        stage.getScene().setRoot(root);
+    */
     }
 
 }

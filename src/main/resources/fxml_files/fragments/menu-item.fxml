@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox fx:id="dishVbox" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="250.0" spacing="15.0" styleClass="vbox_item_black" stylesheets="@../../styles/styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.fragments.MenuItemController">
+   <children>
+      <Label fx:id="name_label" alignment="CENTER" styleClass="small_text_label_black" stylesheets="@../../styles/styles.css" text="Margherita Pizza">
+         <VBox.margin>
+            <Insets />
+         </VBox.margin></Label>
+      <Label fx:id="info_label" alignment="CENTER" styleClass="small_text_label_black" stylesheets="@../../styles/styles.css" text="Traditional pizza" />
+      <Label fx:id="price_label" alignment="CENTER" styleClass="small_text_label_black" stylesheets="@../../styles/styles.css" text="Price: 25.99" />
+      <Label fx:id="product_id" mouseTransparent="true" style="-fx-managed: false;" text="id" visible="false" />
+   </children>
+</VBox>

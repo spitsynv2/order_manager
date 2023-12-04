@@ -249,3 +249,13 @@
     -fx-border-color: transparent;
     -fx-border-width: 1px;
 }
+
+.vbox_item_black {
+    -fx-border-radius: 3;
+    -fx-border-color:  #2B2D30;
+    -fx-border-width: 3;
+}
+
+.vbox_item_selected{
+    -fx-background-color: #77cc58;
+}

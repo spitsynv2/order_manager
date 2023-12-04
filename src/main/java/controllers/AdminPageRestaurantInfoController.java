@@ -34,7 +34,7 @@ public class AdminPageRestaurantInfoController extends AdminPageControllerAbstra
 
     private Label[] labels;
 
-    public void initializeWithData(User user) {
+    public void initializeWithData(User user, boolean islightMode) {
         this.user = user;
         restaurant = Restaurant.retrieveRestaurant();
         labels = new Label[]{name_label, email_label, phone_label, address_label, tax_label, info_label, paperSize_label};
@@ -56,6 +56,10 @@ public class AdminPageRestaurantInfoController extends AdminPageControllerAbstra
                 }
             }
         });
+
+        if (!islightMode){
+            handleChangeColorMode();
+        }
     }
 
     @Override

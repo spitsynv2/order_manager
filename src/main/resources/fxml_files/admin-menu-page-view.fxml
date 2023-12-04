@@ -4,14 +4,13 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TextArea?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
@@ -19,7 +18,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" styleClass="hello_container" stylesheets="@../styles/styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AdminPageRestaurantInfoController">
+<BorderPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" styleClass="hello_container" stylesheets="@../styles/styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AdminPageMenuController">
    <left>
       <VBox fx:id="rightVBox" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="980.0" prefWidth="322.0" spacing="48.0" style="-fx-border-color: #2B2D30;" BorderPane.alignment="CENTER">
          <children>
@@ -45,7 +44,7 @@
                   <Insets left="-69.0" />
                </padding>
             </Button>
-            <Button fx:id="restaurantInfoButton" mnemonicParsing="false" prefHeight="95.0" prefWidth="520.0" styleClass="active_buttonWhite" text=" Restaurant ">
+            <Button fx:id="restaurantInfoButton" mnemonicParsing="false" onMouseClicked="#goToRestaurantView" onTouchPressed="#goToRestaurantView" prefHeight="95.0" prefWidth="520.0" text=" Restaurant ">
                <graphic>
                   <VBox>
                      <children>
@@ -83,7 +82,7 @@
                   <Insets left="-100.0" />
                </padding>
             </Button>
-            <Button fx:id="menuButton" mnemonicParsing="false" onMouseClicked="#goToMenuView" onTouchPressed="#goToMenuView" prefHeight="95.0" prefWidth="520.0" text=" Menu">
+            <Button fx:id="menuButton" mnemonicParsing="false" prefHeight="95.0" prefWidth="520.0" styleClass="active_buttonWhite" text=" Menu">
                <graphic>
                   <VBox>
                      <children>
@@ -214,111 +213,38 @@
       </VBox>
    </right>
    <center>
-      <SplitPane fx:id="secondaryPane" dividerPositions="0.651791751183232" styleClass="split-paneWhite" BorderPane.alignment="CENTER">
+      <SplitPane fx:id="secondaryPane" dividerPositions="0.6939742721733243" styleClass="split-paneWhite" BorderPane.alignment="CENTER">
         <items>
-          <AnchorPane minWidth="963.0" prefHeight="953.0" prefWidth="1050.0">
+          <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minWidth="1023.0" prefHeight="951.0" prefWidth="1023.0">
                <children>
-                  <VBox alignment="CENTER" layoutX="113.0" layoutY="149.0" spacing="55.0" AnchorPane.rightAnchor="550.0" />
-                  <Line endX="854.0" endY="6.0" layoutX="109.0" layoutY="66.0" startX="-109.0" startY="6.0" style="-fx-stroke: #2B2D30; -fx-stroke-width: 3.5;" />
-                  <GridPane fx:id="keyboard" layoutX="39.0" layoutY="721.0" prefHeight="200.0" prefWidth="900.0" AnchorPane.bottomAnchor="35.0" AnchorPane.leftAnchor="32.0" AnchorPane.rightAnchor="32.0" AnchorPane.topAnchor="716.0">
-                    <columnConstraints>
-                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                    </columnConstraints>
-                    <rowConstraints>
-                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                    </rowConstraints>
-                     <styleClass>
-                        <String fx:value="gridPaneTextLight" />
-                        <String fx:value="keyboardText" />
-                     </styleClass>
-                  </GridPane>
-                  <VBox alignment="CENTER" layoutX="14.0" layoutY="110.0" spacing="95.0" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="106.0">
-                     <children>
-                        <Label fx:id="name_label" styleClass="text_label_black_medium" text="Name" />
-                        <TextField fx:id="name_field" alignment="CENTER" onMouseClicked="#handleFieldClicked" onTouchPressed="#handleFieldClicked" prefHeight="45.0" prefWidth="320.0" text="Restaurant">
-                           <styleClass>
-                              <String fx:value="small_text_label_black" />
-                              <String fx:value="shadow_black" />
-                           </styleClass>
-                        </TextField>
-                        <Label fx:id="email_label" styleClass="text_label_black_medium" text="Email" />
-                        <TextField fx:id="email_field" alignment="CENTER" onMouseClicked="#handleFieldClicked" onTouchPressed="#handleFieldClicked" prefHeight="45.0" prefWidth="320.0" text="restaurant@gmail.com">
-                           <styleClass>
-                              <String fx:value="small_text_label_black" />
-                              <String fx:value="shadow_black" />
-                           </styleClass>
-                        </TextField>
-                     </children>
-                  </VBox>
-                  <Label fx:id="sub_header" layoutX="321.0" styleClass="text_label_black" text="Restaurant data" AnchorPane.topAnchor="10.0" />
-                  <VBox alignment="CENTER" layoutX="649.0" layoutY="110.0" prefWidth="300.0" spacing="95.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="106.0">
-                     <children>
-                        <Label fx:id="address_label" styleClass="text_label_black_medium" text="Address" />
-                        <TextArea fx:id="address_field" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#handleFieldClicked" onTouchPressed="#handleFieldClicked" prefHeight="90.0" prefWidth="320.0" text="Country, city&#10;Street name, zip">
-                           <VBox.margin>
-                              <Insets bottom="-22.5" top="-22.5" />
-                           </VBox.margin>
-                           <styleClass>
-                              <String fx:value="small_text_label_black" />
-                              <String fx:value="shadow_black" />
-                           </styleClass>
-                        </TextArea>
-                        <Label fx:id="phone_label" styleClass="text_label_black_medium" text="Phone" />
-                        <TextField fx:id="phone_field" alignment="CENTER" onMouseClicked="#handleFieldClicked" onTouchPressed="#handleFieldClicked" prefHeight="45.0" prefWidth="320.0" text="+1 234 567">
-                           <styleClass>
-                              <String fx:value="small_text_label_black" />
-                              <String fx:value="shadow_black" />
-                           </styleClass>
-                           <VBox.margin>
-                              <Insets />
-                           </VBox.margin>
-                        </TextField>
-                     </children>
-                  </VBox>
-                  <Button fx:id="submit_button_main" layoutX="332.0" layoutY="631.0" mnemonicParsing="false" onMouseClicked="#handleChangeDataButton" onTouchPressed="#handleChangeDataButton" prefHeight="45.0" prefWidth="300.0" text="Submit" AnchorPane.topAnchor="630.0">
-                     <styleClass>
-                        <String fx:value="small_text_label_white" />
-                        <String fx:value="button_submit" />
-                        <String fx:value="shadow_black" />
-                     </styleClass>
-                  </Button>
+                  <Line endX="914.0" endY="6.0" layoutX="109.0" layoutY="66.0" startX="-109.0" startY="6.0" style="-fx-stroke: #2B2D30; -fx-stroke-width: 3.5;" />
+                  <Label fx:id="sub_header" layoutX="455.0" styleClass="text_label_black" text="Menu" AnchorPane.topAnchor="10.0" />
+                  <ScrollPane fx:id="scrollPane" layoutX="25.0" layoutY="72.0" prefHeight="879.0" prefWidth="1023.0" style="-fx-border-color: #2B2D30; -fx-border-radius: 2;" styleClass="shadow_black" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="72.0">
+                     <content>
+                        <GridPane fx:id="menu_gridPane" prefHeight="0.0" prefWidth="0.0" style="-fx-background-color: #ffffff;">
+                          <rowConstraints>
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                        </GridPane>
+                     </content>
+                  </ScrollPane>
                </children></AnchorPane>
-          <AnchorPane minWidth="514.0" prefHeight="953.0" prefWidth="645.0">
+          <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minWidth="450.0" prefHeight="953.0" prefWidth="450.0">
                <children>
                   <Line endX="798.0" endY="9.0" layoutX="-281.0" layoutY="63.0" startX="278.75" startY="9.0" style="-fx-stroke: #2B2D30; -fx-stroke-width: 3.5;" />
-                  <Label fx:id="sub_header2" layoutX="116.0" styleClass="text_label_black" text="Additional info" AnchorPane.topAnchor="10.0" />
-                  <VBox alignment="CENTER" layoutX="107.0" layoutY="74.0" prefWidth="300.0" spacing="70.0" AnchorPane.topAnchor="106.0">
+                  <Label fx:id="sub_header2" layoutX="167.0" styleClass="text_label_black" text="Order" AnchorPane.topAnchor="10.0" />
+                  <VBox layoutX="12.0" layoutY="87.0" spacing="25.0">
                      <children>
-                        <Label fx:id="info_label" styleClass="text_label_black_medium" text="Additional info" />
-                        <TextArea fx:id="info_field" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#handleFieldClicked" onTouchPressed="#handleFieldClicked" prefHeight="90.0" prefWidth="320.0" text="Discounts, &#10;some special info for&#10;clients, etc">
+                        <TextArea fx:id="text_area" prefHeight="770.0" prefWidth="424.0">
                            <styleClass>
                               <String fx:value="small_text_label_black" />
                               <String fx:value="shadow_black" />
                            </styleClass>
                         </TextArea>
-                        <Label fx:id="tax_label" styleClass="text_label_black_medium" text="Tax in procent" />
-                        <TextField fx:id="tax_field" alignment="CENTER" onMouseClicked="#handleFieldClicked" onTouchPressed="#handleFieldClicked" prefHeight="45.0" prefWidth="320.0" text="23">
+                        <Button mnemonicParsing="false" onAction="#handleMakeOrder" prefHeight="50.0" prefWidth="423.0" text="Make order">
                            <styleClass>
-                              <String fx:value="small_text_label_black" />
-                              <String fx:value="shadow_black" />
-                           </styleClass>
-                           <VBox.margin>
-                              <Insets />
-                           </VBox.margin>
-                        </TextField>
-                        <Label fx:id="paperSize_label" styleClass="text_label_black_medium" text="Paper size mm" />
-                        <TextField fx:id="paperSize_field" alignment="CENTER" onMouseClicked="#handleFieldClicked" onTouchPressed="#handleFieldClicked" prefHeight="45.0" prefWidth="320.0" text="55">
-                           <styleClass>
-                              <String fx:value="small_text_label_black" />
-                              <String fx:value="shadow_black" />
-                           </styleClass>
-                        </TextField>
-                        <Button fx:id="submit_button_additional" mnemonicParsing="false" onMouseClicked="#handleChangeDataAdditionalButton" onTouchPressed="#handleChangeDataAdditionalButton" prefHeight="45.0" prefWidth="300.0" text="Submit">
-                           <styleClass>
-                              <String fx:value="small_text_label_white" />
                               <String fx:value="button_submit" />
+                              <String fx:value="small_text_label_white" />
                               <String fx:value="shadow_black" />
                            </styleClass>
                         </Button>

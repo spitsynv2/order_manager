@@ -44,7 +44,7 @@
                   <Insets left="1388.0" />
                </HBox.margin>
                <children>
-                  <ImageView fx:id="exit" blendMode="EXCLUSION" fitHeight="65.0" fitWidth="65.0" onMouseClicked="#handleExitButton" pickOnBounds="true" styleClass="image_hover">
+                  <ImageView fx:id="exit" blendMode="EXCLUSION" fitHeight="65.0" fitWidth="65.0" onTouchPressed="#handleExitButton" onMouseClicked="#handleExitButton" pickOnBounds="true" styleClass="image_hover">
                      <image>
                         <Image url="@../images/exit.png" />
                      </image>
@@ -75,14 +75,14 @@
                               <Insets right="-955.0" />
                            </HBox.margin>
                            <children>
-                              <ImageView fx:id="key" blendMode="EXCLUSION" cache="true" cacheHint="SCALE_AND_ROTATE" fitHeight="65.0" fitWidth="65.0" onMouseClicked="#handleUsernameIndicatorChange" pickOnBounds="true" preserveRatio="true" styleClass="image_hover">
+                              <ImageView fx:id="key" blendMode="EXCLUSION" cache="true" cacheHint="SCALE_AND_ROTATE" fitHeight="65.0" fitWidth="65.0" onTouchPressed="#handleUsernameIndicatorChange" onMouseClicked="#handleUsernameIndicatorChange" pickOnBounds="true" preserveRatio="true" styleClass="image_hover">
                                  <image>
                                     <Image url="@../images/key.png" />
                                  </image>
                               </ImageView>
                            </children>
                         </VBox>
-                        <ImageView fx:id="board" blendMode="EXCLUSION" cache="true" cacheHint="SCALE_AND_ROTATE" fitHeight="65.0" fitWidth="65.0" onMouseClicked="#handleBoardImageClick" pickOnBounds="true" preserveRatio="true" style="-fx-focus-traversable: false;">
+                        <ImageView fx:id="board" blendMode="EXCLUSION" cache="true" cacheHint="SCALE_AND_ROTATE" fitHeight="65.0" fitWidth="65.0" onTouchPressed="#handleBoardImageClick" onMouseClicked="#handleBoardImageClick" pickOnBounds="true" preserveRatio="true" style="-fx-focus-traversable: false;">
                            <image>
                               <Image url="@../images/keyboard.png" />
                            </image>
@@ -109,7 +109,7 @@
                   </ImageView>
                </children>
             </VBox>
-            <TextField fx:id="username" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" onMouseClicked="#handleFieldClicked" prefHeight="55.0" prefWidth="300.0" promptText="Username">
+            <TextField fx:id="username" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" onTouchPressed="#handleFieldClicked" onMouseClicked="#handleFieldClicked" prefHeight="55.0" prefWidth="300.0" promptText="Username">
                <VBox.margin>
                   <Insets />
                </VBox.margin>
@@ -118,7 +118,7 @@
                   <String fx:value="shadow_black" />
                </styleClass>
             </TextField>
-            <PasswordField fx:id="password" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" onMouseClicked="#handleFieldClicked" prefHeight="55.0" prefWidth="300.0" promptText="Password">
+            <PasswordField fx:id="password" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" onTouchPressed="#handleFieldClicked"  onMouseClicked="#handleFieldClicked" prefHeight="55.0" prefWidth="300.0" promptText="Password">
                <styleClass>
                   <String fx:value="small_text_label_black" />
                   <String fx:value="shadow_black" />
@@ -127,7 +127,7 @@
                   <Insets />
                </VBox.margin>
             </PasswordField>
-            <Button fx:id="submit_button" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#handleSubmitButton" prefHeight="55.0" prefWidth="300.0" text="Sign in">
+            <Button fx:id="submit_button" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onTouchPressed="#handleSubmitButton" onMouseClicked="#handleSubmitButton" prefHeight="55.0" prefWidth="300.0" text="Sign in">
                <styleClass>
                   <String fx:value="small_text_label_white" />
                   <String fx:value="shadow_black" />
@@ -163,7 +163,7 @@
    <right>
       <VBox alignment="BOTTOM_CENTER" prefHeight="200.0" prefWidth="100.0" styleClass="hello_container_right" BorderPane.alignment="CENTER">
          <children>
-            <ImageView fx:id="moon_sun" cache="true" cacheHint="SCALE_AND_ROTATE" fitHeight="65.0" fitWidth="65.0" onMouseClicked="#handleChangeColorMode" pickOnBounds="true" preserveRatio="true" rotate="270.0" styleClass="moon_sun_black">
+            <ImageView fx:id="moon_sun" cache="true" cacheHint="SCALE_AND_ROTATE" fitHeight="65.0" fitWidth="65.0" onTouchPressed="#handleChangeColorMode" onMouseClicked="#handleChangeColorMode" pickOnBounds="true" preserveRatio="true" rotate="270.0" styleClass="moon_sun_black">
                <image>
                   <Image url="@../images/moon.png" />
                </image>

@@ -23,6 +23,10 @@ public class Dish {
         return name;
     }
 
+    public int getId() {
+        return id;
+    }
+
     public double getPrice() {
         return price;
     }

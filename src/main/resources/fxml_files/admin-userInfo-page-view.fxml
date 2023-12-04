@@ -46,7 +46,7 @@
                   <Insets left="-69.0" />
                </padding>
             </Button>
-            <Button fx:id="restaurantInfoButton" mnemonicParsing="false" onMouseClicked="#goToRestaurantView" prefHeight="95.0" prefWidth="520.0" text=" Restaurant ">
+            <Button fx:id="restaurantInfoButton" mnemonicParsing="false" onTouchPressed="#goToRestaurantView" onMouseClicked="#goToRestaurantView" prefHeight="95.0" prefWidth="520.0" text=" Restaurant ">
                <graphic>
                   <VBox>
                      <children>
@@ -65,7 +65,7 @@
                   <Insets left="-24.0" />
                </padding>
             </Button>
-            <Button fx:id="dishesButton" mnemonicParsing="false" onMouseClicked="#goToDishesView" prefHeight="95.0" prefWidth="520.0" text=" Dishes">
+            <Button fx:id="dishesButton" mnemonicParsing="false" onTouchPressed="#goToDishesView" onMouseClicked="#goToDishesView" prefHeight="95.0" prefWidth="520.0" text=" Dishes">
                <graphic>
                   <VBox>
                      <children>
@@ -84,7 +84,7 @@
                   <Insets left="-100.0" />
                </padding>
             </Button>
-            <Button fx:id="menuButton" mnemonicParsing="false" prefHeight="95.0" prefWidth="520.0" text=" Menu">
+            <Button fx:id="menuButton" mnemonicParsing="false" onMouseClicked="#goToMenuView" onTouchPressed="#goToMenuView" prefHeight="95.0" prefWidth="520.0" text=" Menu">
                <graphic>
                   <VBox>
                      <children>
@@ -103,7 +103,7 @@
                   <Insets left="-127.0" />
                </padding>
             </Button>
-            <Button fx:id="chequeButton" mnemonicParsing="false" prefHeight="95.0" prefWidth="520.0" text=" Cheque">
+            <Button fx:id="chequeButton" mnemonicParsing="false" onMouseClicked="#goToChequeView" onTouchPressed="#goToChequeView" prefHeight="95.0" prefWidth="520.0" text=" Cheque">
                <graphic>
                   <VBox>
                      <children>
@@ -122,7 +122,7 @@
                   <Insets left="-86.0" />
                </padding>
             </Button>
-            <Button fx:id="dashboardButton" mnemonicParsing="false" prefHeight="95.0" prefWidth="520.0" text=" Dashboard">
+            <Button fx:id="dashboardButton" mnemonicParsing="false" onMouseClicked="#goToDashboardView" onTouchPressed="#goToDashboardView" prefHeight="95.0" prefWidth="520.0" text=" Dashboard">
                <graphic>
                   <VBox>
                      <children>
@@ -141,7 +141,7 @@
                   <Insets left="-30.0" />
                </padding>
             </Button>
-            <Button fx:id="infoButton" mnemonicParsing="false" prefHeight="95.0" prefWidth="520.0" text=" Info">
+            <Button fx:id="infoButton" mnemonicParsing="false" onMouseClicked="#goToInfoView" onTouchPressed="#goToInfoView" prefHeight="95.0" prefWidth="520.0" text=" Info/Orders">
                <graphic>
                   <VBox>
                      <children>
@@ -157,7 +157,7 @@
                   </VBox>
                </graphic>
                <padding>
-                  <Insets left="-155.0" />
+                  <Insets left="-30.0" />
                </padding>
             </Button>
          </children>
@@ -183,7 +183,7 @@
                   <Insets left="1332.0" />
                </HBox.margin>
                <children>
-                  <ImageView fx:id="exit" blendMode="EXCLUSION" fitHeight="65.0" fitWidth="65.0" onMouseClicked="#handleExitButton" pickOnBounds="true" styleClass="image_hover">
+                  <ImageView fx:id="exit" blendMode="EXCLUSION" fitHeight="65.0" fitWidth="65.0" onMouseClicked="#handleExitButton" onTouchPressed="#handleExitButton" pickOnBounds="true" styleClass="image_hover">
                      <image>
                         <Image url="@../images/exit.png" />
                      </image>
@@ -204,7 +204,7 @@
                   <Insets bottom="27.0" left="25.0" right="10.0" top="10.0" />
                </VBox.margin>
                <children>
-                  <ImageView fx:id="moon_sun" cache="true" cacheHint="SCALE_AND_ROTATE" fitHeight="65.0" fitWidth="65.0" onMouseClicked="#handleChangeColorMode" pickOnBounds="true" preserveRatio="true" rotate="270.0" styleClass="moon_sun_black">
+                  <ImageView fx:id="moon_sun" cache="true" cacheHint="SCALE_AND_ROTATE" fitHeight="65.0" fitWidth="65.0" onMouseClicked="#handleChangeColorMode" onTouchPressed="#handleChangeColorMode" pickOnBounds="true" preserveRatio="true" rotate="270.0" styleClass="moon_sun_black">
                      <image>
                         <Image url="@../images/moon.png" />
                      </image>
@@ -223,14 +223,14 @@
                   <VBox alignment="CENTER" layoutX="332.0" layoutY="106.0" spacing="40.0" AnchorPane.topAnchor="106.0">
                      <children>
                         <Label fx:id="username_label" styleClass="text_label_black_medium" text="Username" />
-                        <TextField fx:id="username_field" alignment="CENTER" onMouseClicked="#handleFieldClicked" prefHeight="45.0" prefWidth="320.0" text="Admin">
+                        <TextField fx:id="username_field" alignment="CENTER" onMouseClicked="#handleFieldClicked" onTouchPressed="#handleFieldClicked" prefHeight="45.0" prefWidth="320.0" text="Admin">
                            <styleClass>
                               <String fx:value="small_text_label_black" />
                               <String fx:value="shadow_black" />
                            </styleClass>
                         </TextField>
                         <Label fx:id="password_label" styleClass="text_label_black_medium" text="Password" />
-                        <TextField fx:id="password_field" alignment="CENTER" onMouseClicked="#handleFieldClicked" prefHeight="45.0" prefWidth="320.0" text="Password">
+                        <TextField fx:id="password_field" alignment="CENTER" onMouseClicked="#handleFieldClicked" onTouchPressed="#handleFieldClicked" prefHeight="45.0" prefWidth="320.0" text="Password">
                            <styleClass>
                               <String fx:value="small_text_label_black" />
                               <String fx:value="shadow_black" />
@@ -246,7 +246,7 @@
                               <String fx:value="shadow_black" />
                            </styleClass>
                         </ChoiceBox>
-                        <Button mnemonicParsing="false" onMouseClicked="#handleChangeDataButton" prefHeight="45.0" prefWidth="300.0" text="Submit">
+                        <Button mnemonicParsing="false" onMouseClicked="#handleChangeDataButton" onTouchPressed="#handleChangeDataButton" prefHeight="45.0" prefWidth="300.0" text="Submit">
                            <styleClass>
                               <String fx:value="small_text_label_white" />
                               <String fx:value="button_submit" />
@@ -285,9 +285,9 @@
                         </TableView>
                      </children>
                   </VBox>
-                  <Button focusTraversable="false" layoutX="14.0" layoutY="807.0" mnemonicParsing="false" onMouseClicked="#handleAddButton" prefHeight="120.0" prefWidth="120.0" styleClass="greenButton" />
-                  <Button focusTraversable="false" layoutX="380.0" layoutY="807.0" mnemonicParsing="false" onMouseClicked="#handleDeleteButton" prefHeight="120.0" prefWidth="120.0" styleClass="redButton" />
-                  <Button alignment="TOP_LEFT" contentDisplay="CENTER" focusTraversable="false" layoutX="152.0" layoutY="842.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#handleGoUpButton" prefHeight="50.0" prefWidth="120.0" rotate="90.0" style="-fx-text-fill: white;" text="←">
+                  <Button focusTraversable="false" layoutX="14.0" layoutY="807.0" mnemonicParsing="false" onMouseClicked="#handleAddButton" onTouchPressed="#handleAddButton"  prefHeight="120.0" prefWidth="120.0" styleClass="greenButton" />
+                  <Button focusTraversable="false" layoutX="380.0" layoutY="807.0" mnemonicParsing="false" onMouseClicked="#handleDeleteButton" onTouchPressed="#handleDeleteButton" prefHeight="120.0" prefWidth="120.0" styleClass="redButton" />
+                  <Button alignment="TOP_LEFT" contentDisplay="CENTER" focusTraversable="false" layoutX="152.0" layoutY="842.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#handleGoUpButton" onTouchPressed="#handleGoUpButton" prefHeight="50.0" prefWidth="120.0" rotate="90.0" style="-fx-text-fill: white;" text="←">
                      <padding>
                         <Insets left="43.0" />
                      </padding>
@@ -296,7 +296,7 @@
                         <String fx:value="darkButton" />
                      </styleClass>
                   </Button>
-                  <Button alignment="TOP_RIGHT" contentDisplay="CENTER" focusTraversable="false" layoutX="243.0" layoutY="842.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#handleGoDownButton" prefHeight="50.0" prefWidth="120.0" rotate="90.0" style="-fx-text-fill: white;" text="→">
+                  <Button alignment="TOP_RIGHT" contentDisplay="CENTER" focusTraversable="false" layoutX="243.0" layoutY="842.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#handleGoDownButton" onTouchPressed="#handleGoDownButton" prefHeight="50.0" prefWidth="120.0" rotate="90.0" style="-fx-text-fill: white;" text="→">
                      <padding>
                         <Insets right="43.0" />
                      </padding>
@@ -306,7 +306,7 @@
                      </styleClass>
                   </Button>
                   <Label focusTraversable="false" layoutX="43.0" layoutY="846.0" mouseTransparent="true" styleClass="text_label_white_medium" text="Add" />
-                  <Label focusTraversable="false" layoutX="389.0" layoutY="846.0" mouseTransparent="true" onMouseClicked="#handleDeleteButton" styleClass="text_label_white_medium" text="Delete" />
+                  <Label focusTraversable="false" layoutX="389.0" layoutY="846.0" mouseTransparent="true" onMouseClicked="#handleDeleteButton" onTouchPressed="#handleDeleteButton" styleClass="text_label_white_medium" text="Delete" />
                </children></AnchorPane>
         </items>
          <BorderPane.margin>

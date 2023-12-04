@@ -25,8 +25,7 @@ public class AdminPageUserInfoController extends AdminPageControllerAbstract {
     @FXML private ChoiceBox<String> permission_box;
     private ObservableList<User> users;
 
-    public void initializeWithData(User user) {
-
+    public void initializeWithData(User user, boolean islightMode) {
         this.user = user;
         restaurant = Restaurant.retrieveRestaurant();
         createKeyboard();
@@ -55,6 +54,9 @@ public class AdminPageUserInfoController extends AdminPageControllerAbstract {
 
         permission_box.setDisable(userId == 1);
 
+        if (!islightMode){
+            handleChangeColorMode();
+        }
     }
 
     @Override

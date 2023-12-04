@@ -458,7 +458,7 @@ public class HelloPageController {
         FXMLLoader fxmlLoader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("/fxml_files/admin-userInfo-page-view.fxml")));
         Parent root = fxmlLoader.load();
         AdminPageUserInfoController controller = fxmlLoader.getController();
-        controller.initializeWithData(admin);
+        controller.initializeWithData(admin, islightMode);
         controller.setStage(stage);
         stage.getScene().setRoot(root);
     }

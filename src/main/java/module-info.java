@@ -9,9 +9,11 @@ module order_managment_system {
 
 
     exports controllers;
+    exports controllers.fragments;
     exports database;
     exports models;
     exports views;
     opens views to javafx.fxml;
     opens controllers to javafx.fxml;
+    opens controllers.fragments to javafx.fxml;
 }
