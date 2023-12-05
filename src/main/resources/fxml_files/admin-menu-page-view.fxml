@@ -220,21 +220,25 @@
                <children>
                   <Line endX="914.0" endY="6.0" layoutX="109.0" layoutY="66.0" startX="-109.0" startY="6.0" style="-fx-stroke: #2B2D30; -fx-stroke-width: 3.5;" />
                   <Label fx:id="sub_header" layoutX="14.0" styleClass="text_label_black" text="Menu" AnchorPane.topAnchor="10.0" />
-                  <ScrollPane fx:id="scrollPane" layoutX="25.0" layoutY="72.0" prefHeight="879.0" prefWidth="1023.0" style="-fx-border-color: #2B2D30; -fx-border-radius: 2;" styleClass="shadow_black" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="72.0">
+                  <ScrollPane fx:id="scrollPane" layoutX="25.0" layoutY="73.0" prefHeight="878.0" prefWidth="1023.0" styleClass="myScrollPane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="73.0">
                      <content>
-                        <GridPane fx:id="menu_gridPane" prefHeight="0.0" prefWidth="0.0" style="-fx-background-color: #ffffff;">
+                        <GridPane fx:id="menu_gridPane" prefHeight="0.0" prefWidth="0.0" style="-fx-background-color: transparent;">
                           <rowConstraints>
                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                           </rowConstraints>
                         </GridPane>
                      </content>
                   </ScrollPane>
-                  <ChoiceBox fx:id="sort_choiceBox" layoutX="759.0" layoutY="14.0" prefWidth="250.0">
-                     <styleClass>
-                        <String fx:value="shadow_black" />
-                        <String fx:value="small_text_label_black" />
-                     </styleClass>
-                  </ChoiceBox>
+                  <VBox layoutX="757.0" layoutY="12.0">
+                     <children>
+                        <ChoiceBox fx:id="sort_choiceBox" prefWidth="250.0">
+                           <styleClass>
+                              <String fx:value="shadow_black" />
+                              <String fx:value="small_text_label_black" />
+                           </styleClass>
+                        </ChoiceBox>
+                     </children>
+                  </VBox>
                </children></AnchorPane>
           <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minWidth="450.0" prefHeight="953.0" prefWidth="450.0">
                <children>
@@ -242,15 +246,22 @@
                   <Label fx:id="sub_header2" layoutX="167.0" styleClass="text_label_black" text="Order" AnchorPane.topAnchor="10.0" />
                   <VBox layoutX="12.0" layoutY="87.0" spacing="25.0">
                      <children>
-                        <TextArea fx:id="text_area" prefHeight="770.0" prefWidth="424.0">
+                        <TextArea fx:id="text_area" prefHeight="695.0" prefWidth="424.0">
                            <styleClass>
                               <String fx:value="small_text_label_black" />
                               <String fx:value="shadow_black" />
                            </styleClass>
                         </TextArea>
+                        <Button mnemonicParsing="false" onAction="#handleClearLast" prefHeight="50.0" prefWidth="423.0" text="Delete Last">
+                           <styleClass>
+                              <String fx:value="redButton" />
+                              <String fx:value="small_text_label_white" />
+                              <String fx:value="shadow_black" />
+                           </styleClass>
+                        </Button>
                         <Button mnemonicParsing="false" onAction="#handleMakeOrder" prefHeight="50.0" prefWidth="423.0" text="Make order">
                            <styleClass>
-                              <String fx:value="button_submit" />
+                              <String fx:value="greenButton" />
                               <String fx:value="small_text_label_white" />
                               <String fx:value="shadow_black" />
                            </styleClass>

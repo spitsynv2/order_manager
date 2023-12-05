@@ -388,7 +388,7 @@ public class Dish {
         return nextUserId;
     }
 
-    private static List<String> getUniqueTypes(List<Dish> dishList) {
+    public static List<String> getUniqueTypes(List<Dish> dishList) {
         Set<String> uniqueTypesSet = new HashSet<>();
 
         for (Dish dish : dishList) {
@@ -398,4 +398,14 @@ public class Dish {
         return new ArrayList<>(uniqueTypesSet);
     }
 
+    @Override
+    public String toString() {
+        return "Dish{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", ingredients='" + ingredients + '\'' +
+                ", price=" + price +
+                ", type='" + type + '\'' +
+                '}';
+    }
 }

@@ -1,3 +1,10 @@
+.scroll-pane {
+    -fx-faint-focus-color: transparent;
+    -fx-focus-color: transparent;
+    -fx-border-color: transparent;
+}
+
+
 .hello_container {
     -fx-background-color: #ffffff;
 }
@@ -251,12 +258,34 @@
 }
 
 .vbox_item_black {
-    -fx-border-radius: 13;
-    -fx-background-radius: 15;
+    -fx-border-radius: 23;
+    -fx-background-radius: 25;
     -fx-border-color:  #2B2D30;
-    -fx-border-width: 3;
+    -fx-border-width: 4;
 }
 
 .vbox_item_selected{
-    -fx-background-color: #77cc58;
+    -fx-background-color: rgba(86, 178, 50, 0.8);
+}
+
+.myScrollPane_white{
+    -fx-background: #ffffff;
+    -fx-background-color: #ffffff;
+    -fx-border-width: 0;
+    -fx-border-color: none;
+}
+
+.myScrollPane_dark{
+    -fx-background: #1E1F22;
+    -fx-background-color: #1E1F22;
+    -fx-border-width: 0;
+    -fx-border-color: none;
+}
+
+.vbox_shadow_select {
+
+}
+
+.vbox_shadow_select:hover {
+    -fx-background-color: #A4DD8F;
 }
