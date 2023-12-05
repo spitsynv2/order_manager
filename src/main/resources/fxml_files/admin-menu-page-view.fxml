@@ -3,6 +3,7 @@
 <?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.SplitPane?>
@@ -218,7 +219,7 @@
           <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minWidth="1023.0" prefHeight="951.0" prefWidth="1023.0">
                <children>
                   <Line endX="914.0" endY="6.0" layoutX="109.0" layoutY="66.0" startX="-109.0" startY="6.0" style="-fx-stroke: #2B2D30; -fx-stroke-width: 3.5;" />
-                  <Label fx:id="sub_header" layoutX="455.0" styleClass="text_label_black" text="Menu" AnchorPane.topAnchor="10.0" />
+                  <Label fx:id="sub_header" layoutX="14.0" styleClass="text_label_black" text="Menu" AnchorPane.topAnchor="10.0" />
                   <ScrollPane fx:id="scrollPane" layoutX="25.0" layoutY="72.0" prefHeight="879.0" prefWidth="1023.0" style="-fx-border-color: #2B2D30; -fx-border-radius: 2;" styleClass="shadow_black" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="72.0">
                      <content>
                         <GridPane fx:id="menu_gridPane" prefHeight="0.0" prefWidth="0.0" style="-fx-background-color: #ffffff;">
@@ -228,6 +229,12 @@
                         </GridPane>
                      </content>
                   </ScrollPane>
+                  <ChoiceBox fx:id="sort_choiceBox" layoutX="759.0" layoutY="14.0" prefWidth="250.0">
+                     <styleClass>
+                        <String fx:value="shadow_black" />
+                        <String fx:value="small_text_label_black" />
+                     </styleClass>
+                  </ChoiceBox>
                </children></AnchorPane>
           <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minWidth="450.0" prefHeight="953.0" prefWidth="450.0">
                <children>

@@ -10,7 +10,7 @@
          <VBox.margin>
             <Insets />
          </VBox.margin></Label>
-      <Label fx:id="info_label" alignment="CENTER" styleClass="small_text_label_black" stylesheets="@../../styles/styles.css" text="Traditional pizza" />
+      <Label fx:id="type_label" alignment="CENTER" styleClass="small_text_label_black" stylesheets="@../../styles/styles.css" text="Traditional pizza" />
       <Label fx:id="price_label" alignment="CENTER" styleClass="small_text_label_black" stylesheets="@../../styles/styles.css" text="Price: 25.99" />
       <Label fx:id="product_id" mouseTransparent="true" style="-fx-managed: false;" text="id" visible="false" />
    </children>

@@ -4,6 +4,7 @@ import controllers.fragments.MenuItemController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
@@ -20,18 +21,12 @@ import java.util.List;
 
 public class AdminPageMenuController extends AdminPageControllerAbstract{
 
-    @FXML
-    private Label sub_header;
-    @FXML
-    private Label sub_header2;
-
-    @FXML
-    private GridPane menu_gridPane;
-
-    @FXML
-    ScrollPane scrollPane;
-
+    @FXML private Label sub_header;
+    @FXML private Label sub_header2;
+    @FXML private GridPane menu_gridPane;
+    @FXML private ScrollPane scrollPane;
     @FXML private TextArea text_area;
+    @FXML private ChoiceBox sort_choiceBox;
 
     private List<Dish> dishList;
 
@@ -64,9 +59,10 @@ public class AdminPageMenuController extends AdminPageControllerAbstract{
         text = text + "--------------------------------------"+"\n";
         text_area.setText(text);
 
+
+
         int column = 0;
         int row = 1;
-
         for (int i = 0; i<dishList.size(); i++) {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml_files/fragments/menu-item.fxml"));
             VBox root = loader.load();

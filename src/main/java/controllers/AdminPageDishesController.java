@@ -24,12 +24,12 @@ public class AdminPageDishesController extends AdminPageControllerAbstract{
     @FXML private Label name_label;
     @FXML private Label price_label;
     @FXML private Label ingredients_label;
-    @FXML private Label info_label;
+    @FXML private Label type_label;
 
     @FXML private TextField name_field;
     @FXML private TextField price_field;
 
-    @FXML private TextArea info_field;
+    @FXML private TextField type_field;
     @FXML private TextArea ingredients_field;
 
     private ObservableList<Dish> dishes;
@@ -39,7 +39,7 @@ public class AdminPageDishesController extends AdminPageControllerAbstract{
     public void initializeWithData(User user, boolean islightMode) {
         this.user = user;
         restaurant = Restaurant.retrieveRestaurant();
-        labels = new Label[]{name_label, price_label, ingredients_label, info_label};
+        labels = new Label[]{name_label, price_label, ingredients_label, type_label};
         createKeyboard();
 
         List<Dish> dishList = Dish.retrieveAllDishes();
@@ -51,7 +51,7 @@ public class AdminPageDishesController extends AdminPageControllerAbstract{
 
         name_field.setText(dishes.get(0).getName());
         ingredients_field.setText(dishes.get(0).getIngredients());
-        info_field.setText(dishes.get(0).getInfo());
+        type_field.setText(dishes.get(0).getType());
         price_field.setText(dishes.get(0).getPrice()+"");
 
 
@@ -68,6 +68,7 @@ public class AdminPageDishesController extends AdminPageControllerAbstract{
         if (!islightMode){
             handleChangeColorMode();
         }
+
     }
 
     @Override
@@ -105,24 +106,24 @@ public class AdminPageDishesController extends AdminPageControllerAbstract{
     private void fillTable(List<Dish> dishList){
         TableColumn<User, Integer> name_column = new TableColumn<>("Name");
         TableColumn<User, String> ingredients_column = new TableColumn<>("Ingredients");
-        TableColumn<User, String> info_column = new TableColumn<>("Info");
+        TableColumn<User, String> type_column = new TableColumn<>("Type");
         TableColumn<User, Integer> price_column = new TableColumn<>("Price");
 
 
         name_column.setCellValueFactory(new PropertyValueFactory<>("name"));
         ingredients_column.setCellValueFactory(new PropertyValueFactory<>("ingredients"));
-        info_column.setCellValueFactory(new PropertyValueFactory<>("info"));
+        type_column.setCellValueFactory(new PropertyValueFactory<>("type"));
         price_column.setCellValueFactory(new PropertyValueFactory<>("price"));
 
         // Can adjust the size
         name_column.setPrefWidth(100);
-        ingredients_column.setPrefWidth(167);
-        info_column.setPrefWidth(167);
-        price_column.setPrefWidth(75);
+        ingredients_column.setPrefWidth(200.5);
+        type_column.setPrefWidth(100);
+        price_column.setPrefWidth(108.5);
 
         dish_table.setMouseTransparent(true);
 
-        dish_table.getColumns().addAll(name_column, ingredients_column, info_column, price_column);
+        dish_table.getColumns().addAll(name_column, ingredients_column, type_column, price_column);
 
         dish_table.setItems(FXCollections.observableArrayList(dishList));
     }
@@ -152,7 +153,7 @@ public class AdminPageDishesController extends AdminPageControllerAbstract{
             name_field.setText(dish.getName());
             price_field.setText(dish.getPrice()+"");
             ingredients_field.setText(dish.getIngredients());
-            info_field.setText(dish.getInfo());
+            type_field.setText(dish.getType());
         }
     }
 
@@ -165,13 +166,13 @@ public class AdminPageDishesController extends AdminPageControllerAbstract{
             String newName = name_field.getText();
             double newPrice = Double.parseDouble(price_field.getText());
             String newIngredients = ingredients_field.getText();
-            String newInfo = info_field.getText();
+            String newType = type_field.getText();
 
 
             if (!selectedDish.getName().equals(newName)
                     || selectedDish.getPrice() != newPrice
                     || !selectedDish.getIngredients().equals(newIngredients)
-                    || !selectedDish.getInfo().equals(newInfo))
+                    || !selectedDish.getType().equals(newType))
             {
 
                 if (!Dish.isDishNameUnique(newName) && !newName.equals(oldName)) {
@@ -190,7 +191,7 @@ public class AdminPageDishesController extends AdminPageControllerAbstract{
                 selectedDish.setName(newName);
                 selectedDish.setIngredients(newIngredients);
                 selectedDish.setPrice(newPrice);
-                selectedDish.setInfo(newInfo);
+                selectedDish.setType(newType);
 
                 Dish.updateDish(selectedDish);
                 dish_table.refresh();
@@ -223,12 +224,12 @@ public class AdminPageDishesController extends AdminPageControllerAbstract{
             if (result.isPresent() && result.get() == yesButton && Dish.isDishNameUnique("Change name")) {
                 name_field.setText("Change name");
                 ingredients_field.setText("Change ingredients");
-                info_field.setText("Change info");
+                type_field.setText("Change type");
                 price_field.setText("0.0");
 
                 int id = Dish.getNextDishId();
 
-                Dish newDish = new Dish(id,"Change name", "Change ingredients", "Change info",0);
+                Dish newDish = new Dish(id,"Change name", "Change ingredients", 0,"Change type");
 
                 dish_table.getItems().add(newDish);
 
@@ -236,7 +237,14 @@ public class AdminPageDishesController extends AdminPageControllerAbstract{
 
                 Dish.insertDish(newDish, restaurant.getId(),"Available");
             }else {
-                System.out.println("Fill empty dish firstly");
+                String errorMessage = "Fill empty dish firstly.";
+
+                Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+                errorAlert.setTitle("Error");
+                errorAlert.setHeaderText(null);
+                errorAlert.setContentText(errorMessage);
+                errorAlert.initOwner(stage);
+                errorAlert.showAndWait();
             }
         }
 

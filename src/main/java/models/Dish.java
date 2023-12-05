@@ -5,22 +5,25 @@ import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class Dish {
     private int id;
     private String name;
     private String ingredients;
-    private String info;
     private double price;
-
-    public String getInfo() {
-        return info;
-    }
+    private String type;
 
     public String getName() {
         return name;
+    }
+
+    public String getType() {
+        return type;
     }
 
     public int getId() {
@@ -43,20 +46,20 @@ public class Dish {
         this.ingredients = ingredients;
     }
 
-    public void setInfo(String info) {
-        this.info = info;
+    public void setType(String type) {
+        this.type = type;
     }
 
     public void setPrice(double price) {
         this.price = price;
     }
 
-    public Dish(int id, String name, String ingredients, String info, double price) {
+    public Dish(int id, String name, String ingredients, double price, String type) {
         this.id = id;
         this.name = name;
         this.ingredients = ingredients;
-        this.info = info;
         this.price = price;
+        this.type = type;
     }
 
     public static List<Dish> retrieveAllDishes() {
@@ -68,10 +71,11 @@ public class Dish {
             while (resultSet.next()) {
                 int id = resultSet.getInt("Id");
                 String name = resultSet.getString("Name");
-                String ingredients = resultSet.getString("Ingredients");
-                String info = resultSet.getString("Additional_info");
+                String ingredients = resultSet.getString("Ingredients_info");
                 double price = resultSet.getDouble("Price");
-                Dish dish = new Dish(id,name, ingredients, info, price);
+                String type = resultSet.getString("Type");
+
+                Dish dish = new Dish(id,name,ingredients,price,type);
                 dishList.add(dish);
             }
 
@@ -83,16 +87,168 @@ public class Dish {
         return dishList;
     }
 
+    public static List<Dish> retrieveDishesByPopularity() {
+        List<Dish> dishList = new ArrayList<>();
+        try (Connection connection = DatabaseConnection.getConnection();
+             PreparedStatement statement = connection.prepareStatement(
+                     "SELECT Dishes.Id, Dishes.Name, Dishes.Ingredients_info, Dishes.Price, Dishes.Type, " +
+                             "COUNT(Orders_Dishes.Orders_Id) AS Popularity " +
+                             "FROM Dishes " +
+                             "LEFT JOIN Orders_Dishes ON Dishes.Id = Orders_Dishes.Dishes_Id " +
+                             "GROUP BY Dishes.Id, Dishes.Name, Dishes.Ingredients_info, Dishes.Price, Dishes.Type " +
+                             "ORDER BY Popularity DESC"
+             );
+             ResultSet resultSet = statement.executeQuery()) {
+
+            while (resultSet.next()) {
+                int id = resultSet.getInt("Id");
+                String name = resultSet.getString("Name");
+                String ingredients = resultSet.getString("Ingredients_info");
+                double price = resultSet.getDouble("Price");
+                String type = resultSet.getString("Type");
+
+                Dish dish = new Dish(id, name, ingredients, price, type);
+                dishList.add(dish);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            DatabaseConnection.closeConnection();
+        }
+        return dishList;
+    }
+
+    public static List<Dish> retrieveTop10DishesByPopularity() {
+        List<Dish> dishList = new ArrayList<>();
+        try (Connection connection = DatabaseConnection.getConnection();
+             PreparedStatement statement = connection.prepareStatement(
+                     "SELECT Dishes.Id, Dishes.Name, Dishes.Ingredients_info, Dishes.Price, Dishes.Type, " +
+                             "COUNT(Orders_Dishes.Orders_Id) AS Popularity " +
+                             "FROM Dishes " +
+                             "LEFT JOIN Orders_Dishes ON Dishes.Id = Orders_Dishes.Dishes_Id " +
+                             "LEFT JOIN Orders ON Orders.Id = Orders_Dishes.Orders_Id " +
+                             "GROUP BY Dishes.Id, Dishes.Name, Dishes.Ingredients_info, Dishes.Price, Dishes.Type " +
+                             "ORDER BY Popularity DESC " +
+                             "LIMIT 10"
+             );
+             ResultSet resultSet = statement.executeQuery()) {
+
+            while (resultSet.next()) {
+                int id = resultSet.getInt("Id");
+                String name = resultSet.getString("Name");
+                String ingredients = resultSet.getString("Ingredients_info");
+                double price = resultSet.getDouble("Price");
+                String type = resultSet.getString("Type");
+
+                Dish dish = new Dish(id, name, ingredients, price, type);
+                dishList.add(dish);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            DatabaseConnection.closeConnection();
+        }
+        return dishList;
+    }
+
+    public static List<Dish> retrieveTop10DishesByPopularityToday() {
+        List<Dish> dishList = new ArrayList<>();
+        try (Connection connection = DatabaseConnection.getConnection();
+             PreparedStatement statement = connection.prepareStatement(
+                     "SELECT Dishes.Id, Dishes.Name, Dishes.Ingredients_info, Dishes.Price, Dishes.Type, " +
+                             "COUNT(Orders_Dishes.Orders_Id) AS Popularity " +
+                             "FROM Dishes " +
+                             "LEFT JOIN Orders_Dishes ON Dishes.Id = Orders_Dishes.Dishes_Id " +
+                             "LEFT JOIN Orders ON Orders.Id = Orders_Dishes.Orders_Id " +
+                             "WHERE DATE(Orders.Date) = ? " +
+                             "GROUP BY Dishes.Id, Dishes.Name, Dishes.Ingredients_info, Dishes.Price, Dishes.Type " +
+                             "ORDER BY Popularity DESC " +
+                             "LIMIT 10"
+             )) {
+            statement.setDate(1, Date.valueOf(LocalDate.now()));
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                int id = resultSet.getInt("Id");
+                String name = resultSet.getString("Name");
+                String ingredients = resultSet.getString("Ingredients_info");
+                double price = resultSet.getDouble("Price");
+                String type = resultSet.getString("Type");
+
+                Dish dish = new Dish(id, name, ingredients, price, type);
+                dishList.add(dish);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            DatabaseConnection.closeConnection();
+        }
+        return dishList;
+    }
+
+    public static int getNumberOfOrdersForDish(int dishId) {
+        int numberOfOrders = 0;
+        try (Connection connection = DatabaseConnection.getConnection();
+             PreparedStatement statement = connection.prepareStatement(
+                     "SELECT COUNT(Orders_Dishes.Orders_Id) AS NumberOfOrders " +
+                             "FROM Orders_Dishes " +
+                             "LEFT JOIN Orders ON Orders.Id = Orders_Dishes.Orders_Id " +
+                             "WHERE Orders_Dishes.Dishes_Id = ?"
+             )) {
+            statement.setInt(1, dishId);
+            ResultSet resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                numberOfOrders = resultSet.getInt("NumberOfOrders");
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            DatabaseConnection.closeConnection();
+        }
+        return numberOfOrders;
+    }
+
+    public static int getNumberOfOrdersForDishToday(int dishId) {
+        int numberOfOrdersToday = 0;
+        try (Connection connection = DatabaseConnection.getConnection();
+             PreparedStatement statement = connection.prepareStatement(
+                     "SELECT COUNT(Orders_Dishes.Orders_Id) AS NumberOfOrders " +
+                             "FROM Orders_Dishes " +
+                             "LEFT JOIN Orders ON Orders.Id = Orders_Dishes.Orders_Id " +
+                             "WHERE Orders_Dishes.Dishes_Id = ? AND DATE(Orders.Date) = ?"
+             )) {
+            statement.setInt(1, dishId);
+            statement.setDate(2, Date.valueOf(LocalDate.now()));
+            ResultSet resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                numberOfOrdersToday = resultSet.getInt("NumberOfOrders");
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            DatabaseConnection.closeConnection();
+        }
+        return numberOfOrdersToday;
+    }
+
+
     public static void updateDish(Dish dish) {
 
         try (Connection connection = DatabaseConnection.getConnection();
              PreparedStatement statement = connection.prepareStatement(
-                     "UPDATE Dishes SET Ingredients=?, Additional_info=?, Price=?, Name=? WHERE Id=?")) {
+                     "UPDATE Dishes SET Ingredients_info=?, Price=?, Name=?, Type=? WHERE Id=?")) {
 
             statement.setString(1, dish.getIngredients());
-            statement.setString(2, dish.getInfo());
-            statement.setDouble(3, dish.getPrice());
-            statement.setString(4, dish.getName());
+            statement.setDouble(2, dish.getPrice());
+            statement.setString(3, dish.getName());
+            statement.setString(4, dish.getType());
             statement.setInt(5, dish.id);
 
             int rowsAffected = statement.executeUpdate();
@@ -171,10 +327,10 @@ public class Dish {
             }
 
             try (PreparedStatement statement = connection.prepareStatement(
-                    "INSERT INTO Dishes (Name, Ingredients, Additional_info, Price) VALUES (?, ?, ?, ?)")) {
+                    "INSERT INTO Dishes (Name, Ingredients_info, Type, Price) VALUES (?, ?, ?, ?)")) {
                 statement.setString(1, dish.getName());
                 statement.setString(2, dish.getIngredients());
-                statement.setString(3, dish.getInfo());
+                statement.setString(3, dish.getType());
                 statement.setDouble(4, dish.getPrice());
                 statement.executeUpdate();
             }
@@ -231,4 +387,15 @@ public class Dish {
 
         return nextUserId;
     }
+
+    private static List<String> getUniqueTypes(List<Dish> dishList) {
+        Set<String> uniqueTypesSet = new HashSet<>();
+
+        for (Dish dish : dishList) {
+            uniqueTypesSet.add(dish.getType());
+        }
+
+        return new ArrayList<>(uniqueTypesSet);
+    }
+
 }

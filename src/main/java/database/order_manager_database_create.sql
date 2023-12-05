@@ -1,13 +1,13 @@
 -- Created by Vertabelo (http://vertabelo.com)
--- Last modification date: 2023-12-03 19:15:28.087
+-- Last modification date: 2023-12-04 21:48:49.645
 
 -- tables
 -- Table: Dishes
 CREATE TABLE Dishes (
     Id integer NOT NULL CONSTRAINT Dishes_pk PRIMARY KEY AUTOINCREMENT,
     Name varchar(250) NOT NULL,
-    Ingredients varchar(750) NOT NULL,
-    Additional_info varchar(400) NOT NULL,
+    Ingredients_info varchar(750) NOT NULL,
+    Type varchar(400) NOT NULL,
     Price double NOT NULL
 );
 

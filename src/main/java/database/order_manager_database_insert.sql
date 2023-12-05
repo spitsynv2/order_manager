@@ -3,17 +3,17 @@ INSERT INTO Restaurant (Name, Address, Phone, Email, Tax) VALUES
 ('Restaurant', 'Country, city'||char(10)||'Street name, zip', '+1 234 567', 'restaurant@example.com',23.00);
 
 -- Insert data into the Dishes table
-INSERT INTO Dishes (Name, Ingredients, Additional_info, Price) VALUES
+INSERT INTO Dishes (Name, Ingredients_info, Type, Price) VALUES
 ('Margherita Pizza',
  'Pizza dough, ' || char(10) ||
  'Tomato sauce, ' || char(10) ||
  'Mozzarella cheese, ' || char(10) ||
- 'Basil', 'Traditional pizza', 10.99),
+ 'Basil','Pizza',10.99),
 ('Caesar Salad',
  'Romaine lettuce, ' || char(10) ||
  'Caesar dressing, ' || char(10) ||
  'Croutons, ' || char(10) ||
- 'Parmesan cheese', 'Fresh and crispy', 8.99);
+ 'Parmesan cheese','Salad', 8.99);
 
 -- Insert data into the Restaurant_Dishes table
 INSERT INTO Restaurant_Dishes (Dishes_Id, Restaurant_Id, Dish_status) VALUES
@@ -39,7 +39,7 @@ INSERT INTO Restaurant_Users (User_Id, Restaurant_Id) VALUES
 -- Insert data into the Orders table
 INSERT INTO Orders (Date, Payment_type, Status) VALUES
 ('2023-10-27 12:00:00', 'Credit Card', 'Completed'),
-('2023-10-28 13:30:00', 'Cash', 'Pending');
+('2023-10-28 13:30:00', 'Cash', 'Completed');
 
 -- Insert data into the Orders_Dishes table
 INSERT INTO Orders_Dishes (Orders_Id, Dishes_Id, Dish_Name) VALUES
