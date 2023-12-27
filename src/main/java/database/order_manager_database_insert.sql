@@ -39,12 +39,14 @@ INSERT INTO Restaurant_Users (User_Id, Restaurant_Id) VALUES
 -- Insert data into the Orders table
 INSERT INTO Orders (Date, Payment_type, Status) VALUES
 ('2023-10-27 12:00:00', 'Credit Card', 'Completed'),
-('2023-10-28 13:30:00', 'Cash', 'Completed');
+('2023-10-28 13:30:00', 'Cash', 'Completed'),
+('2023-10-28 13:35:00', 'Cash', 'Completed');
 
 -- Insert data into the Orders_Dishes table
 INSERT INTO Orders_Dishes (Orders_Id, Dishes_Id, Dish_Name) VALUES
 (1, 1, 'Margherita Pizza'),
-(2, 2, 'Caesar Salad');
+(2, 2, 'Caesar Salad'),
+(3, 2, 'Caesar Salad');
 
 -- Insert data into the Orders_Restaurant table
 INSERT INTO Orders_Restaurant (Orders_Id, Restaurant_Id) VALUES

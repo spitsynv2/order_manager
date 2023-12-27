@@ -92,7 +92,7 @@ public class Dish {
         try (Connection connection = DatabaseConnection.getConnection();
              PreparedStatement statement = connection.prepareStatement(
                      "SELECT Dishes.Id, Dishes.Name, Dishes.Ingredients_info, Dishes.Price, Dishes.Type, " +
-                             "COUNT(Orders_Dishes.Orders_Id) AS Popularity " +
+                             "COUNT(Orders_Dishes.Dishes_Id) AS Popularity " +
                              "FROM Dishes " +
                              "LEFT JOIN Orders_Dishes ON Dishes.Id = Orders_Dishes.Dishes_Id " +
                              "GROUP BY Dishes.Id, Dishes.Name, Dishes.Ingredients_info, Dishes.Price, Dishes.Type " +
@@ -124,7 +124,7 @@ public class Dish {
         try (Connection connection = DatabaseConnection.getConnection();
              PreparedStatement statement = connection.prepareStatement(
                      "SELECT Dishes.Id, Dishes.Name, Dishes.Ingredients_info, Dishes.Price, Dishes.Type, " +
-                             "COUNT(Orders_Dishes.Orders_Id) AS Popularity " +
+                             "COUNT(Orders_Dishes.Dishes_Id) AS Popularity " +
                              "FROM Dishes " +
                              "LEFT JOIN Orders_Dishes ON Dishes.Id = Orders_Dishes.Dishes_Id " +
                              "LEFT JOIN Orders ON Orders.Id = Orders_Dishes.Orders_Id " +
@@ -158,7 +158,7 @@ public class Dish {
         try (Connection connection = DatabaseConnection.getConnection();
              PreparedStatement statement = connection.prepareStatement(
                      "SELECT Dishes.Id, Dishes.Name, Dishes.Ingredients_info, Dishes.Price, Dishes.Type, " +
-                             "COUNT(Orders_Dishes.Orders_Id) AS Popularity " +
+                             "COUNT(Orders_Dishes.Dishes_Id) AS Popularity " +
                              "FROM Dishes " +
                              "LEFT JOIN Orders_Dishes ON Dishes.Id = Orders_Dishes.Dishes_Id " +
                              "LEFT JOIN Orders ON Orders.Id = Orders_Dishes.Orders_Id " +
@@ -193,9 +193,8 @@ public class Dish {
         int numberOfOrders = 0;
         try (Connection connection = DatabaseConnection.getConnection();
              PreparedStatement statement = connection.prepareStatement(
-                     "SELECT COUNT(Orders_Dishes.Orders_Id) AS NumberOfOrders " +
+                     "SELECT COUNT(Orders_Dishes.Dishes_Id) AS NumberOfOrders " +
                              "FROM Orders_Dishes " +
-                             "LEFT JOIN Orders ON Orders.Id = Orders_Dishes.Orders_Id " +
                              "WHERE Orders_Dishes.Dishes_Id = ?"
              )) {
             statement.setInt(1, dishId);
@@ -217,7 +216,7 @@ public class Dish {
         int numberOfOrdersToday = 0;
         try (Connection connection = DatabaseConnection.getConnection();
              PreparedStatement statement = connection.prepareStatement(
-                     "SELECT COUNT(Orders_Dishes.Orders_Id) AS NumberOfOrders " +
+                     "SELECT COUNT(Orders_Dishes.Dishes_Id) AS NumberOfOrders " +
                              "FROM Orders_Dishes " +
                              "LEFT JOIN Orders ON Orders.Id = Orders_Dishes.Orders_Id " +
                              "WHERE Orders_Dishes.Dishes_Id = ? AND DATE(Orders.Date) = ?"
