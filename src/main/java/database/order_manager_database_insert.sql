@@ -1,6 +1,6 @@
 -- Insert data into the Restaurant table
-INSERT INTO Restaurant (Name, Address, Phone, Email, Tax) VALUES
-('Restaurant', 'Country, city'||char(10)||'Street name, zip', '+1 234 567', 'restaurant@example.com',23.00);
+INSERT INTO Restaurant (Name, Address, Phone, Email, Tax,ToPrint) VALUES
+('Restaurant', 'Country, city'||char(10)||'Street name, zip', '+1 234 567', 'restaurant@example.com',23.00,'Name,Address,Phone,Email,Info;Additional Data');
 
 -- Insert data into the Dishes table
 INSERT INTO Dishes (Name, Ingredients_info, Type, Price) VALUES

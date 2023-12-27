@@ -127,7 +127,6 @@ public class Dish {
                              "COUNT(Orders_Dishes.Dishes_Id) AS Popularity " +
                              "FROM Dishes " +
                              "LEFT JOIN Orders_Dishes ON Dishes.Id = Orders_Dishes.Dishes_Id " +
-                             "LEFT JOIN Orders ON Orders.Id = Orders_Dishes.Orders_Id " +
                              "GROUP BY Dishes.Id, Dishes.Name, Dishes.Ingredients_info, Dishes.Price, Dishes.Type " +
                              "ORDER BY Popularity DESC " +
                              "LIMIT 10"

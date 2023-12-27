@@ -1,5 +1,5 @@
 -- Created by Vertabelo (http://vertabelo.com)
--- Last modification date: 2023-12-04 21:48:49.645
+-- Last modification date: 2023-12-27 19:43:31.764
 
 -- tables
 -- Table: Dishes
@@ -58,7 +58,8 @@ CREATE TABLE Restaurant (
     Address text NOT NULL,
     Phone varchar(100) NOT NULL,
     Email varchar(100) NOT NULL,
-    Tax double NOT NULL
+    Tax double NOT NULL,
+    ToPrint text NOT NULL
 );
 
 -- Table: Restaurant_Dishes

@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.format.SignStyle;
 
 public class Restaurant {
 
@@ -17,14 +18,16 @@ public class Restaurant {
     private String paperSize;
     private String info;
     private double tax = 23;
+    private String to_print;
 
-    public Restaurant(int id, String name, String address, String phone, String email, double tax){
+    public Restaurant(int id, String name, String address, String phone, String email, double tax, String to_print){
         this.id = id;
         this.name = name;
         this.address = address;
         this.phone = phone;
         this.email = email;
         this.tax = tax;
+        this.to_print = to_print;
     }
 
     public void setPaperSize(String paperSize) {
@@ -55,6 +58,14 @@ public class Restaurant {
         return info;
     }
 
+    public void setTo_print(String to_print) {
+        this.to_print = to_print;
+    }
+
+    public String getTo_print() {
+        return to_print;
+    }
+
     public String getPaperSize() {
         return paperSize;
     }
@@ -65,52 +76,6 @@ public class Restaurant {
 
     public int getId() {
         return id;
-    }
-
-    //TODO -> setters or another implementation to change restaurant data;
-
-    public void insertRestaurant(Restaurant restaurant) {
-        try {
-            Connection connection = DatabaseConnection.getConnection();
-
-            String insertQuery = "INSERT INTO Restaurant (Name, Address, Phone, Email, Tax) VALUES (?, ?, ?, ?, ?)";
-            PreparedStatement statement = connection.prepareStatement(insertQuery);
-            statement.setString(1, restaurant.name);
-            statement.setString(2, restaurant.address);
-            statement.setString(3, restaurant.phone);
-            statement.setString(4, restaurant.email);
-            statement.setDouble(5, restaurant.tax);
-            statement.executeUpdate();
-            statement.close();
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            DatabaseConnection.closeConnection();
-        }
-    }
-
-    public void insertDetails(Restaurant restaurant) {
-        try {
-            Connection connection = DatabaseConnection.getConnection();
-
-            String insertQuery = "INSERT INTO Print_details (Restaurant_Id, Paper_size, Additional_info) VALUES (?, ?, ?)";
-            PreparedStatement statement = connection.prepareStatement(insertQuery);
-            statement.setInt(1, restaurant.id);
-            statement.setString(2, restaurant.paperSize);
-            if (info != null){
-                statement.setString(3, restaurant.info);
-            }else {
-                statement.setString(3, "");
-            }
-            statement.executeUpdate();
-            statement.close();
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            DatabaseConnection.closeConnection();
-        }
     }
 
     public static Restaurant retrieveRestaurant(){
@@ -130,7 +95,8 @@ public class Restaurant {
                 String phone = resultSet.getString("Phone");
                 String email = resultSet.getString("Email");
                 double tax = resultSet.getDouble("Tax");
-                restaurant = new Restaurant(id,name, address, phone, email, tax);
+                String to_print = resultSet.getString("ToPrint");
+                restaurant = new Restaurant(id,name, address, phone, email, tax,to_print);
             }
 
             resultSet.close();
@@ -208,6 +174,25 @@ public class Restaurant {
             }
 
             statement.setInt(3, restaurant.id);
+
+            statement.executeUpdate();
+            statement.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            DatabaseConnection.closeConnection();
+        }
+    }
+
+    public static void updateRestaurantToPrint(Restaurant restaurant) {
+        try {
+            Connection connection = DatabaseConnection.getConnection();
+
+            String updateRestaurantQuery = "UPDATE Restaurant SET ToPrint = ? WHERE Id = ?";
+            PreparedStatement statement = connection.prepareStatement(updateRestaurantQuery);
+            statement.setString(1, restaurant.to_print);
+            statement.setInt(2, restaurant.id);
 
             statement.executeUpdate();
             statement.close();

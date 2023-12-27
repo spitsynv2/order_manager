@@ -101,6 +101,7 @@ public class AdminPageRestaurantInfoController extends AdminPageControllerAbstra
     @FXML
     private void handleChangeDataButton() {
         int id = restaurant.getId();
+        String to_print = restaurant.getTo_print();
 
         restaurant = new Restaurant(
                 id,
@@ -108,7 +109,8 @@ public class AdminPageRestaurantInfoController extends AdminPageControllerAbstra
                 address_field.getText(),
                 phone_field.getText(),
                 email_field.getText(),
-                Double.parseDouble(tax_field.getText())
+                Double.parseDouble(tax_field.getText()),
+                to_print
         );
         Restaurant.updateRestaurant(restaurant);
 
@@ -120,6 +122,7 @@ public class AdminPageRestaurantInfoController extends AdminPageControllerAbstra
     @FXML
     private void handleChangeDataAdditionalButton(){
         int id = restaurant.getId();
+        String to_print = restaurant.getTo_print();
 
         restaurant = new Restaurant(
                 id,
@@ -127,7 +130,8 @@ public class AdminPageRestaurantInfoController extends AdminPageControllerAbstra
                 address_field.getText(),
                 phone_field.getText(),
                 email_field.getText(),
-                Double.parseDouble(tax_field.getText())
+                Double.parseDouble(tax_field.getText()),
+                to_print
         );
         Restaurant.updateRestaurant(restaurant);
 
