@@ -6,13 +6,15 @@ module order_managment_system {
     requires java.sql;
     requires jbcrypt;
     requires org.xerial.sqlitejdbc;
-
+    requires java.desktop;
+    requires org.apache.pdfbox;
 
     exports controllers;
     exports controllers.fragments;
     exports database;
     exports models;
     exports views;
+
     opens views to javafx.fxml;
     opens controllers to javafx.fxml;
     opens controllers.fragments to javafx.fxml;

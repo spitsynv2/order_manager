@@ -15,9 +15,15 @@ import javafx.scene.layout.VBox;
 import models.Dish;
 import models.Restaurant;
 import models.User;
+import org.apache.pdfbox.pdmodel.*;
+import org.apache.pdfbox.pdmodel.PDPage;
+import org.apache.pdfbox.pdmodel.PDPageContentStream;
+import org.apache.pdfbox.pdmodel.common.PDRectangle;
+import org.apache.pdfbox.pdmodel.font.PDType0Font;
 
 import java.io.IOException;
 import java.util.*;
+import java.util.List;
 import java.util.stream.Collectors;
 
 public class AdminPageMenuController extends AdminPageControllerAbstract {
@@ -209,6 +215,9 @@ public class AdminPageMenuController extends AdminPageControllerAbstract {
 
     @FXML
     public void handleMakeOrder(){
+        List<String> orders = new ArrayList<>();
+        orders.add("");
+        createPdf(orders);
         selectedDishCountMap.entrySet().forEach(System.out::println);
     }
 
@@ -248,7 +257,7 @@ public class AdminPageMenuController extends AdminPageControllerAbstract {
         text_area.setText(text);
     }
 
-    private static List<Dish> sortDishesByPopularity(List<Dish> dishList, List<Dish> dishListByPopularity) {
+    private List<Dish> sortDishesByPopularity(List<Dish> dishList, List<Dish> dishListByPopularity) {
         List<Integer> dishIdByPopularity = dishListByPopularity.stream()
                 .map(Dish::getId)
                 .collect(Collectors.toList());
@@ -259,5 +268,76 @@ public class AdminPageMenuController extends AdminPageControllerAbstract {
                 .collect(Collectors.toList());
     }
 
+    private void createPdf(List<String> orderDetails){
+
+        float lineHeight = 14;
+        float paperWidthPoints = 55 * 72f / 25.4f;  // Convert mm to points
+        float AVERAGE_CHAR_WIDTH = 0.53f;
+        float margin = 20;
+        float maxWidth = paperWidthPoints - 2 * margin;
+        int fontSize = 10;
+        int maxSymbolsPerLine = (int) (maxWidth / (AVERAGE_CHAR_WIDTH * fontSize));
+
+        int numLines = (int) Math.ceil(orderDetails.stream().collect(Collectors.joining()).length() / (float) maxSymbolsPerLine);
+
+        float requiredPaperHeight = numLines * lineHeight;
+
+        int maxLineLength = orderDetails.stream().mapToInt(String::length).max().orElse(0);
+        int maxLines = (int) (Math.ceil((float) maxLineLength / maxSymbolsPerLine) * 1.105);
+        float maxContentHeight = maxLines * lineHeight;
+
+        float paperHeightPoints = Math.max(requiredPaperHeight, maxContentHeight) + 2 * margin;
+
+
+        for (int i = 0; i < orderDetails.size(); i++) {
+            String line = orderDetails.get(i);
+            if (line.length() > maxSymbolsPerLine - 1) {
+                int numSplits = (line.length() - 1) / (maxSymbolsPerLine - 2);
+
+                StringBuilder newLineBuilder = new StringBuilder();
+
+                for (int j = 0; j < numSplits; j++) {
+                    int start = j * (maxSymbolsPerLine - 2);
+                    int end = Math.min((j + 1) * (maxSymbolsPerLine - 2), line.length());
+                    newLineBuilder.append(line.substring(start, end));
+                    newLineBuilder.append("-/n");
+                }
+
+                newLineBuilder.append(line.substring(numSplits * (maxSymbolsPerLine - 2)));
+
+                orderDetails.set(i,newLineBuilder.toString());
+            }
+        }
+
+
+        // Create a new PDF document
+        try (PDDocument document = new PDDocument()) {
+            PDPage page = new PDPage(new PDRectangle(paperWidthPoints, paperHeightPoints));
+            document.addPage(page);
+
+            try (PDPageContentStream contentStream = new PDPageContentStream(document, page)) {
+                PDType0Font font = PDType0Font.load(document, AdminPageMenuController.class.getResourceAsStream("/styles/fonts/DejaVuSans.ttf"));
+                contentStream.setFont(font, fontSize);
+
+                float yStart = paperHeightPoints - margin;
+                float yPosition = yStart;
+
+                for (String line : orderDetails) {
+                    int tempSize = line.split("/n").length-1;
+                    for (int i = 0; i!=tempSize+1; i++){
+                        contentStream.beginText();
+                        contentStream.newLineAtOffset(margin, yPosition);
+                        contentStream.showText(line.split("/n")[i]);
+                        contentStream.endText();
+                        yPosition -= lineHeight;
+                    }
+                }
+            }
+
+            document.save("dynamic_order_document.pdf");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
 }
