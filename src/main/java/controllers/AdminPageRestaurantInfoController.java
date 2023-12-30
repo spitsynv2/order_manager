@@ -2,14 +2,17 @@ package controllers;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import models.Restaurant;
 import models.User;
 
-import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class AdminPageRestaurantInfoController extends AdminPageControllerAbstract {
@@ -30,7 +33,7 @@ public class AdminPageRestaurantInfoController extends AdminPageControllerAbstra
     @FXML private TextArea address_field;
     @FXML private TextField tax_field;
     @FXML private TextArea info_field;
-    @FXML private TextField paperSize_field;
+    @FXML private ChoiceBox paperSize_box;
 
     private Label[] labels;
 
@@ -45,7 +48,22 @@ public class AdminPageRestaurantInfoController extends AdminPageControllerAbstra
         address_field.setText(restaurant.getAddress());
         tax_field.setText(restaurant.getTax()+"");
         info_field.setText(restaurant.getInfo());
-        paperSize_field.setText(restaurant.getPaperSize());
+
+        List<String> items = new ArrayList<>();
+        items.add("57mm x 50mm");
+        items.add("57mm x 40mm");
+        items.add("57mm x 38mm");
+        items.add("80mm x 80mm");
+        items.add("80mm x 70mm");
+        items.add("80mm x 60mm");
+
+        paperSize_box.setItems(FXCollections.observableArrayList(items));
+
+        for (String item : items) {
+            if (item.equals(restaurant.getPaperSize())){
+                paperSize_box.getSelectionModel().select(item);
+            }
+        }
 
         tax_field.textProperty().addListener(new ChangeListener<String>() {
             @Override
@@ -101,7 +119,6 @@ public class AdminPageRestaurantInfoController extends AdminPageControllerAbstra
     @FXML
     private void handleChangeDataButton() {
         int id = restaurant.getId();
-        String to_print = restaurant.getTo_print();
 
         restaurant = new Restaurant(
                 id,
@@ -110,19 +127,17 @@ public class AdminPageRestaurantInfoController extends AdminPageControllerAbstra
                 phone_field.getText(),
                 email_field.getText(),
                 Double.parseDouble(tax_field.getText()),
-                to_print
-        );
+                restaurant.getToPrint());
         Restaurant.updateRestaurant(restaurant);
 
         restaurant.setInfo(info_field.getText());
-        restaurant.setPaperSize(paperSize_field.getText());
+        restaurant.setPaperSize(paperSize_box.getValue().toString());
         Restaurant.updateDetails(restaurant);
     }
 
     @FXML
     private void handleChangeDataAdditionalButton(){
         int id = restaurant.getId();
-        String to_print = restaurant.getTo_print();
 
         restaurant = new Restaurant(
                 id,
@@ -131,12 +146,11 @@ public class AdminPageRestaurantInfoController extends AdminPageControllerAbstra
                 phone_field.getText(),
                 email_field.getText(),
                 Double.parseDouble(tax_field.getText()),
-                to_print
-        );
+                restaurant.getToPrint());
         Restaurant.updateRestaurant(restaurant);
 
         restaurant.setInfo(info_field.getText());
-        restaurant.setPaperSize(paperSize_field.getText());
+        restaurant.setPaperSize(paperSize_box.getValue().toString());
         Restaurant.updateDetails(restaurant);
     }
 

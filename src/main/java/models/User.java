@@ -208,6 +208,8 @@ public class User {
 
             if (resultSet.next()) {
                 nextUserId = resultSet.getInt("seq") + 1;
+            }else {
+                nextUserId = 1;
             }
 
             resultSet.close();

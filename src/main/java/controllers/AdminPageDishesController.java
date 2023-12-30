@@ -47,13 +47,15 @@ public class AdminPageDishesController extends AdminPageControllerAbstract{
 
         dishes = dish_table.getItems();
 
-        dish_table.getSelectionModel().select(dishes.get(0));
-
-        name_field.setText(dishes.get(0).getName());
-        ingredients_field.setText(dishes.get(0).getIngredients());
-        type_field.setText(dishes.get(0).getType());
-        price_field.setText(dishes.get(0).getPrice()+"");
-
+        try {
+            dish_table.getSelectionModel().select(dishes.get(0));
+            name_field.setText(dishes.get(0).getName());
+            ingredients_field.setText(dishes.get(0).getIngredients());
+            type_field.setText(dishes.get(0).getType());
+            price_field.setText(dishes.get(0).getPrice()+"");
+        }catch (IndexOutOfBoundsException e){
+            System.out.println("Dish table is empty");
+        }
 
         price_field.textProperty().addListener(new ChangeListener<String>() {
             @Override

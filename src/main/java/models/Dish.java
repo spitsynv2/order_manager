@@ -87,14 +87,40 @@ public class Dish {
         return dishList;
     }
 
+    public static Dish getDishById(int dishId) {
+        Dish dish = null;
+        try (Connection connection = DatabaseConnection.getConnection();
+             PreparedStatement statement = connection.prepareStatement("SELECT * FROM Dishes WHERE Id = ?");
+        ) {
+            statement.setInt(1, dishId);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    int id = resultSet.getInt("Id");
+                    String name = resultSet.getString("Name");
+                    String ingredients = resultSet.getString("Ingredients_info");
+                    double price = resultSet.getDouble("Price");
+                    String type = resultSet.getString("Type");
+
+                    dish = new Dish(id, name, ingredients, price, type);
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            DatabaseConnection.closeConnection();
+        }
+        return dish;
+    }
+
     public static List<Dish> retrieveDishesByPopularity() {
         List<Dish> dishList = new ArrayList<>();
         try (Connection connection = DatabaseConnection.getConnection();
              PreparedStatement statement = connection.prepareStatement(
                      "SELECT Dishes.Id, Dishes.Name, Dishes.Ingredients_info, Dishes.Price, Dishes.Type, " +
-                             "COUNT(Orders_Dishes.Dishes_Id) AS Popularity " +
+                             "COUNT(Orders_Dishes.Dish_Id) AS Popularity " +
                              "FROM Dishes " +
-                             "LEFT JOIN Orders_Dishes ON Dishes.Id = Orders_Dishes.Dishes_Id " +
+                             "LEFT JOIN Orders_Dishes ON Dishes.Id = Orders_Dishes.Dish_Id " +
                              "GROUP BY Dishes.Id, Dishes.Name, Dishes.Ingredients_info, Dishes.Price, Dishes.Type " +
                              "ORDER BY Popularity DESC"
              );
@@ -124,9 +150,9 @@ public class Dish {
         try (Connection connection = DatabaseConnection.getConnection();
              PreparedStatement statement = connection.prepareStatement(
                      "SELECT Dishes.Id, Dishes.Name, Dishes.Ingredients_info, Dishes.Price, Dishes.Type, " +
-                             "COUNT(Orders_Dishes.Dishes_Id) AS Popularity " +
+                             "COUNT(Orders_Dishes.Dish_Id) AS Popularity " +
                              "FROM Dishes " +
-                             "LEFT JOIN Orders_Dishes ON Dishes.Id = Orders_Dishes.Dishes_Id " +
+                             "LEFT JOIN Orders_Dishes ON Dishes.Id = Orders_Dishes.Dish_Id " +
                              "GROUP BY Dishes.Id, Dishes.Name, Dishes.Ingredients_info, Dishes.Price, Dishes.Type " +
                              "ORDER BY Popularity DESC " +
                              "LIMIT 10"
@@ -157,10 +183,10 @@ public class Dish {
         try (Connection connection = DatabaseConnection.getConnection();
              PreparedStatement statement = connection.prepareStatement(
                      "SELECT Dishes.Id, Dishes.Name, Dishes.Ingredients_info, Dishes.Price, Dishes.Type, " +
-                             "COUNT(Orders_Dishes.Dishes_Id) AS Popularity " +
+                             "COUNT(Orders_Dishes.Dish_Id) AS Popularity " +
                              "FROM Dishes " +
-                             "LEFT JOIN Orders_Dishes ON Dishes.Id = Orders_Dishes.Dishes_Id " +
-                             "LEFT JOIN Orders ON Orders.Id = Orders_Dishes.Orders_Id " +
+                             "LEFT JOIN Orders_Dishes ON Dishes.Id = Orders_Dishes.Dish_Id " +
+                             "LEFT JOIN Orders ON Orders.Id = Orders_Dishes.Order_Id " +
                              "WHERE DATE(Orders.Date) = ? " +
                              "GROUP BY Dishes.Id, Dishes.Name, Dishes.Ingredients_info, Dishes.Price, Dishes.Type " +
                              "ORDER BY Popularity DESC " +
@@ -192,9 +218,9 @@ public class Dish {
         int numberOfOrders = 0;
         try (Connection connection = DatabaseConnection.getConnection();
              PreparedStatement statement = connection.prepareStatement(
-                     "SELECT COUNT(Orders_Dishes.Dishes_Id) AS NumberOfOrders " +
+                     "SELECT COUNT(Orders_Dishes.Dish_Id) AS NumberOfOrders " +
                              "FROM Orders_Dishes " +
-                             "WHERE Orders_Dishes.Dishes_Id = ?"
+                             "WHERE Orders_Dishes.Dish_Id = ?"
              )) {
             statement.setInt(1, dishId);
             ResultSet resultSet = statement.executeQuery();
@@ -215,10 +241,10 @@ public class Dish {
         int numberOfOrdersToday = 0;
         try (Connection connection = DatabaseConnection.getConnection();
              PreparedStatement statement = connection.prepareStatement(
-                     "SELECT COUNT(Orders_Dishes.Dishes_Id) AS NumberOfOrders " +
+                     "SELECT COUNT(Orders_Dishes.Dish_Id) AS NumberOfOrders " +
                              "FROM Orders_Dishes " +
-                             "LEFT JOIN Orders ON Orders.Id = Orders_Dishes.Orders_Id " +
-                             "WHERE Orders_Dishes.Dishes_Id = ? AND DATE(Orders.Date) = ?"
+                             "LEFT JOIN Orders ON Orders.Id = Orders_Dishes.Order_Id " +
+                             "WHERE Orders_Dishes.Dish_Id = ? AND DATE(Orders.Date) = ?"
              )) {
             statement.setInt(1, dishId);
             statement.setDate(2, Date.valueOf(LocalDate.now()));
@@ -373,6 +399,9 @@ public class Dish {
 
             if (resultSet.next()) {
                 nextUserId = resultSet.getInt("seq") + 1;
+            }
+            else {
+                nextUserId = 1;
             }
 
             resultSet.close();

@@ -5,14 +5,16 @@ import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextArea;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import models.Dish;
+import models.Order;
 import models.Restaurant;
 import models.User;
 import org.apache.pdfbox.pdmodel.*;
@@ -22,6 +24,7 @@ import org.apache.pdfbox.pdmodel.common.PDRectangle;
 import org.apache.pdfbox.pdmodel.font.PDType0Font;
 
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.*;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -215,11 +218,176 @@ public class AdminPageMenuController extends AdminPageControllerAbstract {
 
     @FXML
     public void handleMakeOrder(){
-        List<String> orders = new ArrayList<>();
-        orders.add("");
-        createPdf(orders);
-        selectedDishCountMap.entrySet().forEach(System.out::println);
+        openSubwindow(stage);
     }
+
+    private void openSubwindow(Stage ownerStage) {
+        Stage subwindow = new Stage();
+        subwindow.setTitle("Subwindow");
+
+        // Set the modality to APPLICATION_MODAL to block input to the owner stage
+        subwindow.initModality(Modality.APPLICATION_MODAL);
+
+        // Set the owner stage
+        subwindow.initOwner(ownerStage);
+
+        Button closeButton = new Button("Close Subwindow");
+        closeButton.setOnAction(e -> subwindow.close());
+
+        StackPane layout = new StackPane();
+        layout.getChildren().add(closeButton);
+
+        subwindow.setScene(new Scene(layout, 200, 150));
+        subwindow.showAndWait(); // ShowAndWait makes the subwindow modal
+    }
+
+    public void registerOrder(String payment, String additionalInfo){
+        Restaurant.retrieveToPrint(restaurant);
+        String[] toPrint = restaurant.getToPrint().split(",");
+
+        List<String> orderDetails = new ArrayList<>();
+        orderDetails.add(restaurant.getName());
+        orderDetails.add("Cheque: ");
+        orderDetails.add("--------------------");
+
+        orderDetails.add("Dishes: ");
+        selectedDishCountMap.entrySet().forEach(x->{
+            orderDetails.add(x.getKey().getName()+" x "+x.getValue());
+            orderDetails.add("Price: "+x.getKey().getPrice());
+        });
+        orderDetails.add("--------------------");
+
+
+        DecimalFormat decimalFormat = new DecimalFormat("#.##");
+        double sum = selectedDishCountMap.entrySet().stream().mapToDouble(x->x.getKey().getPrice()*x.getValue()).sum();
+        orderDetails.add("Total: " + decimalFormat.format(sum));
+        orderDetails.add("--------------------");
+        orderDetails.add("Tax: "+restaurant.getTax());
+        orderDetails.add("--------------------");
+        double sumTax = sum+((sum*restaurant.getTax())/100);
+        orderDetails.add("To pay: " + decimalFormat.format(sumTax));
+        orderDetails.add("--------------------");
+
+        for (String s : toPrint) {
+            switch (s) {
+                case "Address":
+                    orderDetails.add("Address:");
+                    List<String> tempAddress = Arrays.stream(restaurant.getAddress().split("\n")).toList();
+                    for (String part: tempAddress){
+                        orderDetails.add(part);
+                    }
+                    break;
+                case "Phone":
+                    orderDetails.add("Phone number:");
+                    orderDetails.add(restaurant.getPhone());
+                    break;
+                case "Email":
+                    orderDetails.add("Email:");
+                    orderDetails.add(restaurant.getEmail());
+                    break;
+                case "Additional info":
+                    List<String> tempInfo = Arrays.stream(restaurant.getInfo().split("\n")).toList();
+                    for (String part: tempInfo){
+                        orderDetails.add(part);
+                    }
+                    break;
+            }
+
+        }
+
+        orderDetails.add("--------------------");
+        orderDetails.add("Cashier: "+user.getName());
+        orderDetails.add("--------------------");
+
+        Order order = new Order(Order.getNextOrderId(),"Card","In process");
+        List<Dish> dishes = new ArrayList<>();
+        dishes.addAll(selectedDish);
+        order.setDishes(dishes);
+        order.makeOrder();
+
+        Order.getAllOrders().forEach(x->{
+            x.setDishes(x.getDishesByOrderId());
+            System.out.println(x);
+        });
+
+        createPdf(orderDetails, Integer.parseInt(restaurant.getPaperSize().split("mm")[0]));
+        System.out.println(restaurant.getPaperSize().split("mm")[0]);
+    }
+
+    public  List<String> splitStrings(List<String> orderList, int maxSymbolsPerLine) {
+        List<String> newList = new ArrayList<>();
+
+        for (String string : orderList) {
+            if (string.length() > maxSymbolsPerLine) {
+                for (int i = 0; i < string.length(); i += maxSymbolsPerLine) {
+                    int endIndex = Math.min(i + maxSymbolsPerLine, string.length());
+                    String part = string.substring(i, endIndex);
+                    newList.add(part);
+                }
+            } else {
+                newList.add(string);
+            }
+        }
+
+        return newList;
+    }
+
+    private void createPdf(List<String> orderDetails, int paperSize) {
+        float lineHeight = 14;
+        float paperWidthPoints = paperSize * 72f / 25.4f;  // Convert mm to points
+        float AVERAGE_CHAR_WIDTH = 0.55f;
+        float margin = 20;
+        int fontSize = 10;
+
+        float maxWidth = paperWidthPoints - 2 * margin;
+        int maxSymbolsPerLine = (int) (maxWidth / (AVERAGE_CHAR_WIDTH * fontSize));
+
+        orderDetails = splitStrings(orderDetails, maxSymbolsPerLine);
+
+        float paperHeightPoints = orderDetails.size() * lineHeight + 1 * margin;
+
+        try (PDDocument document = new PDDocument()) {
+            PDPage page = new PDPage(new PDRectangle(paperWidthPoints, paperHeightPoints));
+            document.addPage(page);
+
+            try (PDPageContentStream contentStream = new PDPageContentStream(document, page)) {
+                PDType0Font font = PDType0Font.load(document, AdminPageMenuController.class.getResourceAsStream("/styles/fonts/DejaVuSans.ttf"));
+                contentStream.setFont(font, fontSize);
+
+                float yStart = paperHeightPoints - margin;
+                float yPosition = yStart;
+
+                for (String line : orderDetails) {
+
+                    float textWidth = font.getStringWidth(line) / 1000 * fontSize;
+                    float xPosition = (paperWidthPoints - textWidth) / 2;
+
+                    while (line.length() > maxSymbolsPerLine) {
+                        String part = line.substring(0, maxSymbolsPerLine);
+                        line = line.substring(maxSymbolsPerLine);
+
+                        contentStream.beginText();
+                        contentStream.newLineAtOffset(xPosition, yPosition);
+                        contentStream.showText(part);
+                        contentStream.endText();
+
+                        yPosition -= lineHeight;
+                    }
+
+                    contentStream.beginText();
+                    contentStream.newLineAtOffset(xPosition, yPosition);
+                    contentStream.showText(line);
+                    contentStream.endText();
+                    yPosition -= lineHeight;
+                }
+            }
+
+            document.save("dynamic_order_document.pdf");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     @FXML
     public void handleClearLast() {
@@ -266,78 +434,6 @@ public class AdminPageMenuController extends AdminPageControllerAbstract {
         return dishList.stream()
                 .sorted(popularityComparator)
                 .collect(Collectors.toList());
-    }
-
-    private void createPdf(List<String> orderDetails){
-
-        float lineHeight = 14;
-        float paperWidthPoints = 55 * 72f / 25.4f;  // Convert mm to points
-        float AVERAGE_CHAR_WIDTH = 0.53f;
-        float margin = 20;
-        float maxWidth = paperWidthPoints - 2 * margin;
-        int fontSize = 10;
-        int maxSymbolsPerLine = (int) (maxWidth / (AVERAGE_CHAR_WIDTH * fontSize));
-
-        int numLines = (int) Math.ceil(orderDetails.stream().collect(Collectors.joining()).length() / (float) maxSymbolsPerLine);
-
-        float requiredPaperHeight = numLines * lineHeight;
-
-        int maxLineLength = orderDetails.stream().mapToInt(String::length).max().orElse(0);
-        int maxLines = (int) (Math.ceil((float) maxLineLength / maxSymbolsPerLine) * 1.105);
-        float maxContentHeight = maxLines * lineHeight;
-
-        float paperHeightPoints = Math.max(requiredPaperHeight, maxContentHeight) + 2 * margin;
-
-
-        for (int i = 0; i < orderDetails.size(); i++) {
-            String line = orderDetails.get(i);
-            if (line.length() > maxSymbolsPerLine - 1) {
-                int numSplits = (line.length() - 1) / (maxSymbolsPerLine - 2);
-
-                StringBuilder newLineBuilder = new StringBuilder();
-
-                for (int j = 0; j < numSplits; j++) {
-                    int start = j * (maxSymbolsPerLine - 2);
-                    int end = Math.min((j + 1) * (maxSymbolsPerLine - 2), line.length());
-                    newLineBuilder.append(line.substring(start, end));
-                    newLineBuilder.append("-/n");
-                }
-
-                newLineBuilder.append(line.substring(numSplits * (maxSymbolsPerLine - 2)));
-
-                orderDetails.set(i,newLineBuilder.toString());
-            }
-        }
-
-
-        // Create a new PDF document
-        try (PDDocument document = new PDDocument()) {
-            PDPage page = new PDPage(new PDRectangle(paperWidthPoints, paperHeightPoints));
-            document.addPage(page);
-
-            try (PDPageContentStream contentStream = new PDPageContentStream(document, page)) {
-                PDType0Font font = PDType0Font.load(document, AdminPageMenuController.class.getResourceAsStream("/styles/fonts/DejaVuSans.ttf"));
-                contentStream.setFont(font, fontSize);
-
-                float yStart = paperHeightPoints - margin;
-                float yPosition = yStart;
-
-                for (String line : orderDetails) {
-                    int tempSize = line.split("/n").length-1;
-                    for (int i = 0; i!=tempSize+1; i++){
-                        contentStream.beginText();
-                        contentStream.newLineAtOffset(margin, yPosition);
-                        contentStream.showText(line.split("/n")[i]);
-                        contentStream.endText();
-                        yPosition -= lineHeight;
-                    }
-                }
-            }
-
-            document.save("dynamic_order_document.pdf");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
 }

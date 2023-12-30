@@ -6,7 +6,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.format.SignStyle;
 
 public class Restaurant {
 
@@ -17,17 +16,25 @@ public class Restaurant {
     private String email;
     private String paperSize;
     private String info;
+    private String toPrint;
     private double tax = 23;
-    private String to_print;
 
-    public Restaurant(int id, String name, String address, String phone, String email, double tax, String to_print){
+    public Restaurant(int id, String name, String address, String phone, String email, double tax, String toPrint){
         this.id = id;
         this.name = name;
         this.address = address;
         this.phone = phone;
         this.email = email;
         this.tax = tax;
-        this.to_print = to_print;
+        this.toPrint = toPrint;
+    }
+
+    public String getToPrint() {
+        return toPrint;
+    }
+
+    public void setToPrint(String toPrint) {
+        this.toPrint = toPrint;
     }
 
     public void setPaperSize(String paperSize) {
@@ -56,14 +63,6 @@ public class Restaurant {
 
     public String getInfo() {
         return info;
-    }
-
-    public void setTo_print(String to_print) {
-        this.to_print = to_print;
-    }
-
-    public String getTo_print() {
-        return to_print;
     }
 
     public String getPaperSize() {
@@ -95,8 +94,8 @@ public class Restaurant {
                 String phone = resultSet.getString("Phone");
                 String email = resultSet.getString("Email");
                 double tax = resultSet.getDouble("Tax");
-                String to_print = resultSet.getString("ToPrint");
-                restaurant = new Restaurant(id,name, address, phone, email, tax,to_print);
+                String toPrint = resultSet.getString("ToPrint");
+                restaurant = new Restaurant(id,name, address, phone, email, tax,toPrint);
             }
 
             resultSet.close();
@@ -124,6 +123,29 @@ public class Restaurant {
                 String additionalInfo = resultSet.getString("Additional_info");
                 restaurant.setPaperSize(paperSize);
                 restaurant.setInfo(additionalInfo);
+            }
+
+            resultSet.close();
+            statement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            DatabaseConnection.closeConnection();
+        }
+    }
+
+    public static void retrieveToPrint(Restaurant restaurant){
+        try {
+            Connection connection = DatabaseConnection.getConnection();
+
+            String selectQuery = "SELECT ToPrint FROM Restaurant WHERE Id = 1";
+            PreparedStatement statement = connection.prepareStatement(selectQuery);
+
+            ResultSet resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                String toPrint = resultSet.getString("ToPrint");
+                restaurant.setToPrint(toPrint);
             }
 
             resultSet.close();
@@ -185,13 +207,15 @@ public class Restaurant {
         }
     }
 
-    public static void updateRestaurantToPrint(Restaurant restaurant) {
+    public static void updateToPrint(Restaurant restaurant) {
         try {
             Connection connection = DatabaseConnection.getConnection();
 
-            String updateRestaurantQuery = "UPDATE Restaurant SET ToPrint = ? WHERE Id = ?";
-            PreparedStatement statement = connection.prepareStatement(updateRestaurantQuery);
-            statement.setString(1, restaurant.to_print);
+            String updatePrintDetailsQuery = "UPDATE Restaurant SET ToPrint = ? WHERE Id = ?";
+            PreparedStatement statement = connection.prepareStatement(updatePrintDetailsQuery);
+
+            statement.setString(1, restaurant.toPrint);
+
             statement.setInt(2, restaurant.id);
 
             statement.executeUpdate();
