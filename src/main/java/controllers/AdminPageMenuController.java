@@ -1,18 +1,20 @@
 package controllers;
 
 import controllers.fragments.MenuItemController;
+import controllers.fragments.OrderController;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import models.Dish;
 import models.Order;
 import models.Restaurant;
@@ -23,6 +25,7 @@ import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.common.PDRectangle;
 import org.apache.pdfbox.pdmodel.font.PDType0Font;
 
+import java.io.File;
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.*;
@@ -222,23 +225,40 @@ public class AdminPageMenuController extends AdminPageControllerAbstract {
     }
 
     private void openSubwindow(Stage ownerStage) {
-        Stage subwindow = new Stage();
-        subwindow.setTitle("Subwindow");
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("/fxml_files/fragments/order.fxml")));
+            Parent root = fxmlLoader.load();
+            OrderController controller = fxmlLoader.getController();
 
-        // Set the modality to APPLICATION_MODAL to block input to the owner stage
-        subwindow.initModality(Modality.APPLICATION_MODAL);
+            Stage subwindow = new Stage();
 
-        // Set the owner stage
-        subwindow.initOwner(ownerStage);
+            subwindow.setTitle("Order Confirmation");
+            subwindow.initModality(Modality.APPLICATION_MODAL);
+            subwindow.initOwner(ownerStage);
 
-        Button closeButton = new Button("Close Subwindow");
-        closeButton.setOnAction(e -> subwindow.close());
+            subwindow.initStyle(StageStyle.UNDECORATED);
 
-        StackPane layout = new StackPane();
-        layout.getChildren().add(closeButton);
+            subwindow.setWidth(950);
+            subwindow.setHeight(515);
+            subwindow.setResizable(false);
 
-        subwindow.setScene(new Scene(layout, 200, 150));
-        subwindow.showAndWait(); // ShowAndWait makes the subwindow modal
+            controller.initialize();
+            controller.setStage(subwindow);
+
+            controller.getSubmitButton().setOnAction(event -> {
+                registerOrder(controller.getPayment(), controller.getText());
+                int size = selectedDish.size();
+                for (int i = 0; i < size; i++) {
+                    handleClearLast();
+                }
+                subwindow.close();
+            });
+
+            subwindow.setScene(new Scene(root));
+            subwindow.showAndWait();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void registerOrder(String payment, String additionalInfo){
@@ -298,20 +318,27 @@ public class AdminPageMenuController extends AdminPageControllerAbstract {
         orderDetails.add("--------------------");
         orderDetails.add("Cashier: "+user.getName());
         orderDetails.add("--------------------");
+        orderDetails.add(payment);
+        orderDetails.add("--------------------");
+        if (!additionalInfo.isEmpty()){
+            orderDetails.add(additionalInfo);
+        }
 
-        Order order = new Order(Order.getNextOrderId(),"Card","In process");
+        int id = Order.getNextOrderId();
+        Order order = new Order(id,payment,"In process");
         List<Dish> dishes = new ArrayList<>();
         dishes.addAll(selectedDish);
         order.setDishes(dishes);
         order.makeOrder();
 
+        /* SOME DEBUG
         Order.getAllOrders().forEach(x->{
-            x.setDishes(x.getDishesByOrderId());
+            x.setDishesStrings(x.getDishesByOrderId());
             System.out.println(x);
         });
+        */
 
-        createPdf(orderDetails, Integer.parseInt(restaurant.getPaperSize().split("mm")[0]));
-        System.out.println(restaurant.getPaperSize().split("mm")[0]);
+        createPdf(orderDetails, Integer.parseInt(restaurant.getPaperSize().split("mm")[0]),id);
     }
 
     public  List<String> splitStrings(List<String> orderList, int maxSymbolsPerLine) {
@@ -332,7 +359,7 @@ public class AdminPageMenuController extends AdminPageControllerAbstract {
         return newList;
     }
 
-    private void createPdf(List<String> orderDetails, int paperSize) {
+    private void createPdf(List<String> orderDetails, int paperSize, int id) {
         float lineHeight = 14;
         float paperWidthPoints = paperSize * 72f / 25.4f;  // Convert mm to points
         float AVERAGE_CHAR_WIDTH = 0.55f;
@@ -382,7 +409,10 @@ public class AdminPageMenuController extends AdminPageControllerAbstract {
                 }
             }
 
-            document.save("dynamic_order_document.pdf");
+            String directory = System.getProperty("user.home");
+            String filePath = directory + File.separator + "order_document_number_"+id;
+
+            document.save(filePath+".pdf");
         } catch (IOException e) {
             e.printStackTrace();
         }

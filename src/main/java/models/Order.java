@@ -15,9 +15,14 @@ public class Order {
     private String payment;
     private String status;
     private List<Dish> dishes;
+    private List<String> dishesStrings;
 
     public void setDishes(List<Dish> dishes) {
         this.dishes = dishes;
+    }
+
+    public void setDishesStrings(List<String> dishesStrings) {
+        this.dishesStrings = dishesStrings;
     }
 
     public Order(int id, long date, String payment, String status) {
@@ -100,8 +105,8 @@ public class Order {
         return orders;
     }
 
-    public List<Dish> getDishesByOrderId() {
-        List<Dish> orderDishes = new ArrayList<>();
+    public List<String> getDishesByOrderId() {
+        List<String> orderDishes = new ArrayList<>();
 
         try (Connection connection = DatabaseConnection.getConnection()) {
             String sql = "SELECT * FROM Orders_Dishes WHERE Order_Id=?";
@@ -111,8 +116,7 @@ public class Order {
                     while (resultSet.next()) {
                         int dishId = resultSet.getInt("Dish_Id");
                         String dishName = resultSet.getString("Dish_name");
-                        Dish orderDish = Dish.getDishById(dishId);
-                        orderDishes.add(orderDish);
+                        orderDishes.add(dishName);
                     }
                 }
             }
@@ -158,7 +162,7 @@ public class Order {
                 ", date=" + date +
                 ", payment='" + payment + '\'' +
                 ", status='" + status + '\'' +
-                ", dishes=" + dishes +
+                ", dishes=" + dishesStrings +
                 '}';
     }
 }
