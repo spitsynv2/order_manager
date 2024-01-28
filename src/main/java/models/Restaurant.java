@@ -211,12 +211,10 @@ public class Restaurant {
         try {
             Connection connection = DatabaseConnection.getConnection();
 
-            String updatePrintDetailsQuery = "UPDATE Restaurant SET ToPrint = ? WHERE Id = ?";
+            String updatePrintDetailsQuery = "UPDATE Restaurant SET ToPrint = ? WHERE Id = 1";
             PreparedStatement statement = connection.prepareStatement(updatePrintDetailsQuery);
 
             statement.setString(1, restaurant.toPrint);
-
-            statement.setInt(2, restaurant.id);
 
             statement.executeUpdate();
             statement.close();
