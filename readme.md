@@ -39,16 +39,22 @@ This project is a JavaFX application for managing orders in a café, developed a
 ### Screenshots
 
 # Login menu: 
-![Login menu](screenshots/login-menu.PNG?raw=true "Optional Title")
+![Login menu](screenshots/login-menu.PNG?raw=true "Login menu")
 
-# General admin menu: /screenshots/user-info.png
+# General admin menu:
+![General admin menu](screenshots/user-info.PNG?raw=true "Admin menu")
 
-# Restaurant menu: /screenshots/restaurant-menu.png
+# Restaurant menu:
+![Restaurant menu](screenshots/restaurant-menu.PNG?raw=true "Restaurant menu")
 
-# Dishes menu: /screenshots/dishes-menu.png
+# Dishes menu:
+![Dishes menu](screenshots/dishes-menu.PNG?raw=true "Dishes menu")
 
-# Menu page: /screenshots/menu-page.png
+# Menu page:
+![Menu page](screenshots/menu-page.PNG?raw=true "Menu page")
 
-# Order conformation page: /screenshots/order-conformation.png
+# Order conformation page:
+![Order conformation page](screenshots/order-conformation.PNG?raw=true "Order conformation")
 
-# Cheque generator: /screenshots/cheque-generated.png
+# Cheque generated:
+![Cheque generated](screenshots/cheque-generated.PNG?raw=true "Cheque generated")
