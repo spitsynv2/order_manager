@@ -1,40 +1,38 @@
 # Cafe Order Manager System
 
-## A JavaFX Application for Managing Orders in a Café
-
-This project is a JavaFX application for managing orders in a café, developed as a diploma work. It provides a comprehensive solution for order management, enabling you to effectively handle order processing.
+This project is a JavaFX application for managing orders in a café or restaurant, developed as a diploma work. It provides a comprehensive solution for order management, enabling you to effectively handle order processing.
 
 ## Features
 
-* **# Login menu for cashier and administrator of cafe or small restaurant (ready).**
+* **Login menu for cashier and administrator of cafe or small restaurant (ready).**
 
-* **# General admin menu where administrator can add new admin or cashier to a system (ready).**
+* **General admin menu where administrator can add new admin or cashier to a system (ready).**
 
-* **# Restaurant menu for possibility of changing some data about restaurant (ready).**
+* **Restaurant menu for possibility of changing some data about restaurant (ready).**
 
-* **# Dishes menu where administrator can add/change/remove dishes that are in a database (ready).**
+* **Dishes menu where administrator can add/change/remove dishes that are in a database (ready).**
 
-* **# Menu page where cashier or administrator can create a new order, menu page have possibility to sort dishes by their types (ready).**
+* **Menu page where cashier or administrator can create a new order, menu page have possibility to sort dishes by their types (ready).**
 
-* **# Order conformation page that appears after selecting dishes and making order, that page contains some useful buttons and field for making order (ready).**
+* **Order conformation page that appears after selecting dishes and making order, that page contains some useful buttons and field for making order (ready).**
 
-* **# Simple cheque generator for new order (ready).**
+* **Simple cheque generator for new order (ready).**
 
-* **# Cheque page for customisation (in progress).**
+* **Cheque page for customisation (in progress).**
 
-* **# View a List of All Orders and keep track of all orders placed, including details like customer information, order items, and order status (in progress).**
+* **View a List of All Orders and keep track of all orders placed, including details like customer information, order items, and order status (in progress).**
 
-* **# Dashboard with statistic (in progress).**
+* **Dashboard with statistic (in progress).**
 
 ## Technology Stack
 
-* **# Java 11.**
+* **Java 11.**
 
-* **# SQLite database.**
+* **SQLite database.**
 
-* **# JavaFX 17.**
+* **JavaFX 17.**
 
-* **# Scene Builder.**
+* **Scene Builder.**
 
 ## Screenshots
 
