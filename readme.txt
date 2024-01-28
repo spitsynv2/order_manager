@@ -1,4 +1,4 @@
-##Cafe Order Manager System
+## Cafe Order Manager System
 
 # A JavaFX Application for Managing Orders in a Café
 
