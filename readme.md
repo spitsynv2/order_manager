@@ -1,6 +1,6 @@
-## Cafe Order Manager System
+# Cafe Order Manager System
 
-# A JavaFX Application for Managing Orders in a Café
+## A JavaFX Application for Managing Orders in a Café
 
 This project is a JavaFX application for managing orders in a café, developed as a diploma work. It provides a comprehensive solution for order management, enabling you to effectively handle order processing.
 
@@ -38,16 +38,17 @@ This project is a JavaFX application for managing orders in a café, developed a
 
 ### Screenshots
 
-# Login menu: ./screenshots/login-menu.png
+# Login menu: 
+![Login menu](screenshots/login-menu.PNG?raw=true "Optional Title")
 
-# General admin menu: ./screenshots/user-info.png
+# General admin menu: /screenshots/user-info.png
 
-# Restaurant menu: ./screenshots/restaurant-menu.png
+# Restaurant menu: /screenshots/restaurant-menu.png
 
-# Dishes menu: ./screenshots/dishes-menu.png
+# Dishes menu: /screenshots/dishes-menu.png
 
-# Menu page: ./screenshots/menu-page.png
+# Menu page: /screenshots/menu-page.png
 
-# Order conformation page: ./screenshots/order-conformation.png
+# Order conformation page: /screenshots/order-conformation.png
 
-# Cheque generator: ./screenshots/cheque-generated.png
+# Cheque generator: /screenshots/cheque-generated.png
