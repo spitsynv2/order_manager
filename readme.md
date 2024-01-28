@@ -54,5 +54,5 @@ This project is a JavaFX application for managing orders in a café or restauran
 ### Order conformation page
 ![Order conformation page](screenshots/order-conformation.PNG?raw=true "Order conformation")
 
-### Cheque generated
+### Cheque generator
 ![Cheque generated](screenshots/cheque-generated.PNG?raw=true "Cheque generated")
