@@ -48,7 +48,7 @@ public class AdminPageMenuController extends AdminPageControllerAbstract {
     private ChoiceBox sort_choiceBox;
 
     private List<Dish> dishList = new LinkedList<>();
-    List<Dish> dishListByPopularity = new ArrayList<>();
+    private List<Dish> dishListByPopularity = new ArrayList<>();
 
     private List<VBox> products = new ArrayList<>();
 
@@ -277,7 +277,6 @@ public class AdminPageMenuController extends AdminPageControllerAbstract {
         });
         orderDetails.add("--------------------");
 
-
         DecimalFormat decimalFormat = new DecimalFormat("#.##");
         double sum = selectedDishCountMap.entrySet().stream().mapToDouble(x->x.getKey().getPrice()*x.getValue()).sum();
         orderDetails.add("Total: " + decimalFormat.format(sum));
@@ -417,7 +416,6 @@ public class AdminPageMenuController extends AdminPageControllerAbstract {
             e.printStackTrace();
         }
     }
-
 
     @FXML
     public void handleClearLast() {

@@ -1,4 +1,4 @@
-# Cafe Order Manager System
+# Orders Management System
 
 This project is a JavaFX application for managing orders in a café or restaurant, developed as a diploma work. It provides a comprehensive solution for order management, enabling you to effectively handle order processing.
 

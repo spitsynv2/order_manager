@@ -292,7 +292,7 @@
                   <Label fx:id="sub_header2" layoutX="116.0" styleClass="text_label_black" text="Additional info" AnchorPane.topAnchor="10.0" />
                   <VBox alignment="CENTER" layoutX="107.0" layoutY="74.0" prefWidth="300.0" spacing="70.0" AnchorPane.topAnchor="106.0">
                      <children>
-                        <Label fx:id="info_label" styleClass="text_label_black_medium" text="Additional info" />
+                        <Label fx:id="info_label" styleClass="text_label_black_medium" text="Information" />
                         <TextArea fx:id="info_field" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#handleFieldClicked" onTouchPressed="#handleFieldClicked" prefHeight="90.0" prefWidth="320.0" text="Discounts, &#10;some special info for&#10;clients, etc">
                            <styleClass>
                               <String fx:value="small_text_label_black" />
