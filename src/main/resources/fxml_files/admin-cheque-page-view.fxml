@@ -3,6 +3,7 @@
 <?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.image.Image?>
@@ -209,19 +210,91 @@
       </VBox>
    </right>
    <center>
-      <SplitPane fx:id="secondaryPane" dividerPositions="0.5" styleClass="split-paneWhite" BorderPane.alignment="CENTER">
+      <SplitPane fx:id="secondaryPane" dividerPositions="0.6939742721733243" styleClass="split-paneWhite" BorderPane.alignment="CENTER">
         <items>
-          <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minWidth="1023.0" prefHeight="951.0" prefWidth="1023.0">
+          <AnchorPane minWidth="0.0">
                <children>
                   <Line endX="914.0" endY="6.0" layoutX="109.0" layoutY="66.0" startX="-109.0" startY="6.0" style="-fx-stroke: #2B2D30; -fx-stroke-width: 3.5;" />
-                  <Label fx:id="sub_header" layoutX="447.0" layoutY="-26.0" styleClass="text_label_black" text="Cheque" AnchorPane.topAnchor="10.0" />
-                  <VBox layoutX="474.0" layoutY="111.0" prefHeight="200.0" prefWidth="100.0" />
-               </children></AnchorPane>
-          <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minWidth="450.0" prefHeight="953.0" prefWidth="450.0">
+                  <Label fx:id="sub_header2" layoutX="424.0" styleClass="text_label_black" text="Example" AnchorPane.topAnchor="10.0" />
+                  <VBox alignment="CENTER" layoutX="337.0" layoutY="107.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="350.0" styleClass="shadow_black">
+                     <children>
+                        <ImageView fx:id="cheque_view" fitHeight="766.0" fitWidth="353.0" pickOnBounds="true" preserveRatio="true" />
+                     </children>
+                  </VBox>
+               </children>
+            </AnchorPane>
+          <AnchorPane minWidth="0.0">
                <children>
                   <Line endX="798.0" endY="9.0" layoutX="-281.0" layoutY="63.0" startX="278.75" startY="9.0" style="-fx-stroke: #2B2D30; -fx-stroke-width: 3.5;" />
-                  <Label fx:id="sub_header2" layoutX="143.0" layoutY="11.0" styleClass="text_label_black" text="Example" AnchorPane.topAnchor="10.0" />
-               </children></AnchorPane>
+                  <VBox alignment="CENTER" layoutX="31.0" layoutY="120.0" spacing="100.0" AnchorPane.leftAnchor="31.0" AnchorPane.topAnchor="120.0">
+                     <children>
+                        <HBox alignment="TOP_CENTER" spacing="15.0">
+                           <children>
+                              <Label fx:id="name_label" styleClass="text_label_black_medium" text="Name" />
+                              <ChoiceBox fx:id="name_box" prefWidth="150.0">
+                                 <styleClass>
+                                    <String fx:value="small_text_label_black" />
+                                    <String fx:value="shadow_black" />
+                                 </styleClass>
+                              </ChoiceBox>
+                           </children>
+                        </HBox>
+                        <HBox alignment="TOP_CENTER" spacing="15.0">
+                           <children>
+                              <Label fx:id="address_label" styleClass="text_label_black_medium" text="Address" />
+                              <ChoiceBox fx:id="address_box" prefWidth="150.0">
+                                 <styleClass>
+                                    <String fx:value="small_text_label_black" />
+                                    <String fx:value="shadow_black" />
+                                 </styleClass>
+                              </ChoiceBox>
+                           </children>
+                        </HBox>
+                        <HBox alignment="TOP_CENTER" spacing="15.0">
+                           <children>
+                              <Label fx:id="phone_label" alignment="TOP_LEFT" styleClass="text_label_black_medium" text="Phone" />
+                              <ChoiceBox fx:id="phone_box" prefWidth="150.0">
+                                 <styleClass>
+                                    <String fx:value="small_text_label_black" />
+                                    <String fx:value="shadow_black" />
+                                 </styleClass>
+                              </ChoiceBox>
+                           </children>
+                        </HBox>
+                        <HBox alignment="TOP_CENTER" spacing="15.0">
+                           <children>
+                              <Label fx:id="email_label" styleClass="text_label_black_medium" text="Email" />
+                              <ChoiceBox fx:id="email_box" prefWidth="150.0">
+                                 <styleClass>
+                                    <String fx:value="small_text_label_black" />
+                                    <String fx:value="shadow_black" />
+                                 </styleClass>
+                              </ChoiceBox>
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER" spacing="15.0">
+                           <children>
+                              <Label fx:id="info_label" alignment="TOP_LEFT" styleClass="text_label_black_medium" text="Additional info" />
+                              <ChoiceBox fx:id="info_box" prefWidth="150.0">
+                                 <styleClass>
+                                    <String fx:value="small_text_label_black" />
+                                    <String fx:value="shadow_black" />
+                                 </styleClass>
+                              </ChoiceBox>
+                           </children>
+                        </HBox>
+                        <Button fx:id="submit_button" mnemonicParsing="false" onMouseClicked="#handleChangeChequeInfo" onTouchPressed="#handleChangeChequeInfo" prefHeight="45.0" prefWidth="300.0" text="Submit">
+                           <styleClass>
+                              <String fx:value="small_text_label_white" />
+                              <String fx:value="button_submit" />
+                              <String fx:value="shadow_black" />
+                           </styleClass>
+                        </Button>
+                     </children>
+                  </VBox>
+                  <Label fx:id="sub_header" layoutX="146.0" styleClass="text_label_black" text="Cheque" AnchorPane.topAnchor="10.0" />
+               </children>
+            </AnchorPane>
         </items>
          <BorderPane.margin>
             <Insets bottom="25.0" left="15.0" />

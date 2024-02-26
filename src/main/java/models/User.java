@@ -128,6 +128,13 @@ public class User {
             deleteRestaurantStatement.executeUpdate();
             deleteRestaurantStatement.close();
 
+            // Delete the user from the Users_Orders table
+            String deleteOrdersQuery = "DELETE FROM Users_Orders WHERE User_Id = ?";
+            PreparedStatement deleteOrdersStatement = connection.prepareStatement(deleteOrdersQuery);
+            deleteOrdersStatement.setInt(1, user.getId());
+            deleteOrdersStatement.executeUpdate();
+            deleteOrdersStatement.close();
+
             // Delete the user from the Users table
             String deleteQuery = "DELETE FROM Users WHERE ID = ?";
             PreparedStatement deleteStatement = connection.prepareStatement(deleteQuery);

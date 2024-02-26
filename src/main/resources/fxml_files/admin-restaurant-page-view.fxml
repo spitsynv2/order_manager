@@ -217,7 +217,7 @@
    <center>
       <SplitPane fx:id="secondaryPane" dividerPositions="0.651791751183232" styleClass="split-paneWhite" BorderPane.alignment="CENTER">
         <items>
-          <AnchorPane minWidth="963.0" prefHeight="953.0" prefWidth="1050.0">
+          <AnchorPane minWidth="0.0">
                <children>
                   <VBox alignment="CENTER" layoutX="113.0" layoutY="149.0" spacing="55.0" AnchorPane.rightAnchor="550.0" />
                   <Line endX="854.0" endY="6.0" layoutX="109.0" layoutY="66.0" startX="-109.0" startY="6.0" style="-fx-stroke: #2B2D30; -fx-stroke-width: 3.5;" />
@@ -286,7 +286,7 @@
                      </styleClass>
                   </Button>
                </children></AnchorPane>
-          <AnchorPane minWidth="514.0" prefHeight="953.0" prefWidth="645.0">
+          <AnchorPane minWidth="0.0">
                <children>
                   <Line endX="798.0" endY="9.0" layoutX="-281.0" layoutY="63.0" startX="278.75" startY="9.0" style="-fx-stroke: #2B2D30; -fx-stroke-width: 3.5;" />
                   <Label fx:id="sub_header2" layoutX="116.0" styleClass="text_label_black" text="Additional info" AnchorPane.topAnchor="10.0" />

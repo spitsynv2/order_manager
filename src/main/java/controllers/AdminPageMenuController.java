@@ -60,10 +60,10 @@ public class AdminPageMenuController extends AdminPageControllerAbstract {
 
     private Map<Dish, Integer> selectedDishCountMap = new LinkedHashMap<>();
 
-    public void initializeWithData(User user, boolean islightMode) throws IOException {
+    public void initializeWithData(User user, boolean islightMode) {
 
         this.user = user;
-        restaurant = Restaurant.retrieveRestaurant();
+        this.restaurant = Restaurant.retrieveRestaurant();
 
         scrollPane.addEventFilter(ScrollEvent.ANY, event -> {
             if (event.getEventType() == ScrollEvent.SCROLL) {
@@ -261,12 +261,24 @@ public class AdminPageMenuController extends AdminPageControllerAbstract {
         }
     }
 
-    public void registerOrder(String payment, String additionalInfo){
+    public void registerOrder(String payment, String cashierInfo){
+
         Restaurant.retrieveToPrint(restaurant);
-        String[] toPrint = restaurant.getToPrint().split(",");
+
+        //TODO --> Need change to handle position of toPrint values and cheque customisation (future changes)
+
+        String toPrintString = restaurant.getToPrint();
+        String[] toPrint;
+        if (!toPrintString.equals("")){
+            toPrint = toPrintString.split(",");
+        }else {
+            toPrint = new String[0];
+        }
 
         List<String> orderDetails = new ArrayList<>();
-        orderDetails.add(restaurant.getName());
+        if (Arrays.asList(toPrint).contains("Name")){
+            orderDetails.add(restaurant.getName());
+        }
         orderDetails.add("Cheque: ");
         orderDetails.add("--------------------");
 
@@ -280,28 +292,29 @@ public class AdminPageMenuController extends AdminPageControllerAbstract {
         DecimalFormat decimalFormat = new DecimalFormat("#.##");
         double sum = selectedDishCountMap.entrySet().stream().mapToDouble(x->x.getKey().getPrice()*x.getValue()).sum();
         orderDetails.add("Total: " + decimalFormat.format(sum));
-        orderDetails.add("--------------------");
-        orderDetails.add("Tax: "+restaurant.getTax());
+        orderDetails.add("And");
+        orderDetails.add("Tax: "+restaurant.getTax()+"%");
         orderDetails.add("--------------------");
         double sumTax = sum+((sum*restaurant.getTax())/100);
         orderDetails.add("To pay: " + decimalFormat.format(sumTax));
-        orderDetails.add("--------------------");
+        orderDetails.add("With");
+        orderDetails.add(payment);
+        if (toPrint.length != 0 && (Arrays.asList(toPrint).contains("Name") && toPrint.length != 1)){
+            orderDetails.add("--------------------");
+        }
 
         for (String s : toPrint) {
             switch (s) {
                 case "Address":
-                    orderDetails.add("Address:");
                     List<String> tempAddress = Arrays.stream(restaurant.getAddress().split("\n")).toList();
                     for (String part: tempAddress){
                         orderDetails.add(part);
                     }
                     break;
                 case "Phone":
-                    orderDetails.add("Phone number:");
                     orderDetails.add(restaurant.getPhone());
                     break;
                 case "Email":
-                    orderDetails.add("Email:");
                     orderDetails.add(restaurant.getEmail());
                     break;
                 case "Additional info":
@@ -314,21 +327,21 @@ public class AdminPageMenuController extends AdminPageControllerAbstract {
 
         }
 
-        orderDetails.add("--------------------");
-        orderDetails.add("Cashier: "+user.getName());
-        orderDetails.add("--------------------");
-        orderDetails.add(payment);
-        orderDetails.add("--------------------");
-        if (!additionalInfo.isEmpty()){
-            orderDetails.add(additionalInfo);
-        }
-
         int id = Order.getNextOrderId();
         Order order = new Order(id,payment,"In process");
         List<Dish> dishes = new ArrayList<>();
         dishes.addAll(selectedDish);
         order.setDishes(dishes);
         order.makeOrder();
+
+        orderDetails.add("--------------------");
+        orderDetails.add("Cashier: "+user.getName());
+        orderDetails.add("--------------------");
+        orderDetails.add("Order Id: "+id);
+        if (!cashierInfo.isEmpty()){
+            orderDetails.add("--------------------");
+            orderDetails.add(cashierInfo);
+        }
 
         /* SOME DEBUG
         Order.getAllOrders().forEach(x->{
