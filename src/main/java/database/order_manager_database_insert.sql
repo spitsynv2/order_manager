@@ -23,28 +23,12 @@ INSERT INTO Restaurant_Dishes (Dishes_Id, Restaurant_Id) VALUES
 -- Insert data into the Users table
 INSERT INTO Users (Name, Password, Permission) VALUES
 ('Admin', 'Admin', 1),
-('Vadym', 'qwerty123', 1),
-('UserTest2', 'password123', 1),
-('UserTest3', 'password123', 1),
-('UserTest4', 'password123', 1);
+('Vadym', 'qwerty123', 1);
 
 -- Insert data into the Restaurant_Users table
 INSERT INTO Restaurant_Users (User_Id, Restaurant_Id) VALUES
 (1, 1),
-(2, 1),
-(3, 1),
-(4, 1),
-(5, 1);
-
--- Insert data into the Orders_Restaurant table
-INSERT INTO Orders_Restaurant (Order_Id, Restaurant_Id) VALUES
-(1, 1),
 (2, 1);
-
--- Insert data into the Users_Orders table
-INSERT INTO Users_Orders (User_Id, Order_Id) VALUES
-(1, 1),
-(1, 2);
 
 -- Insert data into the Print_details table
 INSERT INTO Print_details (Restaurant_Id, Paper_size, Additional_info) VALUES

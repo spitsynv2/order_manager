@@ -332,7 +332,7 @@ public class AdminPageMenuController extends AdminPageControllerAbstract {
         List<Dish> dishes = new ArrayList<>();
         dishes.addAll(selectedDish);
         order.setDishes(dishes);
-        order.makeOrder();
+        order.makeOrder(restaurant, user);
 
         orderDetails.add("--------------------");
         orderDetails.add("Cashier: "+user.getName());

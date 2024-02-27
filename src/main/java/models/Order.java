@@ -39,7 +39,7 @@ public class Order {
         this.status = status;
     }
 
-    public void saveToDatabase() {
+    public void saveToDatabase(Restaurant restaurant, User user) {
         try (Connection connection = DatabaseConnection.getConnection()) {
             String sql = "INSERT INTO orders(date, Payment_type, status) VALUES (?, ?, ?)";
             try (PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -48,6 +48,22 @@ public class Order {
                 statement.setString(3, status);
                 statement.executeUpdate();
             }
+
+            String sqlToRestaurantOrders = "INSERT INTO Orders_Restaurant(Restaurant_Id, Order_Id) VALUES (?, ?)";
+            try (PreparedStatement statement = connection.prepareStatement(sqlToRestaurantOrders)) {
+                statement.setInt(1, restaurant.getId());
+                statement.setInt(2, id);
+                statement.executeUpdate();
+            }
+
+            String sqlToUsersOrders = "INSERT INTO Users_Orders(User_Id, Order_Id) VALUES (?, ?)";
+            try (PreparedStatement statement = connection.prepareStatement(sqlToUsersOrders)) {
+                statement.setInt(1, user.getId());
+                statement.setInt(2, id);
+                statement.executeUpdate();
+            }
+
+
         } catch (SQLException e) {
             e.printStackTrace();
         }finally {
@@ -55,8 +71,8 @@ public class Order {
         }
     }
 
-    public void makeOrder(){
-        saveToDatabase();
+    public void makeOrder(Restaurant restaurant, User user){
+        saveToDatabase(restaurant, user);
         for (Dish dish : dishes) {
             saveToOrderDishes(dish);
         }
