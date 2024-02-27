@@ -66,7 +66,6 @@ CREATE TABLE Restaurant (
 CREATE TABLE Restaurant_Dishes (
     Restaurant_Id integer NOT NULL,
     Dishes_Id integer NOT NULL,
-    Dish_status varchar(150) NOT NULL,
     CONSTRAINT Restaurant_Dishes_pk PRIMARY KEY (Dishes_Id,Restaurant_Id),
     CONSTRAINT Restaurant_Dishes_Restaurant FOREIGN KEY (Restaurant_Id)
     REFERENCES Restaurant (Id),

@@ -237,7 +237,7 @@ public class AdminPageDishesController extends AdminPageControllerAbstract{
 
                 dish_table.getSelectionModel().select(newDish);
 
-                Dish.insertDish(newDish, restaurant.getId(),"Available");
+                Dish.insertDish(newDish, restaurant.getId());
             }else {
                 String errorMessage = "Fill empty dish firstly.";
 

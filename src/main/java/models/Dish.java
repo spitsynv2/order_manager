@@ -289,7 +289,6 @@ public class Dish {
         }
     }
 
-
     public static void deleteDish(Dish dish,int restaurantId) {
         try (Connection connection = DatabaseConnection.getConnection()) {
 
@@ -319,30 +318,7 @@ public class Dish {
         }
     }
 
-    public static void updateDishStatus(Dish dish, int restaurantId, String newStatus) {
-        try (Connection connection = DatabaseConnection.getConnection();
-             PreparedStatement statement = connection.prepareStatement(
-                     "UPDATE Restaurant_Dishes SET Dish_status=? WHERE Dishes_Id=? AND Restaurant_Id=?")) {
-
-            statement.setString(1, newStatus);
-            statement.setInt(2, dish.id);
-            statement.setInt(3, restaurantId);
-
-            int rowsAffected = statement.executeUpdate();
-            if (rowsAffected > 0) {
-                System.out.println("Dish status in (Restaurant_Dishes) updated successfully!");
-            } else {
-                System.out.println("Failed to update dish status in (Restaurant_Dishes). Make sure the dish and restaurant exist.");
-            }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            DatabaseConnection.closeConnection();
-        }
-    }
-
-    public static void insertDish(Dish dish, int restaurantId, String dishStatus) {
+    public static void insertDish(Dish dish, int restaurantId) {
         try (Connection connection = DatabaseConnection.getConnection()) {
 
             if (!isDishNameUnique(dish.getName())) {
@@ -361,10 +337,9 @@ public class Dish {
 
 
             try (PreparedStatement statement = connection.prepareStatement(
-                    "INSERT INTO Restaurant_Dishes (Dishes_Id, Restaurant_Id, Dish_status) VALUES (?, ?, ?)")) {
+                    "INSERT INTO Restaurant_Dishes (Dishes_Id, Restaurant_Id) VALUES (?, ?)")) {
                 statement.setInt(1, dish.id);
                 statement.setInt(2, restaurantId);
-                statement.setString(3, dishStatus);
                 statement.executeUpdate();
             }
 

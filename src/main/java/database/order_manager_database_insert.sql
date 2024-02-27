@@ -16,9 +16,9 @@ INSERT INTO Dishes (Name, Ingredients_info, Type, Price) VALUES
  'Parmesan cheese','Salad', 8.99);
 
 -- Insert data into the Restaurant_Dishes table
-INSERT INTO Restaurant_Dishes (Dishes_Id, Restaurant_Id, Dish_status) VALUES
-(1,1, 'Available'),
-(2,1, 'Available');
+INSERT INTO Restaurant_Dishes (Dishes_Id, Restaurant_Id) VALUES
+(1,1),
+(2,1);
 
 -- Insert data into the Users table
 INSERT INTO Users (Name, Password, Permission) VALUES
