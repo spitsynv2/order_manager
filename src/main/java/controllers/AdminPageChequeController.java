@@ -132,7 +132,7 @@ public class AdminPageChequeController extends AdminPageControllerAbstract{
         orderDetails.add("To pay: " + decimalFormat.format(sumTax));
         orderDetails.add("With");
         orderDetails.add("Cash/Card Payment");
-        if (toPrint.length != 0 && (Arrays.asList(toPrint).contains("Name") && toPrint.length != 1)){
+        if (toPrint.length != 0 && !(Arrays.asList(toPrint).contains("Name") && toPrint.length == 1)) {
             orderDetails.add("--------------------");
         }
 
