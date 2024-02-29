@@ -391,14 +391,13 @@ public abstract class AdminPageControllerAbstract {
 
     @FXML
     protected void goToInfoView() throws IOException {
-    /*
-        FXMLLoader fxmlLoader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("/fxml_files/admin-info-page-view.fxml")));
+        FXMLLoader fxmlLoader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("/fxml_files/admin-orders-page-view.fxml")));
         Parent root = fxmlLoader.load();
-        AdminPageDishesController controller = fxmlLoader.getController();
+        AdminPageOrdersController controller = fxmlLoader.getController();
         controller.initializeWithData(user,islightMode);
         controller.setStage(stage);
         stage.getScene().setRoot(root);
-    */
+
     }
 
 }

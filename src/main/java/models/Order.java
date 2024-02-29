@@ -3,6 +3,10 @@ package models;
 import database.DatabaseConnection;
 
 import java.sql.*;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -37,6 +41,20 @@ public class Order {
         this.date = new Date().getTime();
         this.payment = payment;
         this.status = status;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getDate() {
+        Instant instant = Instant.ofEpochMilli(date);
+
+        ZoneId zoneId = ZoneId.systemDefault(); // Use the system default time zone
+        LocalDateTime localDateTime = instant.atZone(zoneId).toLocalDateTime();
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        return localDateTime.format(formatter);
     }
 
     public void saveToDatabase(Restaurant restaurant, User user) {
@@ -99,6 +117,33 @@ public class Order {
 
         try (Connection connection = DatabaseConnection.getConnection()) {
             String sql = "SELECT * FROM orders";
+            try (PreparedStatement statement = connection.prepareStatement(sql)) {
+                try (ResultSet resultSet = statement.executeQuery()) {
+                    while (resultSet.next()) {
+                        int id = resultSet.getInt("Id");
+                        long date = Long.parseLong(resultSet.getString("Date"));
+                        String payment = resultSet.getString("Payment_type");
+                        String status = resultSet.getString("Status");
+
+                        Order order = new Order(id, date, payment, status);
+                        orders.add(order);
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally {
+            DatabaseConnection.closeConnection();
+        }
+
+        return orders;
+    }
+
+    public static List<Order> getAllOrdersInProcess() {
+        List<Order> orders = new ArrayList<>();
+
+        try (Connection connection = DatabaseConnection.getConnection()) {
+            String sql = "SELECT * FROM orders WHERE Status = 'In process'";
             try (PreparedStatement statement = connection.prepareStatement(sql)) {
                 try (ResultSet resultSet = statement.executeQuery()) {
                     while (resultSet.next()) {

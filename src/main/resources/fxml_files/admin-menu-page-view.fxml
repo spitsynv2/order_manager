@@ -140,7 +140,7 @@
                   <Insets left="-30.0" />
                </padding>
             </Button>
-            <Button fx:id="infoButton" mnemonicParsing="false" onMouseClicked="#goToInfoView" onTouchPressed="#goToInfoView" prefHeight="95.0" prefWidth="520.0" text=" Info/Orders">
+            <Button fx:id="infoButton" mnemonicParsing="false" onMouseClicked="#goToInfoView" onTouchPressed="#goToInfoView" prefHeight="95.0" prefWidth="520.0" text=" Orders info">
                <graphic>
                   <VBox>
                      <children>
@@ -220,7 +220,7 @@
                <children>
                   <Line endX="914.0" endY="6.0" layoutX="109.0" layoutY="66.0" startX="-109.0" startY="6.0" style="-fx-stroke: #2B2D30; -fx-stroke-width: 3.5;" />
                   <Label fx:id="sub_header" layoutX="14.0" styleClass="text_label_black" text="Menu" AnchorPane.topAnchor="10.0" />
-                  <ScrollPane fx:id="scrollPane" layoutX="25.0" layoutY="73.0" prefHeight="878.0" prefWidth="1023.0" styleClass="myScrollPane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="73.0">
+                  <ScrollPane fx:id="scrollPane" layoutY="74.0" prefHeight="878.0" prefWidth="1023.0" styleClass="myScrollPane_white" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="74.0">
                      <content>
                         <GridPane fx:id="menu_gridPane" prefHeight="0.0" prefWidth="0.0" style="-fx-background-color: transparent;">
                           <rowConstraints>

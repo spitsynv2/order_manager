@@ -289,3 +289,14 @@
 .vbox_shadow_select:hover {
     -fx-background-color: #A4DD8F;
 }
+
+.order_item_black {
+    -fx-border-color:  #2B2D30;
+    -fx-border-width: 4;
+}
+
+.order_text_green {
+    -fx-text-fill: green;
+    -fx-font-family: 'Arial';
+    -fx-font-size: 2.0em;
+}
