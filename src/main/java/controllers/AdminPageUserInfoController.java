@@ -221,6 +221,7 @@ public class AdminPageUserInfoController extends AdminPageControllerAbstract {
 
                 User.insertUser(newUser);
                 User.insertRestaurantUser(newUser,restaurant);
+                scrollToSelection();
             }
         }
 
@@ -244,7 +245,8 @@ public class AdminPageUserInfoController extends AdminPageControllerAbstract {
                             permission_box.setDisable(true);
                         }
 
-                    } else if (selectedIndex > 0) {
+                    }
+                    else if (selectedIndex > 0) {
                         user_table.getSelectionModel().selectPrevious();
                         selectedUser = (User) user_table.getSelectionModel().getSelectedItem();
                         updateFields(selectedUser);
@@ -254,7 +256,9 @@ public class AdminPageUserInfoController extends AdminPageControllerAbstract {
                         }
 
                     }
-                }else {
+                    scrollToSelection();
+                }
+                else {
                     String errorMessage = "Cannot delete empty or admin user";
                     alert = new Alert(Alert.AlertType.ERROR);
                     alert.setTitle("Error");

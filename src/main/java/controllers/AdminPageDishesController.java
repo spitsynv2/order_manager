@@ -246,6 +246,7 @@ public class AdminPageDishesController extends AdminPageControllerAbstract{
                 dish_table.getSelectionModel().select(newDish);
 
                 Dish.insertDish(newDish, restaurant.getId());
+                scrollToSelection();
             }else {
                 String errorMessage = "Fill empty dish firstly.";
 
@@ -279,8 +280,8 @@ public class AdminPageDishesController extends AdminPageControllerAbstract{
                         selectedDish = (Dish) dish_table.getSelectionModel().getSelectedItem();
                         updateFields(selectedDish);
                     }
+                    scrollToSelection();
                 }
-
             }
         }
     }

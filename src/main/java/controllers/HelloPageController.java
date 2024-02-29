@@ -416,7 +416,7 @@ public class HelloPageController {
             }
 
         }else {
-            showInvalidDataDialog("Fields are empty or have incorrect data");
+            showInvalidDataDialog("Fields are empty/inactive or have incorrect data");
         }
     }
 
