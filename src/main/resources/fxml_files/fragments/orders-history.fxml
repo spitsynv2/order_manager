@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="600.0" style="-fx-border-color: black; -fx-border-width: 5;" stylesheets="@../../styles/styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.fragments.OrdersHistoryController">
+   <children>
+      <ScrollPane fx:id="chequeScrollPane" layoutX="12.0" layoutY="16.0" prefHeight="520.0" prefWidth="572.0">
+         <content>
+            <VBox alignment="CENTER" prefWidth="572.0">
+               <children>
+                  <ImageView fx:id="chequeImage" fitWidth="500.0" />
+               </children>
+            </VBox>
+         </content>
+      </ScrollPane>
+      <HBox fx:id="hBox" layoutX="12.0" layoutY="540.0" spacing="35.0" AnchorPane.leftAnchor="9.0">
+         <children>
+            <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleGetCheque" prefHeight="48.0" prefWidth="242.0" text="Get cheque">
+               <styleClass>
+                  <String fx:value="button_submit" />
+                  <String fx:value="small_text_label_white" />
+                  <String fx:value="shadow_black" />
+               </styleClass>
+            </Button>
+            <Button alignment="TOP_LEFT" contentDisplay="CENTER" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#handleGoUpButton" onTouchPressed="#handleGoUpButton" prefHeight="50.0" prefWidth="47.0" rotate="90.0" style="-fx-text-fill: white;" text="←">
+               <styleClass>
+                  <String fx:value="text_label_black_medium" />
+                  <String fx:value="darkButton" />
+                  <String fx:value="shadow_black" />
+               </styleClass>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+               <padding>
+                  <Insets left="5.0" right="1.0" />
+               </padding>
+            </Button>
+            <Button alignment="TOP_LEFT" contentDisplay="CENTER" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#handleGoDownButton" onTouchPressed="#handleGoDownButton" prefHeight="50.0" prefWidth="47.0" rotate="270.0" style="-fx-text-fill: white;" text="←">
+               <styleClass>
+                  <String fx:value="text_label_black_medium" />
+                  <String fx:value="darkButton" />
+                  <String fx:value="shadow_black" />
+               </styleClass>
+               <padding>
+                  <Insets left="5.0" right="1.0" />
+               </padding>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </Button>
+         </children>
+      </HBox>
+      <Label fx:id="pathLabel" layoutX="14.0" layoutY="548.0" maxWidth="542.0" prefHeight="37.0" prefWidth="542.0" styleClass="smallest_text_label_black" text="Label" AnchorPane.bottomAnchor="17.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="54.0" AnchorPane.topAnchor="548.0" />
+      <ScrollPane fx:id="scrollPane" layoutX="14.0" layoutY="14.0" prefHeight="520.0" prefWidth="572.0">
+         <content>
+            <TableView fx:id="ordersTable" prefHeight="516.0" prefWidth="568.0" />
+         </content>
+      </ScrollPane>
+      <ImageView fx:id="exit" blendMode="DIFFERENCE" fitHeight="65.0" fitWidth="65.0" layoutX="521.0" layoutY="532.0" onMouseClicked="#handleExitButton" onTouchPressed="#handleExitButton" pickOnBounds="true" preserveRatio="true" styleClass="image_hover" AnchorPane.bottomAnchor="3.0" AnchorPane.leftAnchor="530.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="527.0">
+         <image>
+            <Image url="@../../images/exit.png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>

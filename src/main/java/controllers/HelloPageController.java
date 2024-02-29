@@ -22,63 +22,29 @@ import java.util.*;
 public class HelloPageController {
 
     private Stage stage;
-
-    @FXML
-    private BorderPane mainPane;
-
-    @FXML
-    private ImageView moon_sun;
-
+    @FXML private BorderPane mainPane;
+    @FXML private ImageView moon_sun;
     private boolean islightMode = true;
-
     private Image sun;
-
     private Image moon;
-
     private Image userImage;
-
     private Image admin;
-
-    @FXML
-    private ImageView user_image;
-
-    @FXML
-    private Label header;
-
-    @FXML
-    private Button submit_button;
-
-    @FXML
-    private ImageView key;
-
-    @FXML
-    private PasswordField password;
-
-    @FXML
-    private TextField username;
+    @FXML private ImageView user_image;
+    @FXML private Label header;
+    @FXML private Button submit_button;
+    @FXML private ImageView key;
+    @FXML private PasswordField password;
+    @FXML private TextField username;
     private boolean isUsernameField = true;
-
-    @FXML
-    private VBox keyVbox;
-
-    @FXML
-    private GridPane keyboard;
-
+    @FXML private VBox keyVbox;
+    @FXML private GridPane keyboard;
     private List<Button> keyboardKeys = new ArrayList<>();
-
     private List<String> keyboardKeysNumbers = new ArrayList<>();
-
     private List<String> keyboardKeysLetters = new ArrayList<>();
-
     private boolean isUpperCase = true;
-
-    @FXML
-    private VBox userVbox;
-
+    @FXML private VBox userVbox;
     private boolean isFieldActive = false;
-
-    @FXML
-    private ImageView board;
+    @FXML private ImageView board;
 
     public void setStage(Stage stage) {
         this.stage = stage;

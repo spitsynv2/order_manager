@@ -126,6 +126,7 @@ public class AdminPageUserInfoController extends AdminPageControllerAbstract {
             user_table.getSelectionModel().select(selectedIndex - 1);
             User selectedUser = (User) user_table.getSelectionModel().getSelectedItem();
             updateFields(selectedUser);
+            scrollToSelection();
         }
     }
     @FXML
@@ -136,8 +137,15 @@ public class AdminPageUserInfoController extends AdminPageControllerAbstract {
             user_table.getSelectionModel().select(selectedIndex + 1);
             User selectedUser = (User) user_table.getSelectionModel().getSelectedItem();
             updateFields(selectedUser);
+            scrollToSelection();
         }
     }
+
+    private void scrollToSelection() {
+        int selectedIndex = user_table.getSelectionModel().getSelectedIndex();
+        user_table.scrollTo(selectedIndex);
+    }
+
     private void updateFields(User user) {
         if (user != null) {
             if (user.getPermission() == 1){

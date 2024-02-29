@@ -138,6 +138,7 @@ public class AdminPageDishesController extends AdminPageControllerAbstract{
             dish_table.getSelectionModel().select(selectedIndex - 1);
             Dish selectedDish = (Dish) dish_table.getSelectionModel().getSelectedItem();
             updateFields(selectedDish);
+            scrollToSelection();
         }
     }
     @FXML
@@ -148,8 +149,15 @@ public class AdminPageDishesController extends AdminPageControllerAbstract{
             dish_table.getSelectionModel().select(selectedIndex + 1);
             Dish selectedDish = (Dish) dish_table.getSelectionModel().getSelectedItem();
             updateFields(selectedDish);
+            scrollToSelection();
         }
     }
+
+    private void scrollToSelection() {
+        int selectedIndex = dish_table.getSelectionModel().getSelectedIndex();
+        dish_table.scrollTo(selectedIndex);
+    }
+
     private void updateFields(Dish dish) {
         if (dish != null) {
             name_field.setText(dish.getName());

@@ -300,3 +300,14 @@
     -fx-font-family: 'Arial';
     -fx-font-size: 2.0em;
 }
+
+.vbox_item_green {
+    -fx-border-color: #7db66d;
+    -fx-border-width: 4;
+}
+
+.smallest_text_label_black {
+    -fx-font-family: 'Arial';
+    -fx-font-size: 1.5em;
+    -fx-text-fill: #000000;
+}

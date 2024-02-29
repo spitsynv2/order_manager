@@ -7,10 +7,8 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
+import java.util.*;
 import java.util.Date;
-
-import java.util.List;
 
 public class Order {
 
@@ -45,6 +43,10 @@ public class Order {
 
     public int getId() {
         return id;
+    }
+
+    public String getStatus() {
+        return status;
     }
 
     public String getDate() {
@@ -116,7 +118,7 @@ public class Order {
         List<Order> orders = new ArrayList<>();
 
         try (Connection connection = DatabaseConnection.getConnection()) {
-            String sql = "SELECT * FROM orders";
+            String sql = "SELECT * FROM orders ORDER BY Date DESC";
             try (PreparedStatement statement = connection.prepareStatement(sql)) {
                 try (ResultSet resultSet = statement.executeQuery()) {
                     while (resultSet.next()) {
@@ -139,31 +141,58 @@ public class Order {
         return orders;
     }
 
-    public static List<Order> getAllOrdersInProcess() {
+    public static List<Order> getAllOrdersByStatus(String status) {
         List<Order> orders = new ArrayList<>();
 
         try (Connection connection = DatabaseConnection.getConnection()) {
-            String sql = "SELECT * FROM orders WHERE Status = 'In process'";
+            String sql = "SELECT * FROM orders WHERE Status = ?";
             try (PreparedStatement statement = connection.prepareStatement(sql)) {
+                // Set the status parameter
+                statement.setString(1, status);
+
                 try (ResultSet resultSet = statement.executeQuery()) {
                     while (resultSet.next()) {
                         int id = resultSet.getInt("Id");
                         long date = Long.parseLong(resultSet.getString("Date"));
                         String payment = resultSet.getString("Payment_type");
-                        String status = resultSet.getString("Status");
+                        String orderStatus = resultSet.getString("Status");
 
-                        Order order = new Order(id, date, payment, status);
+                        Order order = new Order(id, date, payment, orderStatus);
                         orders.add(order);
                     }
                 }
             }
         } catch (SQLException e) {
             e.printStackTrace();
-        }finally {
+        } finally {
             DatabaseConnection.closeConnection();
         }
 
         return orders;
+    }
+
+
+    public static void updateOrderStatus(int orderId, String status) {
+
+        try (Connection connection = DatabaseConnection.getConnection();
+             PreparedStatement statement = connection.prepareStatement(
+                     "UPDATE Orders SET Status=? WHERE Id=?")) {
+
+            statement.setString(1, status);
+            statement.setInt(2, orderId);
+
+            int rowsAffected = statement.executeUpdate();
+            if (rowsAffected > 0) {
+                System.out.println("Order status updated successfully!");
+            } else {
+                System.out.println("Failed to update order status.");
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            DatabaseConnection.closeConnection();
+        }
     }
 
     public List<String> getDishesByOrderId() {
@@ -188,6 +217,29 @@ public class Order {
         }
 
         return orderDishes;
+    }
+
+    public static Set<String> getUniqueDishesByOrderId(int orderId) {
+        Set<String> uniqueDishes = new HashSet<>();
+
+        try (Connection connection = DatabaseConnection.getConnection()) {
+            String sql = "SELECT DISTINCT Dish_name FROM Orders_Dishes WHERE Order_Id=?";
+            try (PreparedStatement statement = connection.prepareStatement(sql)) {
+                statement.setInt(1, orderId);
+                try (ResultSet resultSet = statement.executeQuery()) {
+                    while (resultSet.next()) {
+                        String dishName = resultSet.getString("Dish_name");
+                        uniqueDishes.add(dishName);
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            DatabaseConnection.closeConnection();
+        }
+
+        return uniqueDishes;
     }
 
     public static int getNextOrderId() {
