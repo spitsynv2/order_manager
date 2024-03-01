@@ -100,6 +100,25 @@
                   <Insets left="-127.0" />
                </padding>
             </Button>
+            <Button fx:id="infoButton" mnemonicParsing="false" onMouseClicked="#goToInfoView" onTouchPressed="#goToInfoView" prefHeight="95.0" prefWidth="520.0" styleClass="active_buttonWhite" text=" Orders info">
+               <graphic>
+                  <VBox>
+                     <children>
+                        <ImageView blendMode="EXCLUSION" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/menu_view/info.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                     <padding>
+                        <Insets left="15.0" />
+                     </padding>
+                  </VBox>
+               </graphic>
+               <padding>
+                  <Insets left="-30.0" />
+               </padding>
+            </Button>
             <Button fx:id="chequeButton" mnemonicParsing="false" onMouseClicked="#goToChequeView" onTouchPressed="#goToChequeView" prefHeight="95.0" prefWidth="520.0" text=" Cheque">
                <graphic>
                   <VBox>
@@ -126,25 +145,6 @@
                         <ImageView blendMode="EXCLUSION" fitHeight="60.0" fitWidth="60.0" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../images/menu_view/dashboard.png" />
-                           </image>
-                        </ImageView>
-                     </children>
-                     <padding>
-                        <Insets left="15.0" />
-                     </padding>
-                  </VBox>
-               </graphic>
-               <padding>
-                  <Insets left="-30.0" />
-               </padding>
-            </Button>
-            <Button fx:id="infoButton" mnemonicParsing="false" onMouseClicked="#goToInfoView" onTouchPressed="#goToInfoView" prefHeight="95.0" prefWidth="520.0" styleClass="active_buttonWhite" text=" Orders info">
-               <graphic>
-                  <VBox>
-                     <children>
-                        <ImageView blendMode="EXCLUSION" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../images/menu_view/info.png" />
                            </image>
                         </ImageView>
                      </children>

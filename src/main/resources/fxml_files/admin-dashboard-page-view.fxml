@@ -2,24 +2,22 @@
 
 <?import java.lang.String?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.SplitPane?>
-<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" styleClass="hello_container" stylesheets="@../styles/styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AdminPageMenuController">
+<BorderPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" styleClass="hello_container" stylesheets="@../styles/styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AdminPageDashBoardController">
    <left>
       <VBox fx:id="rightVBox" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="980.0" prefWidth="322.0" spacing="48.0" style="-fx-border-color: #2B2D30;" BorderPane.alignment="CENTER">
          <children>
@@ -83,7 +81,7 @@
                   <Insets left="-100.0" />
                </padding>
             </Button>
-            <Button fx:id="menuButton" mnemonicParsing="false" prefHeight="95.0" prefWidth="520.0" styleClass="active_buttonWhite" text=" Menu">
+            <Button fx:id="menuButton" mnemonicParsing="false" onMouseClicked="#goToMenuView" onTouchPressed="#goToMenuView" prefHeight="95.0" prefWidth="520.0" text=" Menu">
                <graphic>
                   <VBox>
                      <children>
@@ -121,7 +119,7 @@
                   <Insets left="-30.0" />
                </padding>
             </Button>
-            <Button fx:id="chequeButton" mnemonicParsing="false" onMouseClicked="#goToChequeView" onTouchPressed="#goToChequeView" prefHeight="95.0" prefWidth="520.0" text=" Cheque">
+            <Button fx:id="chequeButton" mnemonicParsing="false" prefHeight="95.0" prefWidth="520.0" text=" Cheque">
                <graphic>
                   <VBox>
                      <children>
@@ -140,7 +138,7 @@
                   <Insets left="-86.0" />
                </padding>
             </Button>
-            <Button fx:id="dashboardButton" mnemonicParsing="false" onMouseClicked="#goToDashboardView" onTouchPressed="#goToDashboardView" prefHeight="95.0" prefWidth="520.0" text=" Dashboard">
+            <Button fx:id="dashboardButton" mnemonicParsing="false" onMouseClicked="#goToDashboardView" onTouchPressed="#goToDashboardView" prefHeight="95.0" prefWidth="520.0" styleClass="active_buttonWhite" text=" Dashboard">
                <graphic>
                   <VBox>
                      <children>
@@ -214,68 +212,123 @@
       </VBox>
    </right>
    <center>
-      <SplitPane fx:id="secondaryPane" dividerPositions="0.6939742721733243" styleClass="split-paneWhite" BorderPane.alignment="CENTER">
-        <items>
-          <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minWidth="1023.0" prefHeight="951.0" prefWidth="1023.0">
-               <children>
-                  <Line endX="914.0" endY="6.0" layoutX="109.0" layoutY="66.0" startX="-109.0" startY="6.0" style="-fx-stroke: #2B2D30; -fx-stroke-width: 3.5;" />
-                  <Label fx:id="sub_header" layoutX="14.0" styleClass="text_label_black" text="Menu" AnchorPane.topAnchor="10.0" />
-                  <ScrollPane fx:id="scrollPane" layoutY="74.0" prefHeight="878.0" prefWidth="1023.0" styleClass="myScrollPane_white" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="74.0">
-                     <content>
-                        <GridPane fx:id="menu_gridPane" prefHeight="0.0" prefWidth="0.0" style="-fx-background-color: transparent;">
-                          <rowConstraints>
-                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                          </rowConstraints>
-                        </GridPane>
-                     </content>
-                  </ScrollPane>
-                  <VBox layoutX="757.0" layoutY="12.0">
-                     <children>
-                        <ChoiceBox fx:id="sort_choiceBox" prefWidth="250.0">
-                           <styleClass>
-                              <String fx:value="shadow_black" />
-                              <String fx:value="small_text_label_black" />
-                           </styleClass>
-                        </ChoiceBox>
-                     </children>
-                  </VBox>
-               </children></AnchorPane>
-          <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minWidth="450.0" prefHeight="953.0" prefWidth="450.0">
-               <children>
-                  <Line endX="798.0" endY="9.0" layoutX="-281.0" layoutY="63.0" startX="278.75" startY="9.0" style="-fx-stroke: #2B2D30; -fx-stroke-width: 3.5;" />
-                  <Label fx:id="sub_header2" layoutX="167.0" styleClass="text_label_black" text="Order" AnchorPane.topAnchor="10.0" />
-                  <VBox layoutX="12.0" layoutY="87.0" spacing="25.0">
-                     <children>
-                        <TextArea fx:id="text_area" prefHeight="695.0" prefWidth="424.0">
-                           <styleClass>
-                              <String fx:value="small_text_label_black" />
-                              <String fx:value="shadow_black" />
-                           </styleClass>
-                        </TextArea>
-                        <Button mnemonicParsing="false" onAction="#handleClearLast" prefHeight="50.0" prefWidth="423.0" text="Delete Last">
-                           <styleClass>
-                              <String fx:value="redButton" />
-                              <String fx:value="small_text_label_white" />
-                              <String fx:value="shadow_black" />
-                           </styleClass>
-                        </Button>
-                        <Button mnemonicParsing="false" onAction="#handleMakeOrder" prefHeight="50.0" prefWidth="423.0" text="Make order">
-                           <styleClass>
-                              <String fx:value="greenButton" />
-                              <String fx:value="small_text_label_white" />
-                              <String fx:value="shadow_black" />
-                           </styleClass>
-                        </Button>
-                     </children>
-                  </VBox>
-               </children></AnchorPane>
-        </items>
+      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="955.0" prefWidth="1483.0" styleClass="split-paneWhite" BorderPane.alignment="CENTER">
          <BorderPane.margin>
             <Insets bottom="25.0" left="15.0" />
          </BorderPane.margin>
          <padding>
             <Insets bottom="-1.0" top="-1.0" />
          </padding>
-      </SplitPane>
+         <children>
+            <Line endX="1221.0" endY="6.0" layoutX="258.0" layoutY="70.0" startX="-256.0" startY="6.0" style="-fx-stroke: #2B2D30; -fx-stroke-width: 3.5;" AnchorPane.bottomAnchor="877.25" AnchorPane.topAnchor="74.25" />
+            <Label fx:id="sub_header" layoutX="564.0" styleClass="text_label_black" text="Restaurant charts" AnchorPane.topAnchor="10.0" />
+            <VBox layoutX="42.0" layoutY="117.0" spacing="15.0">
+               <children>
+                  <HBox spacing="400.0">
+                     <children>
+                        <VBox alignment="CENTER">
+                           <children>
+                              <LineChart fx:id="ordersWeekLineChart" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="350.0" prefWidth="500.0">
+                                 <xAxis>
+                                    <CategoryAxis side="BOTTOM" />
+                                 </xAxis>
+                                 <yAxis>
+                                    <NumberAxis side="LEFT" />
+                                 </yAxis>
+                              </LineChart>
+                              <Label fx:id="chartLabel1" styleClass="text_label_black_medium" text="Orders this week">
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                              </Label>
+                           </children>
+                        </VBox>
+                        <VBox alignment="CENTER" prefWidth="350.0" spacing="25.0">
+                           <children>
+                              <Label fx:id="statisticsLabel1" styleClass="text_label_black_medium" text="Today orders" />
+                              <Label fx:id="ordersNumber" styleClass="text_label_black_medium" text="number: 2225">
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                              </Label>
+                           </children>
+                           <HBox.margin>
+                              <Insets left="-375.0" right="-375.0" />
+                           </HBox.margin>
+                        </VBox>
+                        <VBox alignment="CENTER">
+                           <children>
+                              <LineChart fx:id="dishWeekLineChart" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="350.0" prefWidth="500.0">
+                                 <xAxis>
+                                    <CategoryAxis side="BOTTOM" />
+                                 </xAxis>
+                                 <yAxis>
+                                    <NumberAxis side="LEFT" />
+                                 </yAxis>
+                              </LineChart>
+                              <Label fx:id="chartLabel3" styleClass="text_label_black_medium" text=" Top10 dish this week">
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                              </Label>
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+                  <HBox spacing="400.0">
+                     <children>
+                        <VBox alignment="CENTER">
+                           <children>
+                              <BarChart fx:id="employeeOrdersBarChart" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="350.0" prefWidth="500.0">
+                                <xAxis>
+                                  <CategoryAxis side="BOTTOM" />
+                                </xAxis>
+                                <yAxis>
+                                  <NumberAxis side="LEFT" />
+                                </yAxis>
+                              </BarChart>
+                              <Label fx:id="chartLabel2" styleClass="text_label_black_medium" text="Employee / orders">
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                              </Label>
+                           </children>
+                        </VBox>
+                        <VBox alignment="CENTER" prefWidth="350.0" spacing="25.0">
+                           <children>
+                              <Label fx:id="statisticsLabel2" styleClass="text_label_black_medium" text="Best dish today:">
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                              </Label>
+                              <Label fx:id="topDish" styleClass="text_label_black_medium" text="Dish name" />
+                           </children>
+                           <HBox.margin>
+                              <Insets left="-375.0" right="-375.0" />
+                           </HBox.margin>
+                        </VBox>
+                        <VBox alignment="CENTER">
+                           <children>
+                              <BarChart fx:id="dishOrdersBarChart" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="350.0" prefWidth="500.0">
+                                <xAxis>
+                                  <CategoryAxis side="BOTTOM" />
+                                </xAxis>
+                                <yAxis>
+                                  <NumberAxis side="LEFT" />
+                                </yAxis>
+                              </BarChart>
+                              <Label fx:id="chartLabel4" styleClass="text_label_black_medium" text="Dish / orders">
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                              </Label>
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </children>
+      </AnchorPane>
    </center>
 </BorderPane>
