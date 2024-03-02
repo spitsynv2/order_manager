@@ -72,3 +72,6 @@ This project is a JavaFX application for managing orders in a café or restauran
 
 ### Dashboard page
 ![Dashboard page](screenshots/dashboard-page.PNG?raw=true "Dashboard page")
+
+### Cashier menu page
+![Cashier menu page](screenshots/cashier-menu.PNG?raw=true "Cashier menu page")
