@@ -392,7 +392,7 @@ public class HelloPageController {
     }
 
     @FXML
-    private void handleSubmitButton(){
+    private void handleSubmitButton() throws IOException {
         if (isFieldActive){
             handleBoardImageClick();
             User user = User.retrieveUserByName(username.getText(),password.getText());
@@ -402,13 +402,20 @@ public class HelloPageController {
             }
 
             else if (isUsernameField){
-                //TODO goToUserView
+                goToUserView(user);
             }else {
                 try {
                     if (user.getPermission() == 1){
                         goToAdminView(user);
                     }else {
-                        //TODO goToUserView
+                        String errorMessage = "You dont have permission to go to admin panel, try login to cashier panel";
+
+                        Alert alert = new Alert(Alert.AlertType.ERROR);
+                        alert.setTitle("Error");
+                        alert.setHeaderText(null);
+                        alert.setContentText(errorMessage);
+                        alert.initOwner(stage);
+                        alert.showAndWait();
                     }
                 } catch (IOException e) {
                     throw new RuntimeException(e);
@@ -430,9 +437,11 @@ public class HelloPageController {
     }
 
     private void goToUserView(User user) throws IOException {
-        //TODO
-        FXMLLoader fxmlLoader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("/fxml_files/user-page-view.fxml")));
+        FXMLLoader fxmlLoader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("/fxml_files/user-menu-page-view.fxml")));
         Parent root = fxmlLoader.load();
+        UserPageMenuController controller = fxmlLoader.getController();
+        controller.initializeWithData(user, islightMode);
+        controller.setStage(stage);
         stage.getScene().setRoot(root);
     }
 

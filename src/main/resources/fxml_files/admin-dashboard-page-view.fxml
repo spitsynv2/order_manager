@@ -119,7 +119,7 @@
                   <Insets left="-30.0" />
                </padding>
             </Button>
-            <Button fx:id="chequeButton" mnemonicParsing="false" prefHeight="95.0" prefWidth="520.0" text=" Cheque">
+            <Button fx:id="chequeButton" mnemonicParsing="false" onMouseClicked="#goToChequeView" onTouchPressed="#goToChequeView" prefHeight="95.0" prefWidth="520.0" text=" Cheque">
                <graphic>
                   <VBox>
                      <children>
@@ -212,7 +212,7 @@
       </VBox>
    </right>
    <center>
-      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="955.0" prefWidth="1483.0" styleClass="split-paneWhite" BorderPane.alignment="CENTER">
+      <AnchorPane fx:id="subPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="955.0" prefWidth="1483.0" styleClass="split-paneWhite" BorderPane.alignment="CENTER">
          <BorderPane.margin>
             <Insets bottom="25.0" left="15.0" />
          </BorderPane.margin>
@@ -245,7 +245,7 @@
                         </VBox>
                         <VBox alignment="CENTER" prefWidth="350.0" spacing="25.0">
                            <children>
-                              <Label fx:id="statisticsLabel1" styleClass="text_label_black_medium" text="Today orders" />
+                              <Label fx:id="statisticsLabel1" styleClass="text_label_black_medium" text="Today's orders is" />
                               <Label fx:id="ordersNumber" styleClass="text_label_black_medium" text="number: 2225">
                                  <VBox.margin>
                                     <Insets />
@@ -266,7 +266,7 @@
                                     <NumberAxis side="LEFT" />
                                  </yAxis>
                               </LineChart>
-                              <Label fx:id="chartLabel3" styleClass="text_label_black_medium" text=" Top10 dish this week">
+                              <Label fx:id="chartLabel3" styleClass="text_label_black_medium" text=" Top5 dish this week">
                                  <VBox.margin>
                                     <Insets />
                                  </VBox.margin>
@@ -302,6 +302,7 @@
                                  </VBox.margin>
                               </Label>
                               <Label fx:id="topDish" styleClass="text_label_black_medium" text="Dish name" />
+                              <Label fx:id="topDishOrders" styleClass="text_label_black_medium" text="orders" />
                            </children>
                            <HBox.margin>
                               <Insets left="-375.0" right="-375.0" />
@@ -317,7 +318,7 @@
                                   <NumberAxis side="LEFT" />
                                 </yAxis>
                               </BarChart>
-                              <Label fx:id="chartLabel4" styleClass="text_label_black_medium" text="Dish / orders">
+                              <Label fx:id="chartLabel4" styleClass="text_label_black_medium" text="Dish / orders all time">
                                  <VBox.margin>
                                     <Insets />
                                  </VBox.margin>

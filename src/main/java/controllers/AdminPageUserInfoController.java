@@ -48,7 +48,12 @@ public class AdminPageUserInfoController extends AdminPageControllerAbstract {
 
         permission_box.setItems(FXCollections.observableArrayList(items));
 
-        permission_box.getSelectionModel().select("Admin");
+        if (user.getPermission() == 1){
+            permission_box.getSelectionModel().select("Admin");
+        }else {
+            permission_box.getSelectionModel().select("Cashier");
+        }
+
         username_field.setText(user.getName());
         password_field.setText(user.getPassword());
 
@@ -175,12 +180,33 @@ public class AdminPageUserInfoController extends AdminPageControllerAbstract {
             }
 
             if (!selectedUser.getName().equals(newName) || !selectedUser.getPassword().equals(newPassword) || selectedUser.getPermission() != newPermission){
-                selectedUser.setName(newName);
-                selectedUser.setPassword(newPassword);
-                selectedUser.setPermission(newPermission);
+                if (!User.userExists(newName,newPassword) || (selectedUser.getName().equals(newName) && selectedUser.getPassword().equals(newPassword))){
 
-                User.updateUser(selectedUser);
-                user_table.refresh();
+                    if (user.getName().equals(selectedUser.getName()) && user.getPassword().equals(selectedUser.getPassword())){
+                        selectedUser.setName(newName);
+                        selectedUser.setPassword(newPassword);
+                        selectedUser.setPermission(newPermission);
+
+                        user = selectedUser;
+                    }else {
+                        selectedUser.setName(newName);
+                        selectedUser.setPassword(newPassword);
+                        selectedUser.setPermission(newPermission);
+                    }
+
+                    User.updateUser(selectedUser);
+                    user_table.refresh();
+                }
+                else {
+                    String errorMessage = "User with same name or password already exists. Please choose a different name or password.";
+
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Error");
+                    alert.setHeaderText(null);
+                    alert.setContentText(errorMessage);
+                    alert.initOwner(stage);
+                    alert.showAndWait();
+                }
             }
         }
     }
@@ -208,20 +234,32 @@ public class AdminPageUserInfoController extends AdminPageControllerAbstract {
 
         if (msg.equals("Are you sure you want to add a User?")){
             if (result.isPresent() && result.get() == yesButton) {
-                username_field.setText("Change name");
-                password_field.setText("Change password");
-                permission_box.getSelectionModel().select("Cashier");
-                permission_box.setDisable(false);
+                if (!User.userExists("Change name","Change password")){
+                    username_field.setText("Change name");
+                    password_field.setText("Change password");
+                    permission_box.getSelectionModel().select("Cashier");
+                    permission_box.setDisable(false);
 
-                User newUser = new User(User.getNextUserId(),"Change name","Change password",0);
+                    User newUser = new User(User.getNextUserId(),"Change name","Change password",0);
 
-                user_table.getItems().add(newUser);
+                    user_table.getItems().add(newUser);
 
-                user_table.getSelectionModel().select(newUser);
+                    user_table.getSelectionModel().select(newUser);
 
-                User.insertUser(newUser);
-                User.insertRestaurantUser(newUser,restaurant);
-                scrollToSelection();
+                    User.insertUser(newUser);
+                    User.insertRestaurantUser(newUser,restaurant);
+                    scrollToSelection();
+                }else {
+                    String errorMessage = "Fill the previous user data before creating new one!";
+
+                    Alert newAlert = new Alert(Alert.AlertType.ERROR);
+                    newAlert.setTitle("Error");
+                    newAlert.setHeaderText(null);
+                    newAlert.setContentText(errorMessage);
+                    newAlert.initOwner(stage);
+                    newAlert.showAndWait();
+                }
+
             }
         }
 

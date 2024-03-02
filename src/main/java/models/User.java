@@ -5,7 +5,9 @@ import org.mindrot.jbcrypt.BCrypt;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 public class User {
 
@@ -182,6 +184,33 @@ public class User {
         return user;
     }
 
+    public static boolean userExists(String userName, String userPassword){
+        boolean exists = false;
+        try {
+            Connection connection = DatabaseConnection.getConnection();
+
+            String selectQuery = "SELECT * FROM Users WHERE Name = ? AND Password = ?";
+
+            PreparedStatement statement = connection.prepareStatement(selectQuery);
+            statement.setString(1,userName);
+            statement.setString(2,userPassword);
+
+            ResultSet resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                exists = true;
+            }
+
+            resultSet.close();
+            statement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            DatabaseConnection.closeConnection();
+        }
+        return exists;
+    }
+
     public static List<User> retrieveAllUsers() {
         List<User> userList = new ArrayList<>();
         try (Connection connection = DatabaseConnection.getConnection();
@@ -203,6 +232,40 @@ public class User {
             DatabaseConnection.closeConnection();
         }
         return userList;
+    }
+
+    public static Map<String, Integer> retrieveTop5UsersByPopularity() {
+        Map<String, Integer> userOrdersCounts = new LinkedHashMap<>();
+
+        try (Connection connection = DatabaseConnection.getConnection();
+
+             PreparedStatement statement = connection.prepareStatement(
+                     "SELECT Users.Id, Users.Name, COUNT(Users_Orders.User_Id) AS OrderCount " +
+                             "FROM Users " +
+                             "LEFT JOIN Users_Orders ON Users.Id = Users_Orders.User_Id "+
+                             "GROUP BY Users.Id " +
+                             "ORDER BY OrderCount Desc " +
+                             "LIMIT 5"
+             )) {
+
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    int id = resultSet.getInt("Id");
+                    String userName = resultSet.getString("Name");
+                    int ordersCount = resultSet.getInt("OrderCount");
+                    if (ordersCount == 0){
+                        continue;
+                    }
+                    userOrdersCounts.put(userName +", Id: "+id,ordersCount);
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            DatabaseConnection.closeConnection();
+        }
+        return userOrdersCounts;
     }
 
     public static int getNextUserId() {

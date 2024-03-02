@@ -63,7 +63,7 @@ public abstract class AdminPageControllerAbstract {
     protected void showYesNoDialog(String msg) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setHeaderText(msg);
-        alert.initStyle(StageStyle.UNDECORATED);
+        alert.setResizable(false);
 
         ButtonType yesButton = new ButtonType("Yes", ButtonBar.ButtonData.YES);
         ButtonType noButton = new ButtonType("No", ButtonBar.ButtonData.NO);
@@ -379,14 +379,12 @@ public abstract class AdminPageControllerAbstract {
 
     @FXML
     protected void goToDashboardView() throws IOException {
-    /*
         FXMLLoader fxmlLoader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("/fxml_files/admin-dashboard-page-view.fxml")));
         Parent root = fxmlLoader.load();
-        AdminPageDishesController controller = fxmlLoader.getController();
+        AdminPageDashBoardController controller = fxmlLoader.getController();
         controller.initializeWithData(user,islightMode);
         controller.setStage(stage);
         stage.getScene().setRoot(root);
-    */
     }
 
     @FXML

@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" styleClass="hello_container" stylesheets="@../styles/styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.UserPageOrdersController">
+   <left>
+      <VBox fx:id="rightVBox" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="980.0" prefWidth="322.0" spacing="48.0" style="-fx-border-color: #2B2D30;" BorderPane.alignment="CENTER">
+         <children>
+            <Button fx:id="menuButton" mnemonicParsing="false" onMouseClicked="#goToMenuView" onTouchPressed="#goToMenuView" prefHeight="95.0" prefWidth="520.0" text=" Menu">
+               <graphic>
+                  <VBox>
+                     <children>
+                        <ImageView blendMode="EXCLUSION" fitHeight="65.0" fitWidth="65.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/menu_view/menu.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                     <padding>
+                        <Insets left="15.0" />
+                     </padding>
+                  </VBox>
+               </graphic>
+               <padding>
+                  <Insets left="-127.0" />
+               </padding>
+            </Button>
+            <Button fx:id="infoButton" mnemonicParsing="false" onMouseClicked="#goToInfoView" onTouchPressed="#goToInfoView" prefHeight="95.0" prefWidth="520.0" styleClass="active_buttonWhite" text=" Orders info">
+               <graphic>
+                  <VBox>
+                     <children>
+                        <ImageView blendMode="EXCLUSION" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/menu_view/info.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                     <padding>
+                        <Insets left="15.0" />
+                     </padding>
+                  </VBox>
+               </graphic>
+               <padding>
+                  <Insets left="-30.0" />
+               </padding>
+            </Button>
+            <Button fx:id="userInfoButton" mnemonicParsing="false" prefHeight="95.0" prefWidth="520.0" text=" User info">
+               <graphic>
+                  <VBox>
+                     <children>
+                        <ImageView blendMode="EXCLUSION" fitHeight="65.0" fitWidth="65.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/menu_view/user_b.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                     <padding>
+                        <Insets left="15.0" />
+                     </padding>
+                  </VBox>
+               </graphic>
+               <padding>
+                  <Insets left="-69.0" />
+               </padding>
+            </Button>
+            <Button fx:id="restaurantInfoButton" mnemonicParsing="false" prefHeight="95.0" prefWidth="520.0" text=" Restaurant ">
+               <graphic>
+                  <VBox>
+                     <children>
+                        <ImageView blendMode="EXCLUSION" fitHeight="65.0" fitWidth="65.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/menu_view/restaurant.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                     <padding>
+                        <Insets left="15.0" />
+                     </padding>
+                  </VBox>
+               </graphic>
+               <padding>
+                  <Insets left="-24.0" />
+               </padding>
+            </Button>
+            <Button fx:id="dishesButton" mnemonicParsing="false" prefHeight="95.0" prefWidth="520.0" text=" Dishes">
+               <graphic>
+                  <VBox>
+                     <children>
+                        <ImageView blendMode="EXCLUSION" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/menu_view/dishes.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                     <padding>
+                        <Insets left="15.0" />
+                     </padding>
+                  </VBox>
+               </graphic>
+               <padding>
+                  <Insets left="-100.0" />
+               </padding>
+            </Button>
+            <Button fx:id="chequeButton" mnemonicParsing="false" prefHeight="95.0" prefWidth="520.0" text=" Cheque">
+               <graphic>
+                  <VBox>
+                     <children>
+                        <ImageView blendMode="EXCLUSION" fitHeight="65.0" fitWidth="65.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/menu_view/cheque.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                     <padding>
+                        <Insets left="15.0" />
+                     </padding>
+                  </VBox>
+               </graphic>
+               <padding>
+                  <Insets left="-86.0" />
+               </padding>
+            </Button>
+            <Button fx:id="dashboardButton" mnemonicParsing="false" prefHeight="95.0" prefWidth="520.0" text=" Dashboard">
+               <graphic>
+                  <VBox>
+                     <children>
+                        <ImageView blendMode="EXCLUSION" fitHeight="60.0" fitWidth="60.0" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/menu_view/dashboard.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                     <padding>
+                        <Insets left="15.0" />
+                     </padding>
+                  </VBox>
+               </graphic>
+               <padding>
+                  <Insets left="-30.0" />
+               </padding>
+            </Button>
+         </children>
+         <styleClass>
+            <String fx:value="hello_container_left" />
+            <String fx:value="VBoxLight" />
+            <String fx:value="menuText" />
+         </styleClass></VBox>
+   </left>
+   <top>
+      <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="2025.0" styleClass="hello_container_up" BorderPane.alignment="CENTER">
+         <children>
+            <Label fx:id="header" prefHeight="65.0" prefWidth="498.0" styleClass="text_label_black_header" text="Cashier menu">
+               <font>
+                  <Font name="Arial" size="1.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="25.0" />
+               </HBox.margin>
+            </Label>
+            <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="65.0" prefWidth="65.0">
+               <HBox.margin>
+                  <Insets left="1332.0" />
+               </HBox.margin>
+               <children>
+                  <ImageView fx:id="exit" blendMode="EXCLUSION" fitHeight="65.0" fitWidth="65.0" onMouseClicked="#handleExitButton" onTouchPressed="#handleExitButton" pickOnBounds="true" styleClass="image_hover">
+                     <image>
+                        <Image url="@../images/exit.png" />
+                     </image>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </ImageView>
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+   </top>
+   <right>
+      <VBox alignment="BOTTOM_CENTER" styleClass="hello_container_right" BorderPane.alignment="CENTER">
+         <children>
+            <VBox fx:id="moon_sunVBox" alignment="CENTER">
+               <VBox.margin>
+                  <Insets bottom="27.0" left="25.0" right="10.0" top="10.0" />
+               </VBox.margin>
+               <children>
+                  <ImageView fx:id="moon_sun" cache="true" cacheHint="SCALE_AND_ROTATE" fitHeight="65.0" fitWidth="65.0" onMouseClicked="#handleChangeColorMode" onTouchPressed="#handleChangeColorMode" pickOnBounds="true" preserveRatio="true" rotate="270.0" styleClass="moon_sun_black">
+                     <image>
+                        <Image url="@../images/moon.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </VBox>
+         </children>
+      </VBox>
+   </right>
+   <center>
+      <SplitPane fx:id="secondaryPane" dividerPositions="0.5" styleClass="split-paneWhite" BorderPane.alignment="CENTER">
+        <items>
+          <AnchorPane minWidth="0.0" prefHeight="951.0" prefWidth="1025.0">
+               <children>
+                  <ScrollPane fx:id="scrollPane_ready" layoutY="74.0" prefHeight="783.0" prefWidth="738.0" styleClass="myScrollPane_white">
+                     <content>
+                        <GridPane fx:id="readyGrid" prefHeight="0.0" prefWidth="0.0">
+                          <rowConstraints>
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                        </GridPane>
+                     </content>
+                  </ScrollPane>
+                  <Line endX="1018.0" endY="9.0" layoutX="-281.0" layoutY="63.0" startX="278.75" startY="9.0" style="-fx-stroke: #2B2D30; -fx-stroke-width: 3.5;" />
+                  <Label fx:id="sub_header" layoutX="302.0" styleClass="text_label_black" text="Ready" AnchorPane.topAnchor="10.0" />
+                  <Button layoutX="43.0" layoutY="880.0" mnemonicParsing="false" onAction="#handleGetHistory" prefHeight="50.0" prefWidth="259.0" text="Get history" AnchorPane.bottomAnchor="21.0" AnchorPane.leftAnchor="43.0" AnchorPane.rightAnchor="435.0" AnchorPane.topAnchor="880.0">
+                     <styleClass>
+                        <String fx:value="darkButton" />
+                        <String fx:value="small_text_label_white" />
+                        <String fx:value="shadow_black" />
+                     </styleClass>
+                  </Button>
+                  <Button layoutX="433.0" layoutY="880.0" mnemonicParsing="false" onAction="#handleClearAll" prefHeight="50.0" prefWidth="259.0" text="Clear all">
+                     <styleClass>
+                        <String fx:value="redButton" />
+                        <String fx:value="small_text_label_white" />
+                        <String fx:value="shadow_black" />
+                     </styleClass>
+                  </Button>
+               </children>
+            </AnchorPane>
+          <AnchorPane minWidth="0.0" prefHeight="951.0" prefWidth="596.0">
+               <children>
+                  <Line endX="914.0" endY="6.0" layoutX="109.0" layoutY="66.0" startX="-109.0" startY="6.0" style="-fx-stroke: #2B2D30; -fx-stroke-width: 3.5;" />
+                  <Label fx:id="sub_header2" layoutX="264.0" styleClass="text_label_black" text="In process" AnchorPane.topAnchor="10.0" />
+                  <Button layoutX="33.0" layoutY="879.0" mnemonicParsing="false" onAction="#handleSelectButton" prefHeight="50.0" prefWidth="277.0" text="Select as completed" AnchorPane.bottomAnchor="22.600000000000023" AnchorPane.leftAnchor="33.0" AnchorPane.rightAnchor="428.59999999999997" AnchorPane.topAnchor="879.0">
+                     <styleClass>
+                        <String fx:value="greenButton" />
+                        <String fx:value="small_text_label_white" />
+                        <String fx:value="shadow_black" />
+                     </styleClass>
+                  </Button>
+                  <ScrollPane fx:id="scrollPane_InProcess" layoutY="74.0" prefHeight="783.0" prefWidth="738.0" styleClass="myScrollPane_white">
+                     <content>
+                        <GridPane fx:id="inProcessGrid" prefHeight="0.0" prefWidth="0.0">
+                           <rowConstraints>
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                           </rowConstraints>
+                        </GridPane>
+                     </content>
+                  </ScrollPane>
+                  <Button layoutX="426.0" layoutY="878.0" mnemonicParsing="false" onAction="#handleDeclineButton" prefHeight="50.0" prefWidth="277.0" text="Select as declined">
+                     <styleClass>
+                        <String fx:value="redButton" />
+                        <String fx:value="small_text_label_white" />
+                        <String fx:value="shadow_black" />
+                     </styleClass>
+                  </Button>
+               </children>
+            </AnchorPane>
+        </items>
+         <BorderPane.margin>
+            <Insets bottom="25.0" left="15.0" />
+         </BorderPane.margin>
+         <padding>
+            <Insets bottom="-1.0" top="-1.0" />
+         </padding>
+      </SplitPane>
+   </center>
+</BorderPane>

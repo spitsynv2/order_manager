@@ -22,6 +22,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class OrdersHistoryController {
 
@@ -116,7 +117,12 @@ public class OrdersHistoryController {
         chequeScrollPane.setVisible(true);
         pathLabel.setManaged(true);
         pathLabel.setVisible(true);
-        Order selectedOrder = (Order) ordersTable.getSelectionModel().getSelectedItem();
+        Order selectedOrder;
+        try {
+            selectedOrder = (Order) Objects.requireNonNull(ordersTable.getSelectionModel().getSelectedItem());
+        }catch (NullPointerException e){
+            return;
+        }
         int id = selectedOrder.getId();
         int size = Order.getUniqueDishesByOrderId(id).size();
 

@@ -3,9 +3,7 @@ package models;
 import database.DatabaseConnection;
 
 import java.sql.*;
-import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
+import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.Date;
@@ -141,13 +139,64 @@ public class Order {
         return orders;
     }
 
+    public static Map<String, Integer> getOrderCountsThisWeek() {
+        Map<String, Integer> orderCountsByDate = new LinkedHashMap<>();
+
+        try (Connection connection = DatabaseConnection.getConnection()) {
+            LocalDate currentDate = LocalDate.now();
+            LocalDate startDateOfWeek = currentDate.with(DayOfWeek.MONDAY);
+
+            LocalDateTime startOfWeek = startDateOfWeek.atStartOfDay();
+            LocalDateTime endOfWeek = startOfWeek.plusDays(7).minusSeconds(1);
+
+            long startEpochMilli = startOfWeek.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli();
+            long endEpochMilli = endOfWeek.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli();
+
+            String sql = "SELECT Date, COUNT(*) AS OrderCount FROM Orders " +
+                    "WHERE Date >= ? AND Date <= ? GROUP BY Date ORDER BY Date ASC ";
+            try (PreparedStatement statement = connection.prepareStatement(sql)) {
+                statement.setLong(1, startEpochMilli);
+                statement.setLong(2, endEpochMilli);
+                try (ResultSet resultSet = statement.executeQuery()) {
+                    while (resultSet.next()) {
+                        long epochMilli = resultSet.getLong("Date");
+                        LocalDate localDate = Instant.ofEpochMilli(epochMilli)
+                                .atZone(ZoneId.systemDefault())
+                                .toLocalDate();
+
+                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                        String date = localDate.format(formatter);
+
+                        int orderCount = resultSet.getInt("OrderCount");
+
+                        if (orderCount == 0){
+                            continue;
+                        }
+
+                        if (!orderCountsByDate.containsKey(date)){
+                            orderCountsByDate.put(date, orderCount);
+                        }else {
+                            orderCountsByDate.replace(date,orderCountsByDate.get(date)+orderCount);
+                        }
+
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            DatabaseConnection.closeConnection();
+        }
+
+        return orderCountsByDate;
+    }
+
     public static List<Order> getAllOrdersByStatus(String status) {
         List<Order> orders = new ArrayList<>();
 
         try (Connection connection = DatabaseConnection.getConnection()) {
             String sql = "SELECT * FROM orders WHERE Status = ?";
             try (PreparedStatement statement = connection.prepareStatement(sql)) {
-                // Set the status parameter
                 statement.setString(1, status);
 
                 try (ResultSet resultSet = statement.executeQuery()) {

@@ -277,8 +277,8 @@
                   <Button layoutX="335.0" layoutY="617.0" mnemonicParsing="false" onMouseClicked="#handleChangeDataButton" onTouchPressed="#handleChangeDataButton" prefHeight="45.0" prefWidth="300.0" text="Submit">
                      <styleClass>
                         <String fx:value="small_text_label_white" />
-                        <String fx:value="button_submit" />
                         <String fx:value="shadow_black" />
+                        <String fx:value="button_submit" />
                      </styleClass>
                   </Button>
                </children></AnchorPane>
