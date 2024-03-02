@@ -54,7 +54,7 @@ public abstract class UserPageControllerAbstract {
         this.stage = stage;
     }
 
-    protected void showYesNoDialog(String msg) {
+    protected void showYesNoDialog(String msg) throws IOException {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setHeaderText(msg);
         alert.setResizable(false);
@@ -70,7 +70,12 @@ public abstract class UserPageControllerAbstract {
 
         if (msg.equals("Are you sure you want to exit?")){
             if (result.isPresent() && result.get() == yesButton) {
-                stage.close();
+                FXMLLoader fxmlLoader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("/fxml_files/hello-page-view.fxml")));
+                Parent root = fxmlLoader.load();
+                HelloPageController controller = fxmlLoader.getController();
+                controller.initialize();
+                controller.setStage(stage);
+                stage.getScene().setRoot(root);
             }
         }
     }
@@ -107,7 +112,7 @@ public abstract class UserPageControllerAbstract {
     }
 
     @FXML
-    public void handleExitButton(){
+    public void handleExitButton() throws IOException {
         showYesNoDialog("Are you sure you want to exit?");
     }
 
@@ -129,7 +134,6 @@ public abstract class UserPageControllerAbstract {
         controller.initializeWithData(user,islightMode);
         controller.setStage(stage);
         stage.getScene().setRoot(root);
-
     }
 
 }

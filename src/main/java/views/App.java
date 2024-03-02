@@ -10,10 +10,6 @@ import javafx.scene.input.KeyCombination;
 import javafx.stage.Stage;
 
 import java.io.*;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -36,20 +32,25 @@ public class App extends Application {
     }
 
     public static void main(String[] args) {
-        String sqlCreateScriptPath;
-        sqlCreateScriptPath = null;
-        String sqlInsertScriptPath = null;
-        try {
-            URI createScriptURI = Objects.requireNonNull(App.class.getResource("/scripts/order_manager_database_create.sql")).toURI();
-            URI insertScriptURI = Objects.requireNonNull(App.class.getResource("/scripts/order_manager_database_insert.sql")).toURI();
-            sqlCreateScriptPath = Paths.get(createScriptURI).toString();
-            sqlInsertScriptPath = Paths.get(insertScriptURI).toString();
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
-        }
-        if (!databaseFileExists(DatabaseConnection.getDbFilePath())){
-            runSqlScript(sqlCreateScriptPath);
-            runSqlScript(sqlInsertScriptPath);
+        if (!databaseFileExists(DatabaseConnection.getDbFilePath())) {
+            InputStream createScriptStream = App.class.getResourceAsStream("/scripts/order_manager_database_create.sql");
+            InputStream insertScriptStream = App.class.getResourceAsStream("/scripts/order_manager_database_insert.sql");
+
+            if (createScriptStream != null && insertScriptStream != null) {
+                try {
+                    runSqlScript(createScriptStream);
+                    runSqlScript(insertScriptStream);
+                } finally {
+                    try {
+                        createScriptStream.close();
+                        insertScriptStream.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            } else {
+                System.err.println("Failed to load SQL scripts.");
+            }
         }
 
         launch();
@@ -59,9 +60,8 @@ public class App extends Application {
         return new File(databaseFilePath).exists();
     }
 
-    private static void runSqlScript(String sqlScriptPath) {
+    private static void runSqlScript(InputStream inputStream) {
         try (Connection connection = DatabaseConnection.getConnection();
-             InputStream inputStream = Files.newInputStream(Paths.get(sqlScriptPath));
              BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
              Statement statement = connection.createStatement()) {
 
@@ -86,5 +86,4 @@ public class App extends Application {
             DatabaseConnection.closeConnection();
         }
     }
-
 }

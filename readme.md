@@ -4,29 +4,29 @@ This project is a JavaFX application for managing orders in a café or restauran
 
 ## Features
 
-* **Login menu for cashier and administrator of cafe or small restaurant (ready).**
+* **Login menu for cashier and administrator of cafe or small restaurant.**
 
-* **General admin menu where administrator can add new admin or cashier to a system (ready).**
+* **General admin menu where administrator can add new admin or cashier to a system.**
 
-* **Restaurant menu for possibility of changing some data about restaurant (ready).**
+* **Restaurant menu for possibility of changing some data about restaurant.**
 
-* **Dishes menu where administrator can add/change/remove dishes that are in a database (ready).**
+* **Dishes menu where administrator can add/change/remove dishes that are in a database.**
 
-* **Menu page where cashier or administrator can create a new order, menu page have possibility to sort dishes by their types (ready).**
+* **Menu page where cashier or administrator can create a new order, menu page have possibility to sort dishes by their types.**
 
-* **Order conformation page that appears after selecting dishes and making order, that page contains some useful buttons and field for making order (ready).**
+* **Order conformation page that appears after selecting dishes and making order, that page contains some useful buttons and field for making order.**
 
-* **Simple cheque generator for new order (ready).**
+* **Simple cheque generator for new order.**
 
-* **Cheque page for customisation (in progress).**
+* **Cheque page for customisation.**
 
-* **View a List of All Orders and keep track of all orders placed, including details like customer information, order items, and order status (in progress).**
+* **View a List of All Orders and keep track of all orders placed, including details like customer information, order items, and order status.**
 
-* **Dashboard with statistic (in progress).**
+* **Dashboard with statistic.**
 
 ## Technology Stack
 
-* **Java 11.**
+* **Java 17.**
 
 * **SQLite database.**
 
@@ -38,6 +38,9 @@ This project is a JavaFX application for managing orders in a café or restauran
 
 ### Login menu
 ![Login menu](screenshots/login-menu.PNG?raw=true "Login menu")
+
+### Dark side
+![Dark theme](screenshots/dark-theme.PNG?raw=true "Dark theme")
 
 ### General admin menu
 ![General admin menu](screenshots/user-info.PNG?raw=true "Admin menu")
@@ -56,3 +59,16 @@ This project is a JavaFX application for managing orders in a café or restauran
 
 ### Cheque generator
 ![Cheque generated](screenshots/cheque-generated.PNG?raw=true "Cheque generated")
+
+### Cheque page
+![Cheque page](screenshots/cheque-page.PNG?raw=true "Cheque page")
+
+### Orders page
+![Orders page](screenshots/orders-page.PNG?raw=true "Orders page")
+
+![Orders page2](screenshots/orders-page2.PNG?raw=true "Orders page2")
+
+![Orders page2-2](screenshots/orders-page2-2.PNG?raw=true "Orders page2-2")
+
+### Dashboard page
+![Dashboard page](screenshots/dashboard-page.PNG?raw=true "Dashboard page")
