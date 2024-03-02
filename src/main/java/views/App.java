@@ -8,9 +8,10 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCombination;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 import java.io.*;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.sql.Connection;
@@ -29,16 +30,23 @@ public class App extends Application {
         HelloPageController controller = fxmlLoader.getController();
         controller.setStage(primaryStage);
         primaryStage.setScene(new Scene(root));
-        primaryStage.initStyle(StageStyle.UNDECORATED);
         primaryStage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
         primaryStage.setFullScreen(true);
         primaryStage.show();
     }
 
     public static void main(String[] args) {
-        String sqlCreateScriptPath = "src/main/java/database/order_manager_database_create.sql";
-        String sqlInsertScriptPath = "src/main/java/database/order_manager_database_insert.sql";
-
+        String sqlCreateScriptPath;
+        sqlCreateScriptPath = null;
+        String sqlInsertScriptPath = null;
+        try {
+            URI createScriptURI = Objects.requireNonNull(App.class.getResource("/scripts/order_manager_database_create.sql")).toURI();
+            URI insertScriptURI = Objects.requireNonNull(App.class.getResource("/scripts/order_manager_database_insert.sql")).toURI();
+            sqlCreateScriptPath = Paths.get(createScriptURI).toString();
+            sqlInsertScriptPath = Paths.get(insertScriptURI).toString();
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
         if (!databaseFileExists(DatabaseConnection.getDbFilePath())){
             runSqlScript(sqlCreateScriptPath);
             runSqlScript(sqlInsertScriptPath);
