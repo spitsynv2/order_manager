@@ -101,7 +101,7 @@ public class AdminPageOrdersController extends AdminPageControllerAbstract {
                 }else {
                     root[0].getStyleClass().remove("vbox_item_selected");
                     int id = Integer.parseInt(((Label) root[0].getChildren().get(0)).getText().split(" ")[1]);
-                    selectedOrdersId.remove(id);
+                    selectedOrdersId.remove(selectedOrdersId.indexOf(id));
                 }
 
             });
