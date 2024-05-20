@@ -2,7 +2,7 @@
 -- Last modification date: 2023-12-30 05:25:28.005
 
 -- tables
--- Table: Dishes
+-- Create table: Dishes
 CREATE TABLE Dishes (
     Id integer NOT NULL CONSTRAINT Dishes_pk PRIMARY KEY AUTOINCREMENT,
     Name varchar(250) NOT NULL,
