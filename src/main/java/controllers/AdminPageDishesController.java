@@ -247,7 +247,7 @@ public class AdminPageDishesController extends AdminPageControllerAbstract{
 
                 Dish.insertDish(newDish, restaurant.getId());
                 scrollToSelection();
-            }else {
+            }else if(result.get() != noButton) {
                 String errorMessage = "Fill empty dish firstly.";
 
                 Alert errorAlert = new Alert(Alert.AlertType.ERROR);
